@@ -1,0 +1,31 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+ENV/
+anaconda/
+
+# Distribution directories
+dist/
+build/
+*.egg-info/
+
+# Test cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE config files
+.vscode/
+.idea/
+
+# Output directories
+output/
+logs/
+
+# Local configuration
+.env

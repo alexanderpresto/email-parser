@@ -1,0 +1,13 @@
+Content-Type: multipart/mixed; boundary="===============2284805360958359888=="
+MIME-Version: 1.0
+From: sender@example.com
+To: recipient@example.com
+Subject: Batch Test Email 2
+
+--===============2284805360958359888==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+This is batch test email #2.
+--===============2284805360958359888==--

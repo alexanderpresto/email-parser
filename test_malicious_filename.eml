@@ -1,0 +1,15 @@
+Content-Type: multipart/mixed; boundary="===============3605337715135011302=="
+MIME-Version: 1.0
+From: sender@example.com
+To: recipient@example.com
+Subject: Email with Malicious Filename
+
+--===============3605337715135011302==
+Content-Type: application/octet-stream
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="../../../etc/passwd"
+
+VGhpcyBpcyBhIHRlc3Qu
+
+--===============3605337715135011302==--

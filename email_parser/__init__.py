@@ -7,17 +7,19 @@ with high volume email processing requirements.
 
 __version__ = "1.0.0"
 
+from email_parser.core.config import ProcessingConfig
 from email_parser.core.email_processor import EmailProcessor
 from email_parser.exceptions.parsing_exceptions import (
     EmailParsingError,
-    MIMEParsingError,
-    SecurityError,
     EncodingError,
     ExcelConversionError,
+    MIMEParsingError,
+    SecurityError,
 )
 
 __all__ = [
     "EmailProcessor",
+    "ProcessingConfig",
     "EmailParsingError",
     "MIMEParsingError",
     "SecurityError",

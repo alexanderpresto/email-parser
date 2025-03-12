@@ -8,4 +8,13 @@ setup(
     version="1.0.0",
     packages=find_packages(),
     include_package_data=True,
+    install_requires=[
+        "email-validator>=2.0.0",
+        "pypdf2>=3.0.0",
+        "pillow>=10.0.0",
+        "filetype>=1.0.0",
+        "openpyxl>=3.1.0",
+        "pandas>=2.0.0",
+    ],
+    python_requires=">=3.12",
 )

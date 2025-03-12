@@ -1,11 +1,12 @@
 """
 MIME Parser module for parsing and extracting MIME structure from emails.
 """
+
 import email
 import logging
 from email.message import Message
 from email.policy import default
-from typing import Dict, List, Optional, Tuple, Any
+from typing import Any, Dict, List, Optional, Tuple
 
 from email_parser.exceptions.parsing_exceptions import MIMEParsingError
 from email_parser.utils.encodings import decode_content
@@ -38,7 +39,7 @@ class MIMEParser:
             MIMEParsingError: If parsing fails.
         """
         try:
-            self.email_message = email.message_from_bytes(email_content, policy=default)
+            self.email_message = email.message_from_bytes(email_content, policy=default)  # type: ignore
             self._extract_headers()
             self._extract_parts()
         except Exception as e:
@@ -61,7 +62,7 @@ class MIMEParser:
                 value = self.email_message.get(header)
                 if value:
                     self.headers[header] = value
-            
+
             # Add all other headers
             for header, value in self.email_message.items():
                 if header not in self.headers:
@@ -83,6 +84,7 @@ class MIMEParser:
         try:
             if self.email_message.is_multipart():
                 for i, part in enumerate(self.email_message.iter_parts()):
+                # for i, part in enumerate(self.email_message.walk()):
                     self._process_part(part, f"part_{i}")
             else:
                 self._process_part(self.email_message, "main_part")
@@ -106,16 +108,16 @@ class MIMEParser:
             content_disposition = part.get_content_disposition() or "inline"
             filename = part.get_filename()
             content_id = part.get("Content-ID")
-            
+
             # Strip angle brackets from Content-ID if present
             if content_id and content_id.startswith("<") and content_id.endswith(">"):
                 content_id = content_id[1:-1]
-            
+
             # Extract part headers
             part_headers = {}
             for header, value in part.items():
                 part_headers[header] = value
-            
+
             # Get content based on type
             content = None
             if not part.is_multipart():
@@ -132,7 +134,7 @@ class MIMEParser:
                     except Exception as e:
                         logger.warning(f"Failed to decode content for part {part_id}: {str(e)}")
                         content = payload  # Keep as bytes if decoding fails
-            
+
             part_info = {
                 "part_id": part_id,
                 "content_type": content_type,
@@ -142,14 +144,15 @@ class MIMEParser:
                 "headers": part_headers,
                 "content": content,
             }
-            
+
             self.parts.append(part_info)
-            
+
             # Process nested parts if multipart
             if part.is_multipart():
                 for i, subpart in enumerate(part.iter_parts()):
+                # for i, subpart in enumerate(part.walk()):   
                     self._process_part(subpart, f"{part_id}_subpart_{i}")
-        
+
         except Exception as e:
             logger.error(f"Failed to process part {part_id}: {str(e)}")
             raise MIMEParsingError(f"Failed to process part {part_id}: {str(e)}")

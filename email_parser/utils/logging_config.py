@@ -1,11 +1,12 @@
 """
 Logging configuration for the email parser.
 """
+
 import logging
 import os
 import sys
 from datetime import datetime
-from typing import Dict, Any, Optional
+from typing import Any, Dict, Optional
 
 
 def configure_logging(
@@ -16,7 +17,7 @@ def configure_logging(
 ) -> None:
     """
     Configure logging for the email parser.
-    
+
     Args:
         log_level: Logging level (default: INFO)
         log_file: Optional file path for log output
@@ -26,24 +27,24 @@ def configure_logging(
     # Create logger
     logger = logging.getLogger("email_parser")
     logger.setLevel(log_level)
-    
+
     # Clear existing handlers
     logger.handlers = []
-    
+
     # Default log format
     if not log_format:
         if include_timestamp:
             log_format = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
         else:
             log_format = "[%(levelname)s] %(name)s: %(message)s"
-            
+
     formatter = logging.Formatter(log_format)
-    
+
     # Create console handler
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
-    
+
     # Create file handler if log file is specified
     if log_file:
         try:
@@ -51,21 +52,21 @@ def configure_logging(
             log_dir = os.path.dirname(log_file)
             if log_dir:
                 os.makedirs(log_dir, exist_ok=True)
-                
+
             file_handler = logging.FileHandler(log_file)
             file_handler.setFormatter(formatter)
             logger.addHandler(file_handler)
         except Exception as e:
             logger.warning(f"Failed to set up log file {log_file}: {str(e)}")
-            
+
 
 def get_logger(name: str) -> logging.Logger:
     """
     Get a logger for a specific module.
-    
+
     Args:
         name: Name of the module
-        
+
     Returns:
         Logger instance
     """
@@ -75,21 +76,22 @@ def get_logger(name: str) -> logging.Logger:
 class EmailProcessingLogAdapter(logging.LoggerAdapter):
     """
     Custom log adapter for email processing.
-    
+
     Adds email ID and other contextual information to log messages.
     """
 
     def __init__(self, logger: logging.Logger, extra: Dict[str, Any]):
         """
         Initialize the log adapter.
-        
+
         Args:
             logger: Logger to adapt
             extra: Dictionary of extra contextual information
         """
         super().__init__(logger, extra)
-        
-    def process(self, msg: str, kwargs: Dict[str, Any]) -> tuple:
+
+    # def process(self, msg: str, kwargs: Dict[str, Any]) -> tuple:
+    def process(self, msg, kwargs: MutableMapping[str, Any]):
         """
         Process the log message to add contextual information.
         
@@ -100,8 +102,8 @@ class EmailProcessingLogAdapter(logging.LoggerAdapter):
         Returns:
             Tuple of (modified message, kwargs)
         """
-        email_id = self.extra.get("email_id", "unknown")
-        component = self.extra.get("component", "")
+        email_id = self.extra.get("email_id", "unknown") if self.extra else "unknown"
+        component = self.extra.get("component", "") if self.extra else ""
         
         if component:
             context = f"[Email: {email_id}, Component: {component}]"

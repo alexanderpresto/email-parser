@@ -31,7 +31,7 @@ logs/
 .env
 
 # eml files
-.eml
+*.eml
 
 # Input directories
 input/

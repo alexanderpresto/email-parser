@@ -1,0 +1,20 @@
+# Main dependencies
+email-validator>=2.0.0
+pypdf2>=3.0.0
+pillow>=10.0.0
+filetype>=1.0.0
+openpyxl>=3.1.0
+pandas>=2.0.0
+
+# Development dependencies
+pytest>=7.0.0
+pytest-cov>=4.0.0
+black>=23.0.0
+isort>=5.0.0
+mypy>=1.0.0
+bandit>=1.7.0
+safety>=2.0.0
+
+# Documentation
+sphinx>=7.0.0
+sphinx-rtd-theme>=1.0.0

@@ -50,14 +50,19 @@ We actively welcome pull requests:
 
 ```bash
 # Fork and clone the repository
-git clone https://github.com/alexanderpresto/email-parser-2
+git clone https://github.com/alexanderpresto/email-parser.git
 cd email-parser
 
-# Create development environment
-conda create -n email-parser-dev python=3.12.9
+# Option 1: Create development environment with Anaconda
+conda env create -f environment.yml
 conda activate email-parser-dev
 
-# Install development dependencies
+# Option 2: Create development environment with pip
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+
+# Install for development
 pip install -e ".[dev,test,docs]"
 ```
 
@@ -119,7 +124,7 @@ make html
 
 1. Update the changelog with all significant changes
 2. Update version numbers in:
-   - `setup.py`
+   - `pyproject.toml`
    - `email_parser/__init__.py`
    - Documentation
 3. Create a new GitHub release with a tag matching the version

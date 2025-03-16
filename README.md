@@ -28,20 +28,41 @@ Key features include:
 - Python 3.12.9 or higher
 - Anaconda distribution (recommended)
 
-### Setup
+### Setup with Anaconda
 
 We recommend creating a dedicated Anaconda environment:
 
 ```bash
-# Create and activate a new conda environment
-conda create -n email-parser python=3.12.9
+# Clone the repository
+git clone https://github.com/alexanderpresto/email-parser.git
+cd email-parser
+
+# Create and activate environment using provided configuration
+conda env create -f environment.yml
 conda activate email-parser
 
-# Install from conda-forge
-conda install -c conda-forge email-parser
+# Install in development mode
+pip install -e .
+```
 
-# Or install via pip
-pip install enterprise-email-parser
+### Setup with pip
+
+Alternatively, you can use pip with the provided requirements file:
+
+```bash
+# Clone the repository
+git clone https://github.com/alexanderpresto/email-parser.git
+cd email-parser
+
+# Create a virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Install in development mode
+pip install -e .
 ```
 
 ## Quick Start
@@ -257,14 +278,19 @@ parser = EmailParser(performance_config=perf_config)
 
 ```bash
 # Clone the repository
-git clone https://github.com/organization/email-parser.git
+git clone https://github.com/alexanderpresto/email-parser.git
 cd email-parser
 
-# Create development environment
-conda create -n email-parser-dev python=3.12.9
-conda activate email-parser-dev
+# Create development environment with Anaconda
+conda env create -f environment.yml
+conda activate email-parser
 
-# Install dependencies
+# Or use pip with a virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+
+# Install in development mode
 pip install -e ".[dev]"
 ```
 

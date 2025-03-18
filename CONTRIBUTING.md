@@ -43,8 +43,9 @@ We actively welcome pull requests:
 
 1. Update the README.md or documentation with details of changes if appropriate
 2. Update any examples or unit tests to demonstrate the new functionality
-3. Maintain or increase the test coverage percentage
-4. The PR will be merged once you have the sign-off of at least one maintainer
+3. Update the project journal with significant changes or decisions
+4. Maintain or increase the test coverage percentage
+5. The PR will be merged once you have the sign-off of at least one maintainer
 
 ## Development Environment Setup
 
@@ -112,6 +113,7 @@ bandit -r email_parser
 - All public API functions must have Google-style docstrings
 - New features must be documented in the appropriate guides
 - Update examples for significant API changes
+- Update the [project journal](docs/project_journal.md) with significant changes, decisions, and milestones
 
 Build documentation locally:
 

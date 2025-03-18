@@ -20,7 +20,7 @@ def process_email(args: argparse.Namespace) -> int:
     try:
         result = parser.process_email(args.input)
         print(f"Successfully processed email: {args.input}")
-        print(f"Extracted {len(result.attachments)} attachments")
+        print(f"Extracted {len(result['attachments'])} attachments")
         return 0
     except Exception as e:
         print(f"Error processing email: {e}", file=sys.stderr)

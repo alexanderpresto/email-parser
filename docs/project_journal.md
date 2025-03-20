@@ -4,6 +4,35 @@ This document tracks key decisions, outcomes, and progress milestones throughout
 
 ## Journal Entries
 
+### 2025-03-20: Assistant Interaction Guidelines Implementation
+
+**Type:** Documentation and Process
+**Focus:** Assistant collaboration and project knowledge management
+**Status:** Completed
+
+**Key Outcomes:**
+- Applied prompt_optimization_framework to enhance project instructions
+- Created new assistant_interaction_guidelines section with two key components:
+  1. Project knowledge review guidelines to ensure assistants check critical project information
+  2. Project journal review requirements to maintain context continuity
+- Successfully saved enhanced instructions as YAML file in project docs directory
+- Verified backward compatibility with existing project processes
+
+**Decisions:**
+- Placed assistant guidelines at the beginning of the YAML structure for visibility
+- Maintained original section structure while adding new content
+- Updated version number to 1.2.0 to reflect changes
+- Added specific implementation steps for both guideline components
+
+**Blockers:**
+- None
+
+**Next Steps:**
+- Verify that assistant behavior aligns with new guidelines in future sessions
+- Consider adding additional guidelines for specific project phases as development progresses
+- Monitor effectiveness of journal review process in maintaining context
+- Update project documentation to reference new assistant guidelines
+
 ### 2025-03-20: CI Workflow Issue Identified
 
 **Type:** Infrastructure

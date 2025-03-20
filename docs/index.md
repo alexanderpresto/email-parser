@@ -15,7 +15,7 @@ This documentation covers the Email Parser project, an enterprise-grade system d
 - [Implementation Guide](implementation/index.md): Internal technical documentation
 - [Examples](examples/index.md): Usage examples for common scenarios
 - [Project Journal](project_journal.md): Development progress and decisions
-- [Specifications](specifications/index.md): Formal project requirements and specifications
+- [Project Specification](specs/project_specification.md): Formal project requirements and technical specifications
 
 ## Project Information
 

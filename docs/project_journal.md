@@ -4,6 +4,66 @@ This document tracks key decisions, outcomes, and progress milestones throughout
 
 ## Journal Entries
 
+### 2025-03-26: CLI Input Validation Fix
+
+**Type:** Implementation
+**Focus:** Error handling and input validation
+**Status:** Completed
+
+**Key Outcomes:**
+- Fixed CLI input validation issue in `process_email` command
+- Added explicit checks to prevent directory paths being processed as single email files
+- Improved error messaging for better user experience
+- Successfully implemented early validation to prevent Permission Denied errors
+
+**Decisions:**
+- Added OS path checks to validate input before attempting to process
+- Implemented specific error messages for directory vs file validation
+- Maintained backward compatibility with existing processor functionality
+- Used precise edit approach rather than full file rewrite
+
+**Blockers:**
+- None
+
+**Next Steps:**
+- Consider adding similar validation to other commands
+- Test with various input types to ensure robustness
+- Update documentation to clarify command usage
+- Expand test suite to cover input validation scenarios
+
+### 2025-03-20: Project Context References Implementation
+
+**Type:** Documentation and Process
+**Focus:** AI assistant guidance and context reference standardization
+**Status:** Completed
+
+**Key Outcomes:**
+- Added dedicated PROJECT_CONTEXT_REFERENCES section to project instructions
+- Created explicit instructions for AI assistants on how to use critical reference materials:
+  1. Tool Usage Protocols for filesystem, Git, and GitHub operations
+  2. GitHub Repository URL for remote repository access
+  3. Project Folder Path for local filesystem operations
+  4. Project Journal for tracking progress and context
+  5. Prompt Optimization Framework for prompt enhancement tasks
+- Applied Enhanced Intent-First Prompt Optimisation Framework (v3.0)
+- Updated metadata and version control to reflect changes
+- Successfully enhanced instructions with 95-98% intent preservation
+
+**Decisions:**
+- Created a standalone section for context references instead of enhancing existing assistant_interaction_guidelines
+- Provided specific implementation steps for each reference material
+- Updated project version to 1.2.0 and specification version to 1.3.0
+- Maintained consistent formatting with existing document structure
+
+**Blockers:**
+- None
+
+**Next Steps:**
+- Monitor effectiveness of new instructions in upcoming AI assistant interactions
+- Evaluate whether additional context references should be added in the future
+- Consider adding examples of proper context reference usage
+- Ensure all project team members are aware of the enhanced instructions
+
 ### 2025-03-20: Assistant Interaction Guidelines Implementation
 
 **Type:** Documentation and Process

@@ -10,6 +10,16 @@ from email_parser.core.email_processor import EmailProcessor
 
 def process_email(args: argparse.Namespace) -> int:
     """Process a single email file."""
+    # Check if input is a directory
+    if os.path.isdir(args.input):
+        print(f"Error: {args.input} is a directory. Use 'batch' command for directories.", file=sys.stderr)
+        return 1
+
+    # Check if input file exists
+    if not os.path.isfile(args.input):
+        print(f"Error: Email file not found: {args.input}", file=sys.stderr)
+        return 1
+        
     config = ProcessingConfig(
         output_directory=args.output,
         convert_excel=args.convert_excel,

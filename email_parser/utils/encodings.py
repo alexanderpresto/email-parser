@@ -154,9 +154,20 @@ def detect_encoding(content: bytes) -> str:
     try:
         from charset_normalizer import detect
         result = detect(content)
-        if result and result.get('confidence', 0.0) > 0.7:
+        
+        # Handle case where detection completely fails
+        if result is None:
+            return "utf-8"
+            
+        # Get confidence value with default of 0.0
+        confidence = result.get('confidence', 0.0)
+        
+        # Only trust high confidence results
+        if confidence > 0.7:
             encoding = result.get('encoding')
-            return encoding if encoding else 'utf-8'
+            if encoding:
+                return encoding
+                
         return "utf-8"  # Default to UTF-8 if uncertain
     except ImportError:
         # If chardet is not available, try basic detection

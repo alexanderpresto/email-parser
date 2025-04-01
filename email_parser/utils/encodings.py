@@ -159,14 +159,13 @@ def detect_encoding(content: bytes) -> str:
         if result is None:
             return "utf-8"
             
-        # Get confidence value with default of 0.0
-        confidence = result.get('confidence', 0.0)
+        # Extract encoding and confidence
+        encoding = result.get('encoding')
+        confidence = result.get('confidence')
         
-        # Only trust high confidence results
-        if confidence > 0.7:
-            encoding = result.get('encoding')
-            if encoding:
-                return encoding
+        # Check both encoding and confidence
+        if encoding and isinstance(confidence, float) and confidence > 0.7:
+            return encoding
                 
         return "utf-8"  # Default to UTF-8 if uncertain
     except ImportError:

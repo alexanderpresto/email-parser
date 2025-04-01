@@ -1,6 +1,6 @@
 metadata:
   project_name: "Email Parser Development"
-  version: "1.1.0"
+  version: "1.2.0"
   description: >
     Enterprise-grade email processing system with MIME parsing,
     security features, and performance optimization.
@@ -55,6 +55,65 @@ assistant_interaction_guidelines:
       - "Acknowledge understanding of current project context"
       - "Reference specific journal entries when relevant to current task"
       - "Update journal with significant developments when required"
+
+project_context_references:
+  description: >
+    Essential reference materials for AI assistants to review at the beginning of 
+    each interaction with project contributors to maintain consistent context
+    and follow established protocols.
+  
+  critical_references:
+    - name: "Tool Usage Protocols"
+      source: "tool_usage_protocols"
+      purpose: "Standardized protocols for using filesystem, Git, and GitHub tools"
+      implementation:
+        - "Apply these protocols for all file, Git, and GitHub operations"
+        - "Follow edit_file preferences for making targeted changes"
+        - "Use appropriate commands based on operation requirements"
+        - "Handle errors according to specified protocols"
+        - "Prefer brave_search for technical information when needed"
+      
+    - name: "GitHub Repository"
+      source: "github-repository"
+      purpose: "Access URL for the project's GitHub repository"
+      implementation:
+        - "Use this URL for all GitHub operations"
+        - "Reference for repository cloning, forking, or access"
+        - "Verify branch consistency between local and remote operations"
+      
+    - name: "Project Folder Path"
+      source: "project-folder"
+      purpose: "Local filesystem location of the project files"
+      implementation:
+        - "Use this path for all filesystem operations"
+        - "Maintain consistent path references across operations"
+        - "Base all relative paths on this location"
+      
+    - name: "Project Journal"
+      source: "project-journal"
+      purpose: "Document tracking project progress, decisions, and context"
+      implementation:
+        - "Review at the beginning of each conversation"
+        - "Reference relevant entries when providing assistance"
+        - "Update with significant developments when appropriate"
+        - "Maintain chronological organization of entries"
+      
+    - name: "Prompt Optimization Framework"
+      source: "prompt_optimization_framework"
+      purpose: "Guidelines for enhancing prompts while preserving intent"
+      implementation:
+        - "Apply when explicitly requested for prompt enhancement"
+        - "Follow intent preservation requirements (95-98%)" 
+        - "Use appropriate complexity path based on prompt assessment"
+        - "Document all enhancements with rationale"
+        - "Validate changes against original intent"
+  
+  usage_requirements:
+    - "Review all critical references at the start of each conversation"
+    - "Apply protocols and guidelines consistently across all interactions"
+    - "Request clarification if any required reference is unavailable"
+    - "Reference specific materials when providing related assistance"
+    - "Prioritize following established protocols over general practices"
 
 project_context:
   role:
@@ -673,7 +732,7 @@ implementation_support:
       - "Risk status and mitigation activities"
 
 version_control:
-  specification_version: "1.2.0"
+  specification_version: "1.3.0"
   original_version: "1.0.0"
   enhanced_date: "2025-03-20"
   enhancement_framework: "Enhanced-Intent v3.0"
@@ -687,3 +746,5 @@ version_control:
     - "Added progress reporting guidelines"
     - "Improved organization and structure"
     - "Added overall project success criteria"
+    - "Added project context references section with explicit instructions for critical reference materials"
+    - "Standardized usage guidance for tool_usage_protocols, github-repository, project-folder, project-journal, and prompt_optimization_framework"

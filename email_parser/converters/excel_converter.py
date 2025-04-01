@@ -171,11 +171,11 @@ class ExcelConverter:
             # Try openpyxl first (.xlsx files)
             try:
                 workbook = load_workbook(excel_path, read_only=True)
-                return list(workbook.sheetnames)  # Convert to list explicitly
+                return [str(name) for name in workbook.sheetnames]  # Ensure all values are strings
             except Exception as e:
                 # Fall back to pandas for older Excel formats (.xls)
                 xl = pd.ExcelFile(excel_path)
-                return list(xl.sheet_names)  # Convert to list explicitly
+                return [str(name) for name in xl.sheet_names]  # Ensure all values are strings
         except Exception as e:
             logger.error(f"Failed to get sheet names from {excel_path}: {str(e)}")
             raise ExcelConversionError(f"Failed to get sheet names: {str(e)}", excel_path)

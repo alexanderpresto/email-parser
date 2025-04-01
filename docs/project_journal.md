@@ -4,6 +4,38 @@ This document tracks key decisions, outcomes, and progress milestones throughout
 
 ## Journal Entries
 
+### 2025-03-31: Type Safety and Error Handling Enhancements
+
+**Type:** Implementation  
+**Focus:** Type safety and error handling improvements  
+**Status:** Completed
+
+**Key Outcomes:**
+- Fixed type compatibility issue in ExcelConverter's `_get_sheet_names` method
+- Improved error handling in EmailProcessor's `process_email` method for file objects
+- Addressed two static type checking errors reported by Pylance
+- Enhanced robustness of file processing operations
+
+**Decisions:**
+- Ensured sheet names are explicitly converted to strings before returning from `_get_sheet_names`
+- Added callable check for `.read()` methods to prevent attribute access errors
+- Used targeted edits rather than full file rewrites to minimize impact
+- Maintained API compatibility while improving type safety
+
+**Technical Details:**
+- Fixed `List[int | str]` vs. `List[str]` type incompatibility in `excel_converter.py`
+- Addressed "Cannot access attribute 'read' for class 'bytes'" error in `email_processor.py` 
+- Added explicit callable check with `hasattr(email_content, "read") and callable(email_content.read)`
+
+**Blockers:**
+- None
+
+**Next Steps:**
+- Review codebase for similar type issues
+- Consider adding comprehensive type checking to CI pipeline
+- Enhance test coverage to verify robustness of error handling
+- Monitor for any regression issues related to file handling
+
 ### 2025-03-26: CLI Input Validation Fix
 
 **Type:** Implementation

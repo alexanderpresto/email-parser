@@ -116,7 +116,7 @@ class EmailProcessor:
                     email_content = f.read()
 
             # Convert file object to bytes
-            if hasattr(email_content, "read"):
+            if hasattr(email_content, "read") and callable(email_content.read):
                 email_content = email_content.read()
 
             # Check size limit

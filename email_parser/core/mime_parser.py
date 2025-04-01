@@ -22,7 +22,7 @@ class MIMEParser:
     extracting headers, parts, and content.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize the MIME parser."""
         self.email_message: Optional[Message] = None
         self.headers: Dict[str, str] = {}
@@ -83,8 +83,7 @@ class MIMEParser:
 
         try:
             if self.email_message.is_multipart():
-                for i, part in enumerate(self.email_message.iter_parts()):
-                # for i, part in enumerate(self.email_message.walk()):
+                for i, part in enumerate(self.email_message.walk()):
                     self._process_part(part, f"part_{i}")
             else:
                 self._process_part(self.email_message, "main_part")
@@ -127,13 +126,17 @@ class MIMEParser:
                     try:
                         # For text parts, decode to string
                         if content_type.startswith("text/"):
-                            content = decode_content(payload, charset)
+                            if isinstance(payload, bytes):
+                                content = decode_content(payload, charset)
+                            else:
+                                content = str(payload)
                         else:
                             # For binary parts, keep as bytes
-                            content = payload
+                            content = payload if isinstance(payload, bytes) else str(payload).encode()
                     except Exception as e:
                         logger.warning(f"Failed to decode content for part {part_id}: {str(e)}")
-                        content = payload  # Keep as bytes if decoding fails
+                        # Ensure content is either str or bytes
+                        content = payload if isinstance(payload, (str, bytes)) else str(payload).encode()
 
             part_info = {
                 "part_id": part_id,
@@ -149,8 +152,7 @@ class MIMEParser:
 
             # Process nested parts if multipart
             if part.is_multipart():
-                for i, subpart in enumerate(part.iter_parts()):
-                # for i, subpart in enumerate(part.walk()):   
+                for i, subpart in enumerate(part.walk()):
                     self._process_part(subpart, f"{part_id}_subpart_{i}")
 
         except Exception as e:

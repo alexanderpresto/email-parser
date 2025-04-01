@@ -114,7 +114,7 @@ def get_file_type_from_content(file_content: bytes) -> Optional[str]:
     try:
         kind = filetype.guess(file_content)
         if kind:
-            return kind.mime
+            return str(kind.mime)
         return None
     except:
         return None

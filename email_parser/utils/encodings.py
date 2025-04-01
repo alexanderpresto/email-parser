@@ -79,6 +79,8 @@ def decode_transfer_encoding(content: bytes, encoding: str) -> bytes:
     try:
         if encoding == "base64":
             try:
+                import base64
+                import binascii
                 return base64.b64decode(content)
             except binascii.Error as e:
                 # Try to handle malformed base64 by adding padding
@@ -90,11 +92,25 @@ def decode_transfer_encoding(content: bytes, encoding: str) -> bytes:
 
         elif encoding == "uuencode" or encoding == "uue":
             import io
-            import uu
-
+            import binascii
+            
             input_file = io.BytesIO(content)
             output_file = io.BytesIO()
-            uu.decode(input_file, output_file)
+            
+            # Use binascii instead of uu module since uu is not available
+            try:
+                decoded = binascii.a2b_uu(content)
+                output_file.write(decoded)
+            except binascii.Error:
+                # If standard UU decoding fails, try to handle malformed data
+                try:
+                    # Add padding if needed
+                    if not content.endswith(b'\n'):
+                        content = content + b'\n'
+                    decoded = binascii.a2b_uu(content)
+                    output_file.write(decoded)
+                except binascii.Error as e:
+                    raise EncodingError(f"Failed to decode uuencoded content: {str(e)}", encoding)
             return output_file.getvalue()
 
         elif encoding == "binhex":
@@ -136,11 +152,11 @@ def detect_encoding(content: bytes) -> str:
         Best guess of encoding name
     """
     try:
-        import chardet
-
-        result = chardet.detect(content)
-        if result["confidence"] > 0.7:
-            return result["encoding"] or "utf-8"
+        from charset_normalizer import detect
+        result = detect(content)
+        if result and result.get('confidence', 0.0) > 0.7:
+            encoding = result.get('encoding')
+            return encoding if encoding else 'utf-8'
         return "utf-8"  # Default to UTF-8 if uncertain
     except ImportError:
         # If chardet is not available, try basic detection

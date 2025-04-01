@@ -7,6 +7,8 @@ import os
 import uuid
 from datetime import datetime
 from typing import Any, BinaryIO, Callable, Dict, List, Optional, Union, cast
+from io import TextIOBase, BufferedIOBase
+
 # from typing import List, Union, BinaryIO, cast
 
 from email_parser.converters.excel_converter import ExcelConverter
@@ -110,14 +112,20 @@ class EmailProcessor:
             if not email_id:
                 email_id = str(uuid.uuid4())
 
-            # Convert string (file path) to bytes
+            # Convert string path to bytes
             if isinstance(email_content, str):
                 with open(email_content, "rb") as f:
                     email_content = f.read()
 
             # Convert file object to bytes
-            if hasattr(email_content, "read") and callable(email_content.read):
-                email_content = email_content.read()
+            if isinstance(email_content, (TextIOBase, BufferedIOBase)):
+                email_content = cast(Union[TextIOBase, BufferedIOBase], email_content).read()
+            elif hasattr(email_content, "read") and callable(getattr(email_content, "read")):
+                email_content = cast(BinaryIO, email_content).read()
+
+            # Ensure we have bytes
+            if not isinstance(email_content, bytes):
+                email_content = cast(bytes, email_content)
 
             # Check size limit
             max_size = getattr(self.config, "max_attachment_size", 10_000_000)

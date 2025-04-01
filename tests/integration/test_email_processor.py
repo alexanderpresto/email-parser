@@ -84,8 +84,10 @@ class TestEmailProcessor(unittest.TestCase):
         
         # Initialize processor
         self.processor = EmailProcessor(
-            output_dir=self.test_output_dir,
-            enable_excel_conversion=False
+            config={
+                'output_dir': self.test_output_dir,
+                'enable_excel_conversion': False
+            }
         )
         
     def tearDown(self):

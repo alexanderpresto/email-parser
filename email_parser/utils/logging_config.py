@@ -6,7 +6,7 @@ import logging
 import os
 import sys
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, MutableMapping, Optional
 
 
 def configure_logging(
@@ -90,8 +90,7 @@ class EmailProcessingLogAdapter(logging.LoggerAdapter):
         """
         super().__init__(logger, extra)
 
-    # def process(self, msg: str, kwargs: Dict[str, Any]) -> tuple:
-    def process(self, msg, kwargs: MutableMapping[str, Any]):
+    def process(self, msg: str, kwargs: MutableMapping[str, Any]) -> tuple[str, Dict[str, Any]]:
         """
         Process the log message to add contextual information.
         
@@ -110,4 +109,4 @@ class EmailProcessingLogAdapter(logging.LoggerAdapter):
         else:
             context = f"[Email: {email_id}]"
             
-        return f"{context} {msg}", kwargs
+        return f"{context} {msg}", dict(kwargs)

@@ -16,22 +16,18 @@ from email_parser.utils.logging_config import configure_logging
 # Set up logging
 configure_logging(log_level=logging.INFO)
 
-def process_email_batch(email_dir, pattern="*.eml"):
+def process_email_batch(email_dir: str, pattern: str = "*.eml") -> dict:
     """Process multiple email files in a directory."""
     # Find all email files in the directory
     email_files = glob.glob(os.path.join(email_dir, pattern))
     
     if not email_files:
         print(f"No email files found matching pattern '{pattern}' in directory: {email_dir}")
-        return
+        return {}
     
     print(f"Found {len(email_files)} email files to process")
-    
-    # Initialize the email processor
-    processor = EmailProcessor(
-        output_dir="output",
-        enable_excel_conversion=True
-    )
+    # Initialize the email processor with default config
+    processor = EmailProcessor(config={})
     
     # Prepare email contents and IDs
     email_contents = []
@@ -47,11 +43,10 @@ def process_email_batch(email_dir, pattern="*.eml"):
     
     # Process the emails in batch
     batch_result = processor.process_email_batch(
-        email_contents,
+        [str(content) for content in email_contents],
         email_ids=email_ids,
         continue_on_error=True
     )
-    
     # Print batch processing results
     print(f"Batch processing completed:")
     print(f"  - Total emails: {batch_result['total']}")

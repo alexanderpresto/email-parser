@@ -6,6 +6,8 @@ import sys
 import logging
 from pathlib import Path
 
+from email_parser.core.config import ProcessingConfig
+
 # Add the parent directory to the sys.path to import the package
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -15,14 +17,14 @@ from email_parser.utils.logging_config import configure_logging
 # Set up logging
 configure_logging(log_level=logging.INFO)
 
-def parse_email(email_path):
+def parse_email(email_path: str) -> dict:
     """Parse a single email file."""
     # Initialize the email processor
     processor = EmailProcessor(
-        output_dir="output",
-        enable_excel_conversion=True
+        config=ProcessingConfig(
+            output_directory="output"
+        )
     )
-    
     # Process the email
     with open(email_path, "rb") as f:
         email_content = f.read()

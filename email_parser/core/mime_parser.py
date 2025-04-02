@@ -6,7 +6,7 @@ import email
 import logging
 from email.message import Message
 from email.policy import default
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, Set
 
 from email_parser.exceptions.parsing_exceptions import MIMEParsingError
 from email_parser.utils.encodings import decode_content
@@ -27,6 +27,7 @@ class MIMEParser:
         self.email_message: Optional[Message] = None
         self.headers: Dict[str, str] = {}
         self.parts: List[Dict[str, Any]] = []
+        self.processed_part_ids: Set[str] = set()
 
     def parse_email(self, email_content: bytes) -> None:
         """
@@ -82,9 +83,15 @@ class MIMEParser:
             raise MIMEParsingError("No email message to extract parts from")
 
         try:
+            self.parts = []  # Reset parts list
+            self.processed_part_ids = set()  # Reset processed part IDs
+            
             if self.email_message.is_multipart():
+                # Use a non-recursive approach to process parts
                 for i, part in enumerate(self.email_message.walk()):
-                    self._process_part(part, f"part_{i}")
+                    part_id = f"part_{i}"
+                    if part_id not in self.processed_part_ids:
+                        self._process_part(part, part_id)
             else:
                 self._process_part(self.email_message, "main_part")
         except Exception as e:
@@ -102,6 +109,13 @@ class MIMEParser:
         Raises:
             MIMEParsingError: If part processing fails.
         """
+        # Skip if this part ID has already been processed
+        if part_id in self.processed_part_ids:
+            return
+            
+        # Add to processed part IDs
+        self.processed_part_ids.add(part_id)
+        
         try:
             content_type = part.get_content_type()
             content_disposition = part.get_content_disposition() or "inline"
@@ -150,10 +164,8 @@ class MIMEParser:
 
             self.parts.append(part_info)
 
-            # Process nested parts if multipart
-            if part.is_multipart():
-                for i, subpart in enumerate(part.walk()):
-                    self._process_part(subpart, f"{part_id}_subpart_{i}")
+            # For multipart content, don't recursively process parts 
+            # as they're handled by the walk() method in _extract_parts
 
         except Exception as e:
             logger.error(f"Failed to process part {part_id}: {str(e)}")

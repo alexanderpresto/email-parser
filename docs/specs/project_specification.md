@@ -48,16 +48,19 @@ This project addresses the need for a robust, secure, and efficient email parsin
 ### Performance Metrics
 
 #### Processing Speed
+
 - **Requirement:** Process 1MB emails in <2s
 - **Validation Method:** Benchmark testing with sample emails
 - **Priority:** High
 
 #### Memory Usage
+
 - **Requirement:** <100MB per 1MB email
 - **Validation Method:** Memory profiling during processing
 - **Priority:** High
 
 #### Batch Processing
+
 - **Requirement:** 100 emails/minute
 - **Validation Method:** Stress testing with email batches
 - **Priority:** Medium
@@ -67,6 +70,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
 #### Email Processing
 
 ##### MIME Structure
+
 - **Description:** Parse and extract MIME structure from emails
 - **Requirements:**
   - Support multi-part MIME messages
@@ -75,6 +79,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
 - **Validation:** Unit tests against sample emails
 
 ##### Component Extraction
+
 - **Description:** Extract individual components from email
 - **Requirements:**
   - Body text extraction (plain and HTML)
@@ -85,6 +90,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
 - **Validation:** Component verification against source emails
 
 ##### Excel Conversion
+
 - **Description:** Convert Excel workbook attachments to CSV
 - **Requirements:**
   - Detect Excel file attachments (.xlsx, .xls)
@@ -94,6 +100,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
 - **Validation:** Test with various Excel file formats and structures
 
 ##### Encoding Support
+
 - **Description:** Support multiple text and binary encodings
 - **Requirements:**
   - UTF-8, UTF-16, ASCII, ISO-8859
@@ -102,6 +109,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
 - **Validation:** Process emails with various encodings
 
 ##### Secure File Handling
+
 - **Description:** Securely handle potentially malicious content
 - **Requirements:**
   - Sanitize file names and paths
@@ -117,6 +125,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
 - **Subdirectories:**
 
 ##### Processed Text
+
 - **Path:** processed_text/
 - **Contents:** Extracted text content from emails
 - **Format:** UTF-8 text files
@@ -128,6 +137,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Include references to extracted inline images
 
 ##### Attachments
+
 - **Path:** attachments/
 - **Contents:** Extracted file attachments
 - **Format:** Original file formats
@@ -138,6 +148,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Map between original filename and unique filename in metadata
 
 ##### Inline Images
+
 - **Path:** inline_images/
 - **Contents:** Images embedded in email body
 - **Format:** Original image formats (PNG, JPG, GIF, etc.)
@@ -148,6 +159,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Reference in processed text at original position
 
 ##### Converted Excel
+
 - **Path:** converted_excel/
 - **Contents:** CSV files converted from Excel workbooks
 - **Format:** CSV files (one per worksheet)
@@ -158,6 +170,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Maintain mapping between original Excel file and generated CSV files
 
 ##### Metadata
+
 - **Description:** JSON metadata file containing email details
 - **Path:** output/metadata.json
 - **Contents:**
@@ -174,12 +187,14 @@ This project addresses the need for a robust, secure, and efficient email parsin
 ### Code Quality
 
 #### Type Annotations
+
 - **Requirement:** Complete type annotations for all functions
 - **Tools:**
   - mypy for static type checking
   - Type stubs for third-party libraries
 
 #### PEP8 Compliance
+
 - **Requirement:** Adhere to PEP 8 style guidelines
 - **Tools:**
   - black for code formatting
@@ -188,6 +203,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Line length may be extended to 100 characters
 
 #### Error Handling
+
 - **Requirement:** Comprehensive error handling and reporting
 - **Approach:**
   - Custom exception hierarchy for email processing errors
@@ -201,19 +217,23 @@ This project addresses the need for a robust, secure, and efficient email parsin
 - **Approach:**
 
 #### Unit Tests
+
 - Test each function and class in isolation
 - Mock external dependencies
 - Test edge cases and error conditions
 
 #### Integration Tests
+
 - Test component interactions
 - End-to-end processing tests
 
 #### Coverage
+
 - Minimum 90% code coverage
 - 100% coverage for core parsing functions
 
 #### Tools
+
 - pytest for test framework
 - pytest-cov for coverage reporting
 
@@ -233,11 +253,13 @@ This project addresses the need for a robust, secure, and efficient email parsin
 ### Documentation
 
 #### API Docs
+
 - **Requirement:** Complete API documentation
 - **Format:** Google docstring format
 - **Tools:** Sphinx for documentation generation
 
 #### Implementation Guide
+
 - **Requirement:** Technical implementation documentation
 - **Contents:**
   - Architecture overview
@@ -247,6 +269,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Future extension points
 
 #### Usage Examples
+
 - **Requirement:** Comprehensive usage examples
 - **Format:** Jupyter notebooks and Python scripts
 
@@ -255,6 +278,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
 ### Phase Dependencies
 
 #### Phase 1 to 2
+
 - **Inputs Required:**
   - Functional basic email parsing implementation
   - Project structure and environment setup
@@ -265,6 +289,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Basic MIME parser functionality
 
 #### Phase 2 to 3
+
 - **Inputs Required:**
   - Complete component extraction functionality
   - Secure file handling implementation
@@ -276,6 +301,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Security validation results
 
 #### Phase 3 to Completion
+
 - **Inputs Required:**
   - Optimized processing capabilities
   - Complete batch processing functionality
@@ -367,6 +393,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
 ### Testing Requirements
 
 #### Unit Tests
+
 - **Description:** Tests for individual components
 - **Coverage Requirement:** 90% code coverage minimum
 - **Tools:** pytest, pytest-cov
@@ -377,6 +404,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Error handling
 
 #### Integration Tests
+
 - **Description:** Tests for component interactions
 - **Approach:** End-to-end email processing tests
 - **Test Data:** Corpus of diverse email samples
@@ -386,6 +414,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Error recovery scenarios
 
 #### Performance Tests
+
 - **Description:** Benchmarking against performance metrics
 - **Approach:** Automated benchmarking with various email sizes
 - **Metrics:**
@@ -395,6 +424,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Batch processing throughput
 
 #### Security Tests
+
 - **Description:** Validation of security measures
 - **Approach:** Testing with intentionally malicious inputs
 - **Focus Areas:**
@@ -406,16 +436,19 @@ This project addresses the need for a robust, secure, and efficient email parsin
 ### Quality Gates
 
 #### Foundation Phase
+
 - **Required Tests:** Basic unit tests for MIME parsing
 - **Required Documentation:** Initial API documentation
 - **Approval Criteria:** Passing unit tests for basic functionality
 
 #### Core Development Phase
+
 - **Required Tests:** Expanded unit and integration tests
 - **Required Documentation:** Complete API and implementation documentation
 - **Approval Criteria:** 90% test coverage and passing security tests
 
 #### Enhancement Phase
+
 - **Required Tests:** Complete test suite including performance tests
 - **Required Documentation:** Comprehensive documentation and examples
 - **Approval Criteria:** Meeting all performance metrics and security requirements
@@ -423,6 +456,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
 ### Documentation Standards
 
 #### API Documentation
+
 - **Description:** Technical API references
 - **Format:** Google docstring style
 - **Content Requirements:**
@@ -434,6 +468,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
 - **Tools:** Sphinx with Napoleon extension
 
 #### Implementation Guide
+
 - **Description:** Internal technical documentation
 - **Format:** Markdown with diagrams
 - **Content Requirements:**
@@ -445,6 +480,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
 - **Tools:** PlantUML for diagrams
 
 #### Error Handling Docs
+
 - **Description:** Error handling documentation
 - **Format:** Structured reference
 - **Content Requirements:**
@@ -454,6 +490,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Logging details
 
 #### Usage Examples
+
 - **Description:** Example code for common use cases
 - **Format:** Python scripts and Jupyter notebooks
 - **Content Requirements:**
@@ -497,10 +534,12 @@ This project addresses the need for a robust, secure, and efficient email parsin
 ### Development Dependencies
 
 #### Testing
+
 - **pytest** (>=7.0.0): Test framework
 - **pytest-cov** (>=4.0.0): Test coverage reporting
 
 #### Code Quality
+
 - **black** (>=23.0.0): Code formatting
 - **isort** (>=5.0.0): Import sorting
 - **mypy** (>=1.0.0): Static type checking
@@ -508,9 +547,11 @@ This project addresses the need for a robust, secure, and efficient email parsin
 ### Runtime Dependencies
 
 #### Email Processing
+
 - **email-validator** (>=2.0.0): Email validation
 
 #### File Handling
+
 - **pypdf2** (>=3.0.0): PDF file processing
 - **pillow** (>=10.0.0): Image processing
 - **filetype** (>=1.0.0): File type detection
@@ -522,6 +563,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
 ### Identified Risks
 
 #### Security Risks
+
 1. **Malicious file attachments**
    - **Severity:** High
    - **Mitigation:** Implement thorough file scanning and validation
@@ -535,6 +577,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
    - **Mitigation:** Implement size limits and input validation
 
 #### Performance Risks
+
 1. **High memory usage with large attachments**
    - **Severity:** Medium
    - **Mitigation:** Implement streaming processing and memory management
@@ -544,6 +587,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
    - **Mitigation:** Optimize parsing algorithms and concurrent processing
 
 #### Implementation Risks
+
 1. **Incomplete error handling**
    - **Severity:** High
    - **Mitigation:** Comprehensive error handling framework and testing
@@ -555,16 +599,19 @@ This project addresses the need for a robust, secure, and efficient email parsin
 ### Contingency Plans
 
 #### Security Incidents
+
 - Immediate isolation of affected components
 - Logging and reporting of security events
 - Emergency patch development process
 
 #### Performance Issues
+
 - Fallback to sequential processing for problematic emails
 - Dynamic resource allocation based on email complexity
 - Queue management for high load scenarios
 
 #### Implementation Failures
+
 - Graceful degradation modes for non-critical components
 - Comprehensive logging for issue diagnosis
 - Recovery mechanisms from error states
@@ -572,6 +619,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
 ## Response Guidelines
 
 ### Technical Validation
+
 - **Description:** Validate all technical requirements
 - **Checklist:**
   - Verify compatibility with specified Python version
@@ -580,6 +628,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Ensure all critical rules are followed
 
 ### Environment Compatibility
+
 - **Description:** Verify environment compatibility
 - **Checklist:**
   - Confirm Anaconda environment configuration
@@ -588,6 +637,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Validate conda-forge package availability
 
 ### Security Assessment
+
 - **Description:** Check security implications
 - **Checklist:**
   - Identify potential security vulnerabilities
@@ -596,6 +646,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Validate input sanitization
 
 ### Performance Verification
+
 - **Description:** Confirm performance impact
 - **Checklist:**
   - Verify processing speed requirements
@@ -604,6 +655,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Identify potential optimization opportunities
 
 ### Documentation Review
+
 - **Description:** Ensure documentation coverage
 - **Checklist:**
   - Confirm API documentation completeness
@@ -614,6 +666,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
 ## Implementation Support
 
 ### Missing Information Request
+
 - **Description:** Request any missing critical information needed for implementation support
 - **Potential Areas:**
   - Specific email format requirements or limitations
@@ -623,6 +676,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Deployment environment details
 
 ### Clarification Process
+
 - **Description:** Process for seeking clarification on requirements
 - **Steps:**
   - Identify specific ambiguous or incomplete requirements
@@ -631,6 +685,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
   - Request clarification through appropriate channels
 
 ### Progress Reporting
+
 - **Description:** Guidelines for reporting implementation progress
 - **Frequency:** Weekly status updates
 - **Format:** Structured report with completion percentages

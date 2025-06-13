@@ -23,4 +23,5 @@ dependencies:
       - email-validator>=2.0.0
       - filetype>=1.0.0
       - pypdf2>=3.0.0
+      - chardet>=5.0.0
       - safety

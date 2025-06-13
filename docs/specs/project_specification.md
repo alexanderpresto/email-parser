@@ -549,6 +549,7 @@ This project addresses the need for a robust, secure, and efficient email parsin
 #### Email Processing
 
 - **email-validator** (>=2.0.0): Email validation
+- **chardet** (>=5.0.0): Character encoding detection
 
 #### File Handling
 

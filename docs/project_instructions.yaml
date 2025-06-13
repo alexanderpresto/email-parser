@@ -594,6 +594,9 @@ dependencies:
       - name: "email-validator"
         version: ">=2.0.0"
         purpose: "Email validation"
+      - name: "chardet"
+        version: ">=5.0.0"
+        purpose: "Character encoding detection"
 
     file_handling:
       - name: "pypdf2"

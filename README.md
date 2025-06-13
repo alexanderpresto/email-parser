@@ -16,7 +16,7 @@ Key features include:
 - Complete MIME structure parsing and extraction
 - Secure file handling with protection against common attack vectors
 - Automatic Excel to CSV conversion capability
-- Support for multiple encodings (UTF-8, UTF-16, ASCII, ISO-8859, Base64, etc.)
+- Support for multiple encodings (UTF-8, UTF-16, ASCII, ISO-8859, Base64, etc.) with automatic encoding detection
 - High-performance batch processing
 - Comprehensive error handling and logging
 - Complete type annotations and rigorous testing

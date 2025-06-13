@@ -15,6 +15,7 @@ setup(
         "filetype>=1.0.0",
         "openpyxl>=3.1.0",
         "pandas>=2.0.0",
+        "chardet>=5.0.0",
     ],
     python_requires=">=3.12",
 )

@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "email_parser"
-version = "1.0.0"
-description = "Enterprise-grade email processing system with MIME parsing, security features, and performance optimization"
+version = "2.0.0"
+description = "Enterprise-grade email processing system with MIME parsing, PDF to Markdown conversion, security features, and performance optimization"
 readme = "README.md"
 authors = [
     {name = "Project Team", email = "team@example.com"}
@@ -29,6 +29,7 @@ dependencies = [
     "openpyxl>=3.1.0",
     "pandas>=2.0.0",
     "chardet>=5.0.0",
+    "mistralai>=1.5.2",
 ]
 
 [project.optional-dependencies]

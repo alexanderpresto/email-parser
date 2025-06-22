@@ -8,17 +8,47 @@ python -m email_parser process --input path/to/email.eml --output output/
 # Process email with Excel to CSV conversion enabled
 python -m email_parser process --input path/to/email.eml --output output/ --convert-excel
 
+# Process email with PDF to Markdown conversion enabled (NEW in v2.0)
+python -m email_parser process --input path/to/email.eml --output output/ --convert-pdf
+
+# Process email with PDF conversion and custom settings
+python -m email_parser process --input path/to/email.eml --output output/ \
+    --convert-pdf \
+    --pdf-mode all \
+    --pdf-image-limit 10 \
+    --pdf-image-min-size 200 \
+    --pdf-paginate
+
+# Process email with PDF text-only extraction
+python -m email_parser process --input path/to/email.eml --output output/ \
+    --convert-pdf \
+    --pdf-mode text
+
+# Process email with PDF images-only extraction
+python -m email_parser process --input path/to/email.eml --output output/ \
+    --convert-pdf \
+    --pdf-mode images \
+    --pdf-image-limit 20
+
+# Process email with both Excel and PDF conversion
+python -m email_parser process --input path/to/email.eml --output output/ \
+    --convert-excel \
+    --convert-pdf \
+    --pdf-mode all
+
 # Process email with security options
 python -m email_parser process --input path/to/email.eml --output output/ \
     --max-attachment-size 10000000 \
     --allowed-extensions .pdf,.docx,.xlsx,.txt,.jpg,.png \
-    --enable-malware-scan
+    --enable-malware-scan \
+    --validate-pdf-content
 
 # Process email with custom performance settings
 python -m email_parser process --input path/to/email.eml --output output/ \
     --chunk-size 1048576 \
     --enable-caching \
-    --use-memory-mapping
+    --use-memory-mapping \
+    --pdf-cache-enabled
 
 # Process email with custom output structure
 python -m email_parser process --input path/to/email.eml \
@@ -26,7 +56,8 @@ python -m email_parser process --input path/to/email.eml \
     --text-dir processed_text/ \
     --attachments-dir attachments/ \
     --images-dir inline_images/ \
-    --excel-dir converted_excel/
+    --excel-dir converted_excel/ \
+    --pdf-dir converted_pdf/
 
 # Process email with detailed logging
 python -m email_parser process --input path/to/email.eml --output output/ \
@@ -38,7 +69,8 @@ python -m email_parser process --input path/to/email.eml --output output/ \
 python -m email_parser process --input path/to/email.eml --output output/ \
     --metadata-format json \
     --include-headers \
-    --include-stats
+    --include-stats \
+    --include-pdf-metadata
 
 # ==========================================================
 # BATCH EMAIL PROCESSING
@@ -47,11 +79,20 @@ python -m email_parser process --input path/to/email.eml --output output/ \
 # Basic batch processing from directory
 python -m email_parser batch --input input/ --output output/
 
-# Process batch with parallel execution
+# Process batch with parallel execution including PDF conversion
 python -m email_parser batch --input input/ --output output/ \
     --workers 4 \
     --batch-size 100 \
+    --convert-pdf \
+    --parallel-pdf-conversion \
     --enable-progress-bar
+
+# Process batch with PDF conversion and caching
+python -m email_parser batch --input input/ --output output/ \
+    --convert-pdf \
+    --pdf-cache-enabled \
+    --pdf-cache-dir .cache/pdf \
+    --pdf-cache-size 100
 
 # Process batch with specific email filter pattern
 python -m email_parser batch --input input/ --output output/ \
@@ -63,11 +104,13 @@ python -m email_parser batch --input input/ --output output/ \
 python -m email_parser batch --input input/ --output output/ \
     --error-handling graceful \
     --continue-on-error \
-    --error-log errors.log
+    --error-log errors.log \
+    --pdf-fallback-enabled
 
 # Process batch from list file
 python -m email_parser batch --input-list email_list.txt --output output/ \
-    --workers 4
+    --workers 4 \
+    --convert-pdf
 
 # Process batch with output organization by date
 python -m email_parser batch --input input/ --output output/ \
@@ -79,10 +122,41 @@ python -m email_parser batch --input input/ --output output/ \
     --workers 4 \
     --enable-stats \
     --stats-output performance_stats.json \
-    --monitor-memory
+    --monitor-memory \
+    --track-api-usage
 
 # Schedule recurring batch job (using cron-like syntax)
 python -m email_parser schedule --input input/ --output output/ \
     --schedule "0 */4 * * *" \
     --workers 4 \
+    --convert-pdf \
     --notification-email admin@example.com
+
+# ==========================================================
+# PDF CONVERSION SPECIFIC COMMANDS (NEW in v2.0)
+# ==========================================================
+
+# Set MistralAI API key
+python -m email_parser config --set-api-key MISTRALAI_API_KEY
+
+# Test MistralAI connection
+python -m email_parser test-connection --service mistralai
+
+# Process single PDF file
+python -m email_parser convert-pdf --input document.pdf --output output/
+
+# Process PDF with specific extraction mode
+python -m email_parser convert-pdf --input document.pdf --output output/ \
+    --mode text
+
+# Batch process PDFs in directory
+python -m email_parser convert-pdf-batch --input pdfs/ --output output/ \
+    --workers 4 \
+    --mode all \
+    --image-limit 10
+
+# View PDF processing statistics
+python -m email_parser stats --type pdf --period today
+
+# Clear PDF cache
+python -m email_parser clear-cache --type pdf

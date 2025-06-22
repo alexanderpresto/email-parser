@@ -25,3 +25,4 @@ dependencies:
       - pypdf2>=3.0.0
       - chardet>=5.0.0
       - safety
+      - mistralai>=1.5.2

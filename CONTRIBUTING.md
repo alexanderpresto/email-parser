@@ -148,6 +148,22 @@ make html
 - Use imperative mood ("Move cursor to..." not "Moves cursor to...")
 - Limit the first line to 72 characters or less
 - Reference issues and pull requests after the first line
+
+### Acknowledging Inspirations
+
+When contributing features that are inspired by or based on other open-source projects:
+
+- Always give credit in the code comments, documentation, or CREDITS.md
+- Include links to the original project
+- Respect the licenses of any projects you reference
+- If you adapt code or ideas, clearly state what was adapted and how
+- Update CREDITS.md with any new inspirations or dependencies
+
+Example:
+```python
+# PDF conversion approach inspired by obsidian-marker project
+# https://github.com/l3-n0x/obsidian-marker
+```
 - Consider starting the commit message with an applicable emoji:
   - ✨ (sparkles) for new features
   - 🐛 (bug) for bug fixes

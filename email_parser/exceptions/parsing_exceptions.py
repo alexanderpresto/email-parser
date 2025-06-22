@@ -2,7 +2,7 @@
 Custom exception hierarchy for email processing errors.
 """
 
-from typing import Optional
+from typing import Optional, Dict, Any
 
 
 class EmailParsingError(Exception):
@@ -54,4 +54,47 @@ class ExcelConversionError(EmailParsingError):
         sheet_info = f", sheet: {sheet_name}" if sheet_name else ""
         super().__init__(
             f"Excel conversion error for {file_path}{sheet_info}: {message}", error_code
+        )
+
+
+class PDFConversionError(EmailParsingError):
+    """Exception raised when PDF to Markdown conversion fails."""
+
+    def __init__(
+        self,
+        message: str,
+        file_path: str,
+        details: Optional[Dict[str, Any]] = None,
+        error_code: Optional[str] = None,
+    ):
+        self.file_path = file_path
+        self.details = details or {}
+        super().__init__(
+            f"PDF conversion error for {file_path}: {message}", error_code
+        )
+
+
+class OCRError(PDFConversionError):
+    """Exception raised when OCR processing fails."""
+
+    def __init__(
+        self,
+        message: str,
+        file_path: str,
+        page_number: Optional[int] = None,
+        api_error: Optional[str] = None,
+        error_code: Optional[str] = None,
+    ):
+        self.page_number = page_number
+        self.api_error = api_error
+        details = {
+            "page_number": page_number,
+            "api_error": api_error
+        }
+        page_info = f", page {page_number}" if page_number else ""
+        super().__init__(
+            f"OCR processing failed{page_info}: {message}",
+            file_path,
+            details,
+            error_code
         )

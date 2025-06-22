@@ -54,14 +54,25 @@ logs/
 *.pst
 *.ost
 
+# PDF test files (may contain sensitive data)
+test_*.pdf
+sample_*.pdf
+tests/fixtures/*.pdf
+
 # Project specific output
 output/
 processed_text/
 attachments/
 inline_images/
 converted_excel/
+converted_pdf/
 test_output/
 venv_test_output/
+
+# PDF conversion cache
+.cache/
+.cache/pdf/
+*.cache
 
 # Input test files
 input/
@@ -89,6 +100,24 @@ secrets.json
 *credentials*
 config/local/*
 
+# MistralAI API key files
+.mistralai_key
+*api_key*
+*apikey*
+MISTRALAI_API_KEY
+
+# API usage and statistics
+api_usage_stats.json
+api_usage_*.json
+mistralai_usage.log
+ocr_statistics.json
+
+# Temporary OCR processing files
+ocr_temp/
+*.ocr_temp
+*_ocr_processing/
+signed_urls.json
+
 # Conda/Anaconda specific
 .anaconda/
 .conda/
@@ -106,6 +135,7 @@ poetry.lock
 # Performance profiling
 *.prof
 *.stats
+performance_stats.json
 
 # Coverage reports
 coverage.xml
@@ -115,3 +145,16 @@ coverage.xml
 docs/_build/
 docs/_static/
 docs/_templates/
+
+# Benchmarking results
+benchmarks/results/
+benchmarks/*.json
+benchmarks/*.csv
+
+# Large test files
+large_test_files/
+*.large_test
+
+# Backup files
+*.backup
+backup/

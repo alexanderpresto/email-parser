@@ -60,6 +60,8 @@ processed_text/
 attachments/
 inline_images/
 converted_excel/
+test_output/
+venv_test_output/
 
 # Input test files
 input/

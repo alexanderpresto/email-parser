@@ -6,11 +6,12 @@ This module provides converters for various attachment types:
 - PDF to Markdown conversion (with MistralAI OCR)
 """
 
+from email_parser.converters.base_converter import BaseConverter
 from email_parser.converters.excel_converter import ExcelConverter
-# PDF converter will be imported once implemented
-# from email_parser.converters.pdf_converter import PDFConverter
+from email_parser.converters.pdf_converter import PDFConverter
 
 __all__ = [
+    "BaseConverter",
     "ExcelConverter",
-    # "PDFConverter",  # Uncomment when implemented
+    "PDFConverter",
 ]

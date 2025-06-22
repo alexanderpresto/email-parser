@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "email_parser"
-version = "2.0.0"
-description = "Enterprise-grade email processing system with MIME parsing, PDF to Markdown conversion, security features, and performance optimization"
+version = "2.1.0"
+description = "Enterprise-grade email processing system with MIME parsing, PDF to Markdown conversion via MistralAI OCR, security features, and performance optimization"
 readme = "README.md"
 authors = [
     {name = "Project Team", email = "team@example.com"}
@@ -19,6 +19,8 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Topic :: Communications :: Email",
     "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: Markup",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 requires-python = ">=3.12"
 dependencies = [
@@ -39,7 +41,16 @@ dev = [
     "black>=23.0.0",
     "isort>=5.0.0",
     "mypy>=1.0.0",
+    "bandit>=1.7.0",
+    "safety>=2.0.0",
 ]
+docs = [
+    "sphinx>=7.0.0",
+    "sphinx-rtd-theme>=1.0.0",
+]
+
+[project.scripts]
+email-parser = "email_parser.cli:main"
 
 [tool.black]
 line-length = 100
@@ -59,3 +70,11 @@ disallow_incomplete_defs = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = "test_*.py"
+addopts = "--cov=email_parser --cov-report=html --cov-report=term-missing"
+
+[tool.bandit]
+exclude_dirs = ["tests"]
+skips = ["B101"]  # Skip assert_used test
+
+[tool.safety]
+# Safety configuration for dependency scanning

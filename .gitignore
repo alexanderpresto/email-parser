@@ -63,8 +63,15 @@ converted_excel/
 # Input test files
 input/
 
+# Archive directory
+archive/
+
+# Project instructions (local development)
+project-instructions.md
+
 # Jupyter notebooks
 .ipynb_checkpoints
+*.ipynb
 
 # OS specific
 .DS_Store
@@ -77,6 +84,7 @@ desktop.ini
 config*.ini
 secrets.json
 *credentials*
+config/local/*
 
 # Conda/Anaconda specific
 .anaconda/
@@ -85,3 +93,22 @@ anaconda-workspace/
 
 # Dependency management
 uv.lock
+poetry.lock
+
+# Development databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Performance profiling
+*.prof
+*.stats
+
+# Coverage reports
+coverage.xml
+*.cover
+
+# Documentation builds
+docs/_build/
+docs/_static/
+docs/_templates/

@@ -328,10 +328,6 @@ bandit -r email_parser
 
 Comprehensive documentation is available at: <https://email-parser.readthedocs.io/>
 
-### Project Journal
-
-A [project journal](docs/project_journal.md) is maintained to track development progress, key decisions, and milestones throughout the project lifecycle.
-
 ### Building Documentation Locally
 
 ```bash

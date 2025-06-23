@@ -22,7 +22,7 @@ from pathlib import Path
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from email_parser import EmailParser, ProcessingConfig
+from email_parser import EmailProcessor, ProcessingConfig
 
 
 def main():
@@ -59,11 +59,12 @@ def main():
             pdf_image_limit=10,  # Limit to 10 images per PDF
             pdf_image_min_size=100,  # Minimum 100x100 pixels
             pdf_paginate=True,  # Add page separators
-            enable_detailed_logging=True
+            enable_detailed_logging=True,
+            max_workers=4
         )
         
         # Create parser instance
-        parser = EmailParser(config)
+        parser = EmailProcessor(config)
         
         # Process the email
         print("Parsing email and extracting components...")

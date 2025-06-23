@@ -10,7 +10,7 @@ An enterprise-grade email processing system with robust MIME parsing, security f
 
 ## 🚀 Development Status
 
-**Current Version:** 2.0.0-dev  
+**Current Version:** 2.1.0  
 **PDF Conversion Status:** ✅ **Core Implementation Complete** (Phase 1, Week 1)  
 **Next Milestone:** Integration & Testing (Phase 1, Week 2)
 
@@ -52,9 +52,15 @@ This library provides a comprehensive solution for parsing and processing emails
 git clone https://github.com/alexanderpresto/email-parser.git
 cd email-parser
 
-# Activate the virtual environment
-.\email-parser-env\Scripts\Activate.ps1  # Windows
-# source email-parser-env/bin/activate   # Linux/Mac
+# Create virtual environment (if not exists)
+python -m venv email-parser-env
+
+# Activate the virtual environment (REQUIRED for all development)
+# Windows PowerShell
+.\email-parser-env\Scripts\Activate.ps1
+
+# Linux/Mac/WSL2
+source email-parser-env/bin/activate
 
 # Verify virtual environment is active
 python -c "import sys; print('Virtual env active:', 'email-parser-env' in sys.prefix)"
@@ -286,14 +292,18 @@ output/
 
 ### Setting Up Development Environment
 
-**Always activate the virtual environment before development:**
+**⚠️ Virtual Environment Required**: Always activate the virtual environment before development:
 
 ```bash
 # Navigate to project directory
-cd D:\Users\alexp\dev\email-parser
+cd /path/to/email-parser
 
-# Activate virtual environment
-.\email-parser-env\Scripts\Activate.ps1  # Windows
+# Activate virtual environment (REQUIRED for all Python work)
+# Windows PowerShell
+.\email-parser-env\Scripts\Activate.ps1
+
+# Linux/Mac/WSL2
+source email-parser-env/bin/activate
 
 # Verify activation
 python -c "import sys; print('Virtual env active:', 'email-parser-env' in sys.prefix)"
@@ -304,9 +314,15 @@ pip install -r requirements.txt
 
 ### Running Tests
 
+**⚠️ Virtual Environment Required**: Always activate before running tests:
+
 ```bash
 # Activate virtual environment first
+# Windows PowerShell
 .\email-parser-env\Scripts\Activate.ps1
+
+# Linux/Mac/WSL2  
+source email-parser-env/bin/activate
 
 # Run the full test suite
 pytest
@@ -322,9 +338,15 @@ pytest tests/test_security.py
 
 ### Code Quality Checks
 
+**⚠️ Virtual Environment Required**: Always activate before running quality checks:
+
 ```bash
 # Activate virtual environment first
+# Windows PowerShell
 .\email-parser-env\Scripts\Activate.ps1
+
+# Linux/Mac/WSL2
+source email-parser-env/bin/activate
 
 # Format code with Black
 black email_parser tests

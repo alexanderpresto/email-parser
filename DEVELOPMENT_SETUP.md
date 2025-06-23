@@ -8,13 +8,29 @@ This project uses a Python virtual environment for dependency isolation.
 
 ```powershell
 # Navigate to project directory
-cd "D:\Users\alexp\dev\email-parser"
+cd "/path/to/email-parser"  # Use your actual project path
+
+# Activate virtual environment (Windows PowerShell)
+.\email-parser-env\Scripts\Activate.ps1
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Install package in development mode
+pip install -e .
+```
+
+### Linux/Mac/WSL2 Setup
+
+```bash
+# Navigate to project directory
+cd /path/to/email-parser  # Use your actual project path
 
 # Create virtual environment
 python -m venv email-parser-env
 
-# Activate virtual environment (Windows PowerShell)
-.\email-parser-env\Scripts\Activate.ps1
+# Activate virtual environment
+source email-parser-env/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
@@ -59,10 +75,29 @@ source ~/.bashrc
 
 ```powershell
 # Navigate to project directory
-cd "D:\Users\alexp\dev\email-parser"
+cd "/path/to/email-parser"  # Use your actual project path
 
 # Activate virtual environment
 .\email-parser-env\Scripts\Activate.ps1
+
+# Verify MistralAI API key is set (optional)
+python -c "import os; print('API Key set:', bool(os.environ.get('MISTRALAI_API_KEY')))"
+
+# Your virtual environment is now active!
+# Run tests, development commands, etc.
+
+# When done, deactivate (optional)
+deactivate
+```
+
+### Linux/Mac/WSL2 Daily Workflow
+
+```bash
+# Navigate to project directory
+cd /path/to/email-parser  # Use your actual project path
+
+# Activate virtual environment
+source email-parser-env/bin/activate
 
 # Verify MistralAI API key is set (optional)
 python -c "import os; print('API Key set:', bool(os.environ.get('MISTRALAI_API_KEY')))"
@@ -152,3 +187,60 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 - Dependencies are managed in `requirements.txt` and `pyproject.toml`
 - PDF conversion features require the MistralAI API key to be set
 - Cache directory (`.cache/pdf/`) is created automatically and is git-ignored
+
+## Archival Protocol (Development)
+
+**CRITICAL**: Never overwrite existing files. Always archive before modification.
+
+### Archival Rules for Development
+
+1. **Before any file modification**: Archive to `archive/filename_YYYY-MM-DD.ext`
+2. **Multiple archives same day**: Use incremental numbering `filename_YYYY-MM-DD_001.ext`
+3. **Deprecated files**: Move to `archive/del_filename_YYYY-MM-DD.ext`
+4. **Never overwrite archives**: Check for existing files and increment counter
+
+### Efficient Archival Method
+
+Use native file system operations for maximum efficiency:
+
+#### Windows PowerShell
+```powershell
+# Check for existing archives
+ls archive/
+
+# Copy file using native PowerShell (zero token transmission!)
+Copy-Item -Path "email_parser\core\email_processor.py" `
+          -Destination "archive\email_processor_2025-06-22.py"
+
+# Make targeted edits after archiving
+# Edit specific sections of the file
+```
+
+#### Linux/Mac/WSL2
+```bash
+# Check for existing archives
+ls archive/
+
+# Copy file using native bash (zero token transmission!)
+cp email_parser/core/email_processor.py archive/email_processor_2025-06-22.py
+
+# Make targeted edits after archiving
+# Edit specific sections of the file
+```
+
+### Benefits of Native Copy Method
+
+- ✅ **Zero token transmission** for file content
+- ✅ **Native file system operation** (fastest possible)
+- ✅ **Handles large files effortlessly**
+- ✅ **Preserves all file attributes**
+- ✅ **Creates archive copy** before modifications
+- ✅ **Platform-agnostic approach**
+
+### Example Development Workflow
+
+1. Check for existing archives: `ls archive/filename_*`
+2. Archive current version: `Copy-Item` or `cp` command
+3. Make targeted modifications to the original file
+4. Test changes thoroughly
+5. Document changes in project notes

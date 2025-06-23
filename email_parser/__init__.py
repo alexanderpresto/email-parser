@@ -7,7 +7,7 @@ with high volume email processing requirements. Now includes advanced PDF to Mar
 using MistralAI OCR technology.
 """
 
-__version__ = "2.0.0"
+__version__ = "2.1.0"
 
 from email_parser.core.config import ProcessingConfig
 from email_parser.core.email_processor import EmailProcessor

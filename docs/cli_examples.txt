@@ -1,17 +1,38 @@
+# CLI Examples for Email Parser
+
+⚠️ **Virtual Environment Required**: Always activate the virtual environment before running CLI commands:
+
+```bash
+# Windows PowerShell
+.\email-parser-env\Scripts\Activate.ps1
+
+# Linux/Mac/WSL2
+source email-parser-env/bin/activate
+```
+
+⚠️ **Implementation Status**: 
+- ✅ Basic email processing (WORKING)
+- ✅ Excel conversion (WORKING)  
+- 🔄 PDF conversion options (PLANNED - not yet implemented in CLI)
+
+The PDF conversion options shown below are planned features that will be implemented 
+in the CLI during Phase 1, Week 2-3 of development. The core PDF conversion functionality 
+exists but is not yet exposed through the command line interface.
+
 # ==========================================================
 # SINGLE EMAIL PROCESSING
 # ==========================================================
 
-# Basic email processing with default settings
+# Basic email processing with default settings (✅ WORKING)
 python -m email_parser process --input path/to/email.eml --output output/
 
-# Process email with Excel to CSV conversion enabled
+# Process email with Excel to CSV conversion enabled (✅ WORKING)
 python -m email_parser process --input path/to/email.eml --output output/ --convert-excel
 
-# Process email with PDF to Markdown conversion enabled (NEW in v2.0)
+# Process email with PDF to Markdown conversion enabled (🔄 PLANNED)
 python -m email_parser process --input path/to/email.eml --output output/ --convert-pdf
 
-# Process email with PDF conversion and custom settings
+# Process email with PDF conversion and custom settings (🔄 PLANNED)
 python -m email_parser process --input path/to/email.eml --output output/ \
     --convert-pdf \
     --pdf-mode all \
@@ -19,18 +40,18 @@ python -m email_parser process --input path/to/email.eml --output output/ \
     --pdf-image-min-size 200 \
     --pdf-paginate
 
-# Process email with PDF text-only extraction
+# Process email with PDF text-only extraction (🔄 PLANNED)
 python -m email_parser process --input path/to/email.eml --output output/ \
     --convert-pdf \
     --pdf-mode text
 
-# Process email with PDF images-only extraction
+# Process email with PDF images-only extraction (🔄 PLANNED)
 python -m email_parser process --input path/to/email.eml --output output/ \
     --convert-pdf \
     --pdf-mode images \
     --pdf-image-limit 20
 
-# Process email with both Excel and PDF conversion
+# Process email with both Excel and PDF conversion (🔄 PLANNED)
 python -m email_parser process --input path/to/email.eml --output output/ \
     --convert-excel \
     --convert-pdf \

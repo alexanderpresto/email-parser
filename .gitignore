@@ -23,6 +23,8 @@ email-parser-env/
 # IDE specific files
 .idea/
 .vscode/
+.vs/
+.claude/
 *.swp
 *.swo
 .spyderproject

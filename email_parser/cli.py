@@ -23,6 +23,8 @@ def process_email(args: argparse.Namespace) -> int:
     config = ProcessingConfig(
         output_directory=args.output,
         convert_excel=args.convert_excel,
+        convert_pdf=args.convert_pdf,
+        pdf_extraction_mode=args.pdf_mode if hasattr(args, 'pdf_mode') else 'all',
         max_attachment_size=args.max_attachment_size,
     )
 
@@ -46,6 +48,8 @@ def process_batch(args: argparse.Namespace) -> int:
     config = ProcessingConfig(
         output_directory=args.output,
         convert_excel=args.convert_excel,
+        convert_pdf=args.convert_pdf,
+        pdf_extraction_mode=args.pdf_mode if hasattr(args, 'pdf_mode') else 'all',
         max_attachment_size=args.max_attachment_size,
         batch_size=args.batch_size,
     )
@@ -82,6 +86,9 @@ def main(argv: Optional[List[str]] = None) -> int:
     process_parser.add_argument("--input", required=True, help="Input email file")
     process_parser.add_argument("--output", required=True, help="Output directory")
     process_parser.add_argument("--convert-excel", action="store_true", help="Convert Excel to CSV")
+    process_parser.add_argument("--convert-pdf", action="store_true", help="Convert PDF to Markdown")
+    process_parser.add_argument("--pdf-mode", choices=['text', 'images', 'all'], default='all', 
+                               help="PDF extraction mode (default: all)")
     process_parser.add_argument(
         "--max-attachment-size",
         type=int,
@@ -95,6 +102,9 @@ def main(argv: Optional[List[str]] = None) -> int:
     batch_parser.add_argument("--output", required=True, help="Output directory")
     batch_parser.add_argument("--pattern", default=".eml", help="File pattern to match")
     batch_parser.add_argument("--convert-excel", action="store_true", help="Convert Excel to CSV")
+    batch_parser.add_argument("--convert-pdf", action="store_true", help="Convert PDF to Markdown")
+    batch_parser.add_argument("--pdf-mode", choices=['text', 'images', 'all'], default='all',
+                             help="PDF extraction mode (default: all)")
     batch_parser.add_argument(
         "--max-attachment-size",
         type=int,

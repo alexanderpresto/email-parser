@@ -7,6 +7,8 @@ openpyxl>=3.1.0
 pandas>=2.0.0
 chardet>=5.0.0
 mistralai>=1.5.2  # For PDF to Markdown conversion
+requests>=2.31.0  # For API calls and enhanced error handling
+psutil>=5.9.0  # For memory monitoring and process management
 
 # Development dependencies
 pytest>=7.0.0

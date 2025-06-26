@@ -5,7 +5,27 @@ All notable changes to the Email Parser project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.1.0] - 2025-06-22
+## [2.1.0] - 2025-06-25 - Phase 1 Week 2 (In Progress)
+
+### Added
+- **CLI PDF Options**: Command-line flags for PDF conversion
+  - `--convert-pdf`: Enable PDF to Markdown conversion
+  - `--pdf-mode`: Choose extraction mode (text/images/all)
+- **Test Structure**: Comprehensive test suite for PDF converter
+  - Unit tests for PDFConverter class
+  - Integration tests for email-PDF workflow
+  - Mock API responses for testing without API key
+- **Documentation Updates**: Enhanced project documentation
+  - CLI examples with PDF conversion options
+  - Updated README with current phase status
+  - Aligned all documentation with CLAUDE.md
+
+### In Progress
+- API connectivity testing with real MistralAI endpoints
+- Performance benchmarking for PDF conversion
+- Enhanced error handling for edge cases
+
+## [2.1.0] - 2025-06-22 - Phase 1 Week 1 (COMPLETED ✅)
 
 ### Added - Phase 1 Week 1 COMPLETED ✅
 - **BaseConverter Framework**: Abstract base class for all file converters

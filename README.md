@@ -11,8 +11,8 @@ An enterprise-grade email processing system with robust MIME parsing, security f
 ## 🚀 Development Status
 
 **Current Version:** 2.1.0  
-**PDF Conversion Status:** ✅ **Core Implementation Complete** (Phase 1, Week 1)  
-**Next Milestone:** Integration & Testing (Phase 1, Week 2)
+**PDF Conversion Status:** ✅ **Core Implementation Complete** (Phase 1, Week 2)  
+**Next Milestone:** API Integration & Testing
 
 ## Overview
 
@@ -45,32 +45,34 @@ This library provides a comprehensive solution for parsing and processing emails
 
 ### Development Setup
 
-**⚠️ Important:** Always use the virtual environment for development work.
+**🚨 CRITICAL:** Virtual environment activation is MANDATORY for all Python development work.
 
 ```bash
 # Clone the repository
 git clone https://github.com/alexanderpresto/email-parser.git
 cd email-parser
 
-# Create virtual environment (if not exists)
+# STEP 1: Create virtual environment (if not exists)
 python -m venv email-parser-env
 
-# Activate the virtual environment (REQUIRED for all development)
+# STEP 2: Activate the virtual environment (REQUIRED - Never skip this!)
 # Windows PowerShell
 .\email-parser-env\Scripts\Activate.ps1
 
 # Linux/Mac/WSL2
 source email-parser-env/bin/activate
 
-# Verify virtual environment is active
+# STEP 3: Verify virtual environment is active (Must show True)
 python -c "import sys; print('Virtual env active:', 'email-parser-env' in sys.prefix)"
 
-# Install dependencies (MistralAI SDK already included)
+# STEP 4: Install dependencies (MistralAI SDK already included)
 pip install -r requirements.txt
 
-# Install in development mode
+# STEP 5: Install in development mode
 pip install -e .
 ```
+
+**⚠️ WARNING:** If virtual environment is not activated, the project will not work correctly.
 
 ### MistralAI API Setup
 
@@ -209,6 +211,26 @@ parser = EmailParser(config)
 # Process email - Excel files will be converted automatically
 result = parser.process_email("email_with_excel.eml")
 print(f"Generated CSV files: {result.csv_files}")
+```
+
+## CLI Examples
+
+The email parser provides comprehensive command-line options for processing emails:
+
+```bash
+# Basic email processing
+python -m email_parser email.eml output/
+
+# With Excel and PDF conversions
+python -m email_parser email.eml output/ --convert-excel --convert-pdf --pdf-mode all
+
+# Batch processing with conversions
+python -m email_parser emails/ output/ --batch --parallel --convert-pdf
+
+# Custom PDF extraction mode
+python -m email_parser email.eml output/ --convert-pdf --pdf-mode text  # Text only
+python -m email_parser email.eml output/ --convert-pdf --pdf-mode images  # Images only
+python -m email_parser email.eml output/ --convert-pdf --pdf-mode all  # Everything (default)
 ```
 
 ## Development Status & Roadmap
@@ -419,18 +441,19 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Project Status
 
-**Version 2.0.0-dev** - PDF conversion core infrastructure complete!
+**Version 2.1.0** - PDF conversion infrastructure ready!
 
 This project is in active development with focus on PDF to Markdown conversion capabilities. Current development follows a detailed 16-week project plan with defined milestones and deliverables.
 
 ### Version History
 
-- v2.0.0-dev (2025-06-22): PDF converter core infrastructure complete
+- v2.1.0 (2025-06-25): PDF converter API integration phase
+- v2.0.0 (2025-06-22): PDF converter core infrastructure complete
 - v1.1.0: Enhanced Excel conversion capabilities  
 - v1.0.0: Initial release with core email parsing features
 
 ---
 
 **Development Environment:** Windows 11 Pro with Python 3.12.9  
-**Last Updated:** 2025-06-22  
-**Current Phase:** Phase 1, Week 2 - Core Architecture Design
+**Last Updated:** 2025-06-25  
+**Current Phase:** Phase 1, Week 2 - PDF Conversion (MistralAI OCR integration)

@@ -1,17 +1,32 @@
 # Email Parser Development Setup
 
-## Virtual Environment Setup
+## 🚨 CRITICAL: Virtual Environment is MANDATORY
 
-This project uses a Python virtual environment for dependency isolation.
+**This project REQUIRES virtual environment activation for ALL Python work.**
+
+### Pre-Development Checklist
+
+Before ANY Python development:
+1. ✅ Virtual environment exists (`email-parser-env` folder present)
+2. ✅ Virtual environment is activated (prompt shows `(email-parser-env)`)
+3. ✅ Correct Python interpreter is active (run verification command below)
 
 ### Initial Setup (One-time)
 
+#### Windows PowerShell Setup
+
 ```powershell
 # Navigate to project directory
-cd "/path/to/email-parser"  # Use your actual project path
+cd "D:\Users\alexp\dev\email-parser"  # Update with your actual path
 
-# Activate virtual environment (Windows PowerShell)
+# Create virtual environment if not exists
+python -m venv email-parser-env
+
+# MANDATORY: Activate virtual environment
 .\email-parser-env\Scripts\Activate.ps1
+
+# Verify activation (MUST show True)
+python -c "import sys; print('Virtual env active:', 'email-parser-env' in sys.prefix)"
 
 # Install dependencies
 pip install -r requirements.txt
@@ -73,18 +88,27 @@ source ~/.bashrc
 
 ### Daily Development Workflow
 
-```powershell
-# Navigate to project directory
-cd "/path/to/email-parser"  # Use your actual project path
+**🔴 NEVER run Python commands without virtual environment active!**
 
-# Activate virtual environment
+#### Windows PowerShell Daily Workflow
+
+```powershell
+# STEP 1: Navigate to project directory
+cd "D:\Users\alexp\dev\email-parser"  # Update with your actual path
+
+# STEP 2: MANDATORY - Activate virtual environment
 .\email-parser-env\Scripts\Activate.ps1
 
-# Verify MistralAI API key is set (optional)
+# STEP 3: Verify activation (MUST show True)
+python -c "import sys; print('Virtual env active:', 'email-parser-env' in sys.prefix)"
+
+# STEP 4: Verify MistralAI API key is set (optional)
 python -c "import os; print('API Key set:', bool(os.environ.get('MISTRALAI_API_KEY')))"
 
-# Your virtual environment is now active!
-# Run tests, development commands, etc.
+# Now you can safely run Python commands:
+# - pytest
+# - python -m email_parser ...
+# - Any development tasks
 
 # When done, deactivate (optional)
 deactivate

@@ -49,11 +49,12 @@ email-parser/
 │   ├── converters/       # File converters (PDF, Excel)
 │   ├── core/             # Processing logic
 │   ├── exceptions/       # Custom exceptions
+│   ├── security/         # File validation and security
 │   └── utils/            # Utilities
 ├── archive/              # Versioned files (gitignored)
-├── config/               # Configuration
+├── config/               # Configuration (comprehensive 135-line setup)
 ├── docs/                 # Documentation
-├── tests/                # Test suite
+├── tests/                # Test suite (unit, integration, performance)
 └── email-parser-env/     # Virtual environment
 ```
 
@@ -84,18 +85,25 @@ output/
 
 1. **Check context**: recent_activity(), search_notes()
 2. **Activate venv**: REQUIRED for all Python work
-3. **Archive**: Use native copy before changes
-4. **Edit**: Use edit_block() for changes
-5. **Test**: pytest (unit/integration/performance)
-6. **Document**: Save insights to Basic-Memory
+3. **Resolve dependencies**: Install missing requests, psutil if needed
+4. **Archive**: Use native copy before changes
+5. **Edit**: Use edit_block() for changes
+6. **Test**: pytest (unit/integration/performance)
+7. **Document**: Save insights to Basic-Memory
 
 ## Testing & Quality
 
+⚠️ **Dependencies**: Ensure `requests` and `psutil` are installed before testing
+
 ```bash
+# Install missing dependencies first
+pip install requests>=2.31.0 psutil>=5.9.0
+
 # Testing
 pytest                          # Full suite
 pytest --cov=email_parser      # Coverage
-pytest tests/unit/             # Specific
+pytest tests/unit/             # Unit tests (includes test_pdf_converter.py)
+pytest tests/integration/      # Integration tests
 
 # Quality
 black email_parser tests       # Format
@@ -120,33 +128,46 @@ email-parser/
 ## Current Status
 
 **Version**: 2.1.0  
-**Phase**: PDF Conversion (Week 2)  
-**Priority**: MistralAI OCR integration
+**Phase**: Phase 1 Week 3 - Integration & Testing  
+**Priority**: Dependency resolution, API testing, performance optimization
+
+⚠️ **Current Issues**: Missing dependencies (`requests`, `psutil`) need installation
 
 ### Phase 1: PDF→Markdown (12-16 weeks)
 
-- ✅ Converter infrastructure
-- 🔄 MistralAI API integration
-- 🔄 Test coverage
-- ⏳ CLI integration
+- ✅ Converter infrastructure (Week 1)
+- ✅ MistralAI API integration (Week 2)
+- 🔄 Dependency resolution (Week 3)
+- 🔄 API connectivity testing
+- ⏳ Performance benchmarking
 
 ### Roadmap
 
-1. PDF conversion completion
-2. Summary generator
-3. Batch processing
+1. **Week 3**: Dependency resolution, API testing, performance optimization
+2. Summary generator integration
+3. Batch processing enhancements
 4. Claude API integration
 
 ## Configuration
 
+See `config/default.yaml` for comprehensive configuration options (135 lines) including:
+
+- **PDF conversion**: MistralAI API settings, extraction modes, image processing
+- **Security**: File validation, size limits, malware protection  
+- **Performance**: Caching, memory management, parallel processing
+- **API resilience**: Circuit breaker patterns, retry logic, connection pooling
+- **Error handling**: Graceful degradation, logging, recovery options
+
+Key settings:
+
 ```yaml
-# config/default.yaml
+# Essential configuration sections
 processing:
   convert_pdf: true
   convert_excel: true
 security:
   max_attachment_size: 10000000  # 10MB
-pdf:
+pdf_conversion:
   api_key_env: "MISTRALAI_API_KEY"
   extraction_mode: "all"  # text/images/all
 ```
@@ -167,10 +188,19 @@ python -m email_parser emails/ output/ --batch --parallel
 ## Guidelines
 
 1. **Always**: Check project="dev", activate venv, archive first
-2. **Use**: Native copy + edit_block for efficiency
-3. **Document**: Insights in Basic-Memory, not code
-4. **Test**: Edge cases, MIME variants, large files
-5. **Secure**: Validate inputs, sanitize outputs, protect API keys
+2. **Dependencies**: Install missing requests/psutil before development
+3. **Use**: Native copy + edit_block for efficiency
+4. **Document**: Insights in Basic-Memory, not code
+5. **Test**: Edge cases, MIME variants, large files
+6. **Secure**: Validate inputs, sanitize outputs, protect API keys
+
+## Week 3 Current Priorities (2025-06-26)
+
+1. **Dependency Resolution**: Install missing `requests` and `psutil` packages
+2. **API Testing**: Validate MistralAI connectivity with real API key
+3. **Performance Testing**: Benchmark PDF conversion with various file sizes
+4. **Integration Testing**: Complete email-to-PDF workflow validation
+5. **Documentation**: Update status and align all project documentation
 
 ## Emergency Recovery
 

@@ -18,7 +18,8 @@ from functools import wraps
 
 try:
     from mistralai import Mistral
-    from mistralai.exceptions import MistralException
+    # MistralAI doesn't export a specific exception class in v1.8.2
+    MistralException = Exception
 except ImportError:
     Mistral = None
     MistralException = Exception
@@ -515,12 +516,77 @@ class PDFConverter(BaseConverter):
         except Exception as e:
             raise ConversionError(f"Failed to process API request: {e}")
     
-    def _call_mistral_ocr(self, pdf_base64: str, extraction_mode: str) -> Dict[str, Any]:
+    async def _upload_pdf_to_mistral(self, pdf_data: bytes, filename: str) -> str:
         """
-        Call MistralAI OCR API to process the PDF.
+        Upload PDF to MistralAI Files API.
         
         Args:
-            pdf_base64: Base64 encoded PDF data
+            pdf_data: Binary PDF content
+            filename: Original filename for reference
+            
+        Returns:
+            File ID from MistralAI
+            
+        Raises:
+            APIError: If upload fails
+        """
+        try:
+            self.logger.debug(f"Uploading PDF '{filename}' to MistralAI...")
+            
+            file_upload = await self.client.files.upload(
+                file={
+                    'fileName': filename,
+                    'content': pdf_data
+                },
+                purpose='ocr'
+            )
+            
+            if not file_upload or not hasattr(file_upload, 'id') or not file_upload.id:
+                raise APIError("Failed to upload file to MistralAI - no file ID returned")
+            
+            self.logger.debug(f"Successfully uploaded file with ID: {file_upload.id}")
+            return file_upload.id
+            
+        except Exception as e:
+            self.logger.error(f"File upload failed: {e}")
+            raise APIError(f"MistralAI file upload error: {e}")
+
+    async def _get_signed_url(self, file_id: str) -> str:
+        """
+        Get signed URL for uploaded file.
+        
+        Args:
+            file_id: MistralAI file ID
+            
+        Returns:
+            Signed URL for OCR processing
+            
+        Raises:
+            APIError: If URL generation fails
+        """
+        try:
+            self.logger.debug(f"Getting signed URL for file ID: {file_id}")
+            
+            signed_url_response = await self.client.files.get_signed_url(
+                file_id=file_id
+            )
+            
+            if not signed_url_response or not hasattr(signed_url_response, 'url') or not signed_url_response.url:
+                raise APIError("Failed to get signed URL from MistralAI")
+            
+            self.logger.debug("Successfully obtained signed URL")
+            return signed_url_response.url
+            
+        except Exception as e:
+            self.logger.error(f"Signed URL generation failed: {e}")
+            raise APIError(f"MistralAI signed URL error: {e}")
+
+    def _call_mistral_ocr(self, pdf_data: bytes, extraction_mode: str) -> Dict[str, Any]:
+        """
+        Call MistralAI OCR API using file upload pattern.
+        
+        Args:
+            pdf_data: Binary PDF data 
             extraction_mode: Type of extraction to perform
             
         Returns:
@@ -530,43 +596,50 @@ class PDFConverter(BaseConverter):
             APIError: If the API call fails
         """
         def make_ocr_call():
-            """Internal function for OCR API call with retry logic."""
-            payload = {
-                'model': 'pixtral-12b-2409',  # MistralAI's vision model
-                'messages': [
-                    {
-                        'role': 'user',
-                        'content': [
-                            {
-                                'type': 'text',
-                                'text': self._generate_ocr_prompt(extraction_mode)
-                            },
-                            {
-                                'type': 'image_url',
-                                'image_url': {
-                                    'url': f'data:application/pdf;base64,{pdf_base64}'
-                                }
-                            }
-                        ]
-                    }
-                ],
-                'temperature': 0.1,  # Low temperature for consistent results
-                'max_tokens': 4000
-            }
-            
+            """Internal function for OCR API call with proper file upload flow."""
             try:
-                response = self.client.chat.complete(**payload)
+                # Step 1: Upload PDF file
+                self.logger.debug("Step 1: Uploading PDF to MistralAI...")
+                file_upload = self.client.files.upload(
+                    file={
+                        'fileName': 'document.pdf',
+                        'content': pdf_data
+                    },
+                    purpose='ocr'
+                )
                 
-                if response and response.choices:
-                    content = response.choices[0].message.content
-                    return {
-                        'success': True,
-                        'content': content,
-                        'usage': getattr(response, 'usage', None)
-                    }
-                else:
-                    raise APIError("Empty response from MistralAI API")
-                    
+                if not file_upload or not hasattr(file_upload, 'id') or not file_upload.id:
+                    raise APIError("Failed to upload file to MistralAI")
+                
+                # Step 2: Get signed URL
+                self.logger.debug(f"Step 2: Getting signed URL for file {file_upload.id}...")
+                signed_url_response = self.client.files.get_signed_url(
+                    file_id=file_upload.id
+                )
+                
+                if not signed_url_response or not hasattr(signed_url_response, 'url'):
+                    raise APIError("Failed to get signed URL from MistralAI")
+                
+                # Step 3: Process OCR
+                self.logger.debug("Step 3: Processing OCR...")
+                include_images = extraction_mode in ['images', 'all']
+                
+                ocr_response = self.client.ocr.process(
+                    model='mistral-ocr-latest',
+                    document={
+                        'type': 'document_url',
+                        'document_url': signed_url_response.url
+                    },
+                    include_image_base64=include_images,
+                    image_limit=self.config.get('image_settings', {}).get('limit', 0),
+                    image_min_size=self.config.get('image_settings', {}).get('min_size', 0)
+                )
+                
+                if not ocr_response:
+                    raise APIError("Empty response from MistralAI OCR API")
+                
+                return ocr_response
+                
             except MistralException as e:
                 error_msg = str(e).lower()
                 
@@ -648,22 +721,80 @@ class PDFConverter(BaseConverter):
         Returns:
             Tuple of (markdown_content, list_of_image_paths)
         """
-        if not response.get('success', False):
-            raise ConversionError("OCR processing was not successful")
-            
-        content = response.get('content', '')
-        if not content:
-            self.logger.warning("OCR response contains no content")
+        if not response:
+            raise ConversionError("Empty OCR response from MistralAI")
+        
+        # Handle new OCR API response structure with pages
+        pages = getattr(response, 'pages', None)
+        if not pages:
+            self.logger.warning("OCR response contains no pages")
             return '', []
         
-        # For now, we'll return the content as-is since MistralAI should
-        # already format it as Markdown. In future versions, we could
-        # add post-processing here (e.g., extracting embedded images)
+        # Extract markdown content from all pages
+        markdown_content = ""
+        image_paths = []
+        page_separator = self.config.get('pagination', {}).get('page_separator', '\n\n---\n\n')
         
-        markdown_content = content
-        image_paths = []  # TODO: Implement image extraction from base64 data
+        for i, page in enumerate(pages):
+            # Add page content
+            page_markdown = getattr(page, 'markdown', '')
+            if page_markdown:
+                if i > 0:  # Add separator between pages
+                    markdown_content += page_separator
+                markdown_content += page_markdown
+            
+            # Extract images if present and enabled
+            if self.config['image_settings']['save_images']:
+                page_images = getattr(page, 'images', [])
+                for j, image_data in enumerate(page_images):
+                    try:
+                        # Generate unique filename for each image
+                        image_filename = f"{output_path.stem}_page_{i+1:02d}_image_{j+1:02d}.png"
+                        image_path = self.image_dir / image_filename
+                        
+                        # Save base64 image data
+                        if hasattr(image_data, 'base64') and image_data.base64:
+                            self._save_base64_image(image_data.base64, image_path)
+                            image_paths.append(str(image_path))
+                            self.logger.debug(f"Saved image: {image_path}")
+                        
+                    except Exception as e:
+                        self.logger.error(f"Failed to save image from page {i+1}, image {j+1}: {e}")
+        
+        if not markdown_content:
+            self.logger.warning("No markdown content extracted from OCR response")
+            return '', []
         
         return markdown_content, image_paths
+    
+    def _save_base64_image(self, base64_data: str, image_path: Path) -> None:
+        """
+        Save base64 encoded image data to file.
+        
+        Args:
+            base64_data: Base64 encoded image data
+            image_path: Path where the image should be saved
+            
+        Raises:
+            ConversionError: If image saving fails
+        """
+        try:
+            # Remove data URL prefix if present (e.g., "data:image/png;base64,")
+            if base64_data.startswith('data:'):
+                base64_data = base64_data.split(',', 1)[1]
+            
+            # Decode and save image
+            image_bytes = base64.b64decode(base64_data)
+            
+            # Ensure the image directory exists
+            image_path.parent.mkdir(parents=True, exist_ok=True)
+            
+            # Write image file
+            with open(image_path, 'wb') as f:
+                f.write(image_bytes)
+                
+        except Exception as e:
+            raise ConversionError(f"Failed to save image {image_path}: {e}")
     
     def _save_images(self, images: List[Dict[str, Any]], 
                     base_name: str) -> List[str]:
@@ -768,8 +899,7 @@ class PDFConverter(BaseConverter):
             
             # Call MistralAI OCR API with enhanced error handling
             self.logger.debug("Calling MistralAI OCR API...")
-            pdf_base64 = self._encode_pdf_base64(pdf_data)
-            ocr_response = self._call_mistral_ocr(pdf_base64, extraction_mode)
+            ocr_response = self._call_mistral_ocr(pdf_data, extraction_mode)
             
             # Process response
             self.logger.debug("Processing OCR response...")
@@ -819,7 +949,7 @@ class PDFConverter(BaseConverter):
                 'pages': 1,  # TODO: Extract actual page count
                 'image_count': len(image_paths),
                 'image_paths': image_paths,
-                'api_usage': ocr_response.get('usage', {}),
+                'api_usage': getattr(ocr_response, 'usage_info', {}),
                 'conversion_quality': 'high'  # TODO: Implement quality assessment
             }
             

@@ -6,12 +6,14 @@ import logging
 import os
 import uuid
 from datetime import datetime
+from pathlib import Path
 from typing import Any, BinaryIO, Callable, Dict, List, Optional, Union, cast
 from io import TextIOBase, BufferedIOBase
 
 # from typing import List, Union, BinaryIO, cast
 
 from email_parser.converters.excel_converter import ExcelConverter
+from email_parser.converters.pdf_converter import PDFConverter
 from email_parser.core.component_extractor import ComponentExtractor
 from email_parser.core.config import ProcessingConfig
 from email_parser.core.mime_parser import MIMEParser
@@ -19,6 +21,7 @@ from email_parser.exceptions.parsing_exceptions import (
     EmailParsingError,
     ExcelConversionError,
     MIMEParsingError,
+    PDFConversionError,
     SecurityError,
 )
 from email_parser.utils.file_utils import ensure_directory, sanitize_filename
@@ -67,12 +70,14 @@ class EmailProcessor:
         self.attachments_dir = os.path.join(self.output_dir, "attachments")
         self.inline_images_dir = os.path.join(self.output_dir, "inline_images")
         self.excel_conversion_dir = os.path.join(self.output_dir, "converted_excel")
+        self.converted_pdf_dir = os.path.join(self.output_dir, "converted_pdf")
 
         # Ensure all subdirectories exist
         ensure_directory(self.text_dir)
         ensure_directory(self.attachments_dir)
         ensure_directory(self.inline_images_dir)
         ensure_directory(self.excel_conversion_dir)
+        ensure_directory(self.converted_pdf_dir)
 
         # Set up components
         self.mime_parser = MIMEParser()
@@ -89,6 +94,11 @@ class EmailProcessor:
         self.excel_prompt_callback = excel_prompt_callback
         if self.enable_excel_conversion:
             self.excel_converter = ExcelConverter(output_dir=self.excel_conversion_dir)
+        
+        # PDF conversion settings
+        self.enable_pdf_conversion = getattr(config, "convert_pdf", False)
+        if self.enable_pdf_conversion:
+            self.pdf_converter = PDFConverter()
 
     def process_email(
         self, email_content: Union[bytes, BinaryIO, str], email_id: Optional[str] = None
@@ -155,6 +165,10 @@ class EmailProcessor:
             # Handle Excel conversions if enabled
             if self.enable_excel_conversion:
                 self._process_excel_attachments(result, email_id)
+            
+            # Handle PDF conversions if enabled
+            if self.enable_pdf_conversion:
+                self._process_pdf_attachments(result, email_id)
 
             # Add metadata
             result["processing_metadata"] = {
@@ -226,6 +240,56 @@ class EmailProcessor:
         except Exception as e:
             logger.error(f"Failed to process Excel attachments: {str(e)}", exc_info=True)
             raise ExcelConversionError(f"Excel conversion failed: {str(e)}", "unknown")
+
+    def _process_pdf_attachments(self, result: Dict[str, Any], email_id: str) -> None:
+        """
+        Process PDF attachments for conversion to Markdown.
+
+        Args:
+            result: Result dictionary from component extraction
+            email_id: Unique identifier for the email
+
+        Raises:
+            Exception: If PDF conversion fails
+        """
+        if not self.enable_pdf_conversion:
+            return
+
+        try:
+            pdf_conversions = []
+
+            for attachment in result.get("attachments", []):
+                if attachment.get("original_filename", "").lower().endswith('.pdf'):
+                    logger.info(f"Converting PDF file: {attachment['original_filename']}")
+
+                    # Create output directory for this PDF
+                    pdf_output_dir = os.path.join(self.converted_pdf_dir, f"pdf_{email_id}_{len(pdf_conversions)}")
+                    ensure_directory(pdf_output_dir)
+
+                    # Convert PDF to Markdown
+                    conversion_result = self.pdf_converter.convert(
+                        input_path=Path(attachment["path"]),
+                        output_dir=Path(pdf_output_dir)
+                    )
+
+                    # Register PDF conversion
+                    pdf_conversions.append({
+                        "original_filename": attachment["original_filename"],
+                        "secure_filename": attachment["secure_filename"],
+                        "markdown_path": conversion_result.get("output_path"),
+                        "output_dir": pdf_output_dir,
+                        "pages_converted": conversion_result.get("pages_converted", 0),
+                        "images_extracted": conversion_result.get("images_extracted", 0)
+                    })
+
+            # Update the result with PDF conversions
+            if pdf_conversions:
+                result["pdf_conversions"] = pdf_conversions
+
+        except Exception as e:
+            logger.error(f"Failed to process PDF attachments: {str(e)}", exc_info=True)
+            # Don't raise exception to allow email processing to continue
+            result["pdf_conversion_errors"] = str(e)
 
     def process_email_batch(
         self,

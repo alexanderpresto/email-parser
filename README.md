@@ -11,8 +11,8 @@ An enterprise-grade email processing system with robust MIME parsing, security f
 ## 🚀 Development Status
 
 **Current Version:** 2.1.0  
-**PDF Conversion Status:** ✅ **Core Implementation Complete** (Phase 1, Week 2)  
-**Next Milestone:** API Integration & Testing
+**PDF Conversion Status:** ✅ **WORKING** - MistralAI OCR Integration Complete (Phase 1, Week 3)  
+**Next Milestone:** Performance Optimization & Benchmarking
 
 ## Overview
 
@@ -21,7 +21,8 @@ This library provides a comprehensive solution for parsing and processing emails
 ### ✅ Implemented Features
 
 - Complete MIME structure parsing and extraction
-- ✅ **PDF to Markdown conversion core infrastructure** (NEW in v2.0)
+- ✅ **PDF to Markdown conversion with MistralAI OCR** (NEW in v2.1.0)
+- ✅ **Working PDF attachments processing** - Extracts text and images from PDFs
 - Automatic Excel to CSV conversion capability
 - Secure file handling with protection against common attack vectors
 - Support for multiple encodings (UTF-8, UTF-16, ASCII, ISO-8859, Base64, etc.) with automatic encoding detection
@@ -30,10 +31,10 @@ This library provides a comprehensive solution for parsing and processing emails
 
 ### 🔄 In Development
 
-- **PDF to Markdown conversion API integration** (Phase 1, Week 2)
 - High-performance batch processing with parallel PDF/Excel conversion
-- Enhanced CLI with PDF options
 - Performance benchmarks and optimization
+- Enhanced error reporting and monitoring
+- Additional output format options
 
 ## Installation
 
@@ -107,30 +108,39 @@ result = parser.process_email("path/to/email.eml")
 print(f"Processed email with {len(result.attachments)} attachments")
 ```
 
-### PDF Conversion (Development Preview)
+### PDF Conversion (✅ Working)
 
-**Note:** PDF conversion is currently in active development. Core infrastructure is complete.
+**Status:** PDF conversion is fully implemented and working with MistralAI OCR integration.
 
 ```python
-# PDF conversion will be available as:
 from email_parser.converters import PDFConverter
 from email_parser.exceptions import ConversionError, APIError
+from pathlib import Path
 
 # Initialize PDF converter
 pdf_converter = PDFConverter(config={
     'extraction_mode': 'all',  # 'text', 'images', or 'all'
     'image_settings': {
         'limit': 10,
-        'min_size': 100
+        'min_size': 100,
+        'save_images': True
     }
 })
 
-# Convert PDF to Markdown (once API integration is complete)
+# Convert PDF to Markdown
 try:
-    markdown_path = pdf_converter.convert(pdf_path)
-    print(f"PDF converted to: {markdown_path}")
+    result = pdf_converter.convert(
+        input_path=Path("document.pdf"),
+        output_dir=Path("output/")
+    )
+    print(f"✅ PDF converted successfully!")
+    print(f"📄 Markdown file: {result['output_file']}")
+    print(f"🖼️  Images extracted: {result['image_count']}")
+    print(f"⏱️  Duration: {result['duration']:.2f}s")
 except ConversionError as e:
-    print(f"Conversion failed: {e}")
+    print(f"❌ Conversion failed: {e}")
+except APIError as e:
+    print(f"❌ API error: {e}")
 ```
 
 ## Architecture

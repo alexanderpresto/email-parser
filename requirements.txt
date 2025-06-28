@@ -10,6 +10,13 @@ mistralai>=1.5.2  # For PDF to Markdown conversion
 requests>=2.31.0  # For API calls and enhanced error handling
 psutil>=5.9.0  # For memory monitoring and process management
 
+# DOCX converter dependencies (NEW in feature/docx-converter)
+mammoth>=1.6.0  # DOCX parsing and HTML conversion
+beautifulsoup4>=4.12.0  # HTML manipulation and parsing
+lxml>=4.9.0  # XML processing support
+tiktoken>=0.5.0  # Token counting for AI model compatibility
+python-docx>=0.8.11  # Enhanced DOCX metadata and structure access
+
 # Development dependencies
 pytest>=7.0.0
 pytest-cov>=4.0.0

@@ -10,9 +10,18 @@ An enterprise-grade email processing system with robust MIME parsing, security f
 
 ## 🚀 Development Status
 
-**Current Version:** 2.1.0  
-**PDF Conversion Status:** ✅ **WORKING** - MistralAI OCR Integration Complete (Phase 1, Week 3)  
-**Next Milestone:** Performance Optimization & Benchmarking
+**Current Version:** 2.2.0-dev (feature/docx-converter branch)  
+**PDF Conversion Status:** ✅ **WORKING** - MistralAI OCR Integration Complete  
+**DOCX Conversion Status:** 🔄 **IN DEVELOPMENT** - Comprehensive Word Document Support  
+**Next Milestone:** DOCX Converter Integration & Performance Optimization
+
+### 🆕 Feature Branch Notice
+
+This branch (`feature/docx-converter`) includes active development of:
+- DOCX to Markdown conversion using mammoth library
+- AI-ready document chunking for large documents
+- Comprehensive metadata and style extraction
+- Embedded image extraction from Word documents
 
 ## Overview
 
@@ -21,7 +30,7 @@ This library provides a comprehensive solution for parsing and processing emails
 ### ✅ Implemented Features
 
 - Complete MIME structure parsing and extraction
-- ✅ **PDF to Markdown conversion with MistralAI OCR** (NEW in v2.1.0)
+- ✅ **PDF to Markdown conversion with MistralAI OCR** (v2.1.0)
 - ✅ **Working PDF attachments processing** - Extracts text and images from PDFs
 - Automatic Excel to CSV conversion capability
 - Secure file handling with protection against common attack vectors
@@ -29,9 +38,18 @@ This library provides a comprehensive solution for parsing and processing emails
 - Comprehensive error handling and logging
 - Complete type annotations and rigorous testing
 
-### 🔄 In Development
+### 🔄 In Development (This Branch)
 
-- High-performance batch processing with parallel PDF/Excel conversion
+- **DOCX to Markdown conversion** with mammoth library
+- **AI-ready document chunking** for optimal token usage
+- **Comprehensive metadata extraction** from Word documents
+- **Style and formatting preservation**
+- **Embedded image extraction** from DOCX files
+- **Comments and revision tracking** extraction
+
+### 📋 Planned Features
+
+- High-performance batch processing with parallel PDF/Excel/DOCX conversion
 - Performance benchmarks and optimization
 - Enhanced error reporting and monitoring
 - Additional output format options

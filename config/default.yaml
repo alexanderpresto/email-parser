@@ -6,6 +6,7 @@ processing:
   output_directory: "output"
   convert_excel: true
   convert_pdf: true  # Enable PDF to Markdown conversion
+  convert_docx: true  # Enable DOCX to Markdown conversion
   batch_size: 100
   max_workers: 4
   
@@ -123,6 +124,30 @@ pdf_conversion:
     log_api_errors: true  # Log detailed API errors
     retry_on_rate_limit: true  # Auto-retry on rate limits
     fallback_mode: "text_only"  # Fallback extraction mode
+
+# DOCX Conversion Settings (v2.2.0-dev)
+docx_conversion:
+  enabled: true
+  max_file_size: 52428800  # 50MB
+  
+  # Output options
+  output_format: "both"  # json, html, both
+  extract_tables: true
+  
+  # AI-ready chunking (Week 2 feature)
+  enable_chunking: false  # Set to true in Week 2
+  max_chunk_tokens: 2000
+  chunk_overlap: 200
+  
+  # Metadata extraction
+  extract_metadata: true
+  extract_styles: true
+  include_comments: true
+  
+  # Image handling (Week 2 feature)
+  extract_images: false  # Set to true in Week 2
+  image_quality: 85
+  max_image_size: 1200
   
 # Output organization
 output:
@@ -131,5 +156,6 @@ output:
   inline_images_dir: "inline_images"  
   excel_conversion_dir: "converted_excel"
   pdf_conversion_dir: "converted_pdf"  # Directory for PDF conversions
+  docx_conversion_dir: "converted_docx"  # Directory for DOCX conversions
   organize_by_date: false
   date_format: "%Y/%m/%d"

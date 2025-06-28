@@ -24,7 +24,10 @@ def process_email(args: argparse.Namespace) -> int:
         output_directory=args.output,
         convert_excel=args.convert_excel,
         convert_pdf=args.convert_pdf,
+        convert_docx=getattr(args, 'convert_docx', False),
         pdf_extraction_mode=args.pdf_mode if hasattr(args, 'pdf_mode') else 'all',
+        docx_extract_metadata=getattr(args, 'docx_metadata', True),
+        docx_extract_images=getattr(args, 'docx_images', False),
         max_attachment_size=args.max_attachment_size,
     )
 
@@ -49,7 +52,10 @@ def process_batch(args: argparse.Namespace) -> int:
         output_directory=args.output,
         convert_excel=args.convert_excel,
         convert_pdf=args.convert_pdf,
+        convert_docx=getattr(args, 'convert_docx', False),
         pdf_extraction_mode=args.pdf_mode if hasattr(args, 'pdf_mode') else 'all',
+        docx_extract_metadata=getattr(args, 'docx_metadata', True),
+        docx_extract_images=getattr(args, 'docx_images', False),
         max_attachment_size=args.max_attachment_size,
         batch_size=args.batch_size,
     )
@@ -89,6 +95,11 @@ def main(argv: Optional[List[str]] = None) -> int:
     process_parser.add_argument("--convert-pdf", action="store_true", help="Convert PDF to Markdown")
     process_parser.add_argument("--pdf-mode", choices=['text', 'images', 'all'], default='all', 
                                help="PDF extraction mode (default: all)")
+    process_parser.add_argument("--convert-docx", action="store_true", help="Convert DOCX to Markdown")
+    process_parser.add_argument("--docx-metadata", action="store_true", default=True, 
+                               help="Extract metadata from DOCX files (default: True)")
+    process_parser.add_argument("--docx-images", action="store_true", 
+                               help="Extract images from DOCX files (Week 2 feature)")
     process_parser.add_argument(
         "--max-attachment-size",
         type=int,
@@ -105,6 +116,11 @@ def main(argv: Optional[List[str]] = None) -> int:
     batch_parser.add_argument("--convert-pdf", action="store_true", help="Convert PDF to Markdown")
     batch_parser.add_argument("--pdf-mode", choices=['text', 'images', 'all'], default='all',
                              help="PDF extraction mode (default: all)")
+    batch_parser.add_argument("--convert-docx", action="store_true", help="Convert DOCX to Markdown")
+    batch_parser.add_argument("--docx-metadata", action="store_true", default=True, 
+                             help="Extract metadata from DOCX files (default: True)")
+    batch_parser.add_argument("--docx-images", action="store_true", 
+                             help="Extract images from DOCX files (Week 2 feature)")
     batch_parser.add_argument(
         "--max-attachment-size",
         type=int,

@@ -1,13 +1,13 @@
 """
-Enterprise-grade email processing system with MIME parsing, PDF to Markdown conversion, 
+Enterprise-grade email processing system with MIME parsing, PDF/DOCX to Markdown conversion, 
 security features, and performance optimization.
 
 This package provides a robust, secure, and efficient email parsing system for enterprise environments
 with high volume email processing requirements. Now includes advanced PDF to Markdown conversion
-using MistralAI OCR technology.
+using MistralAI OCR technology and DOCX to Markdown conversion using mammoth library.
 """
 
-__version__ = "2.1.0"
+__version__ = "2.2.0-dev"
 
 from email_parser.core.config import ProcessingConfig
 from email_parser.core.email_processor import EmailProcessor

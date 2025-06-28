@@ -35,6 +35,25 @@ class ExcelConversionConfig:
 
 
 @dataclass
+class DocxConversionConfig:
+    """Configuration for DOCX to Markdown conversion."""
+    
+    enabled: bool = True
+    max_file_size: int = 52428800  # 50MB
+    output_format: str = "both"  # json, html, both
+    extract_tables: bool = True
+    enable_chunking: bool = False  # Week 2 feature
+    max_chunk_tokens: int = 2000
+    chunk_overlap: int = 200
+    extract_metadata: bool = True
+    extract_styles: bool = True
+    include_comments: bool = True
+    extract_images: bool = False  # Week 2 feature
+    image_quality: int = 85
+    max_image_size: int = 1200
+
+
+@dataclass
 class SecurityConfig:
     """Configuration for security settings."""
     
@@ -87,6 +106,7 @@ class OutputConfig:
     inline_images_dir: str = "inline_images"
     excel_conversion_dir: str = "converted_excel"
     pdf_conversion_dir: str = "converted_pdf"
+    docx_conversion_dir: str = "converted_docx"
     organize_by_date: bool = False
     date_format: str = "%Y/%m/%d"
 
@@ -106,6 +126,7 @@ class ProcessingConfig:
     # Conversion settings (backward compatibility)
     convert_excel: bool = True
     convert_pdf: bool = True
+    convert_docx: bool = True
     
     # Legacy settings (for backward compatibility)
     max_attachment_size: int = 10_000_000
@@ -113,6 +134,7 @@ class ProcessingConfig:
     # Comprehensive configuration objects
     pdf_conversion: PDFConversionConfig = field(default_factory=PDFConversionConfig)
     excel_conversion: ExcelConversionConfig = field(default_factory=ExcelConversionConfig)
+    docx_conversion: DocxConversionConfig = field(default_factory=DocxConversionConfig)
     security: SecurityConfig = field(default_factory=SecurityConfig)
     performance: PerformanceConfig = field(default_factory=PerformanceConfig)
     error_handling: ErrorHandlingConfig = field(default_factory=ErrorHandlingConfig)
@@ -124,6 +146,14 @@ class ProcessingConfig:
     pdf_image_limit: int = 0
     pdf_image_min_size: int = 100
     pdf_paginate: bool = True
+    
+    # DOCX-specific convenience properties (for CLI and examples)
+    docx_extract_metadata: bool = True
+    docx_extract_images: bool = False
+    docx_enable_chunking: bool = False
+    docx_chunk_size: int = 2000
+    
+    # General settings
     enable_detailed_logging: bool = False
     max_workers: int = 4
     
@@ -138,6 +168,13 @@ class ProcessingConfig:
         
         # Sync Excel settings
         self.excel_conversion.enabled = self.convert_excel
+        
+        # Sync DOCX settings
+        self.docx_conversion.enabled = self.convert_docx
+        self.docx_conversion.extract_metadata = self.docx_extract_metadata
+        self.docx_conversion.extract_images = self.docx_extract_images
+        self.docx_conversion.enable_chunking = self.docx_enable_chunking
+        self.docx_conversion.max_chunk_tokens = self.docx_chunk_size
         
         # Sync security settings
         self.security.max_attachment_size = self.max_attachment_size
@@ -172,6 +209,7 @@ class ProcessingConfig:
             'inline_images': base_path / self.output.inline_images_dir,
             'excel_conversion': base_path / self.output.excel_conversion_dir,
             'pdf_conversion': base_path / self.output.pdf_conversion_dir,
+            'docx_conversion': base_path / self.output.docx_conversion_dir,
         }
     
     @classmethod
@@ -199,6 +237,7 @@ class ProcessingConfig:
                 'output_directory': self.output_directory,
                 'convert_excel': self.convert_excel,
                 'convert_pdf': self.convert_pdf,
+                'convert_docx': self.convert_docx,
                 'batch_size': self.batch_size,
                 'max_workers': self.max_workers,
             },
@@ -231,12 +270,24 @@ class ProcessingConfig:
                 'include_formulas': self.excel_conversion.include_formulas,
                 'preserve_formatting': self.excel_conversion.preserve_formatting,
             },
+            'docx_conversion': {
+                'enabled': self.docx_conversion.enabled,
+                'max_file_size': self.docx_conversion.max_file_size,
+                'output_format': self.docx_conversion.output_format,
+                'extract_tables': self.docx_conversion.extract_tables,
+                'extract_metadata': self.docx_conversion.extract_metadata,
+                'extract_images': self.docx_conversion.extract_images,
+                'enable_chunking': self.docx_conversion.enable_chunking,
+                'max_chunk_tokens': self.docx_conversion.max_chunk_tokens,
+                'chunk_overlap': self.docx_conversion.chunk_overlap,
+            },
             'output': {
                 'text_dir': self.output.text_dir,
                 'attachments_dir': self.output.attachments_dir,
                 'inline_images_dir': self.output.inline_images_dir,
                 'excel_conversion_dir': self.output.excel_conversion_dir,
                 'pdf_conversion_dir': self.output.pdf_conversion_dir,
+                'docx_conversion_dir': self.output.docx_conversion_dir,
                 'organize_by_date': self.output.organize_by_date,
                 'date_format': self.output.date_format,
             }

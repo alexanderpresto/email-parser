@@ -14,6 +14,7 @@ from io import TextIOBase, BufferedIOBase
 
 from email_parser.converters.excel_converter import ExcelConverter
 from email_parser.converters.pdf_converter import PDFConverter
+from email_parser.converters.docx_converter import DocxConverter
 from email_parser.core.component_extractor import ComponentExtractor
 from email_parser.core.config import ProcessingConfig
 from email_parser.core.mime_parser import MIMEParser
@@ -71,6 +72,7 @@ class EmailProcessor:
         self.inline_images_dir = os.path.join(self.output_dir, "inline_images")
         self.excel_conversion_dir = os.path.join(self.output_dir, "converted_excel")
         self.converted_pdf_dir = os.path.join(self.output_dir, "converted_pdf")
+        self.converted_docx_dir = os.path.join(self.output_dir, "converted_docx")
 
         # Ensure all subdirectories exist
         ensure_directory(self.text_dir)
@@ -78,6 +80,7 @@ class EmailProcessor:
         ensure_directory(self.inline_images_dir)
         ensure_directory(self.excel_conversion_dir)
         ensure_directory(self.converted_pdf_dir)
+        ensure_directory(self.converted_docx_dir)
 
         # Set up components
         self.mime_parser = MIMEParser()
@@ -99,6 +102,24 @@ class EmailProcessor:
         self.enable_pdf_conversion = getattr(config, "convert_pdf", False)
         if self.enable_pdf_conversion:
             self.pdf_converter = PDFConverter()
+        
+        # DOCX conversion settings
+        self.enable_docx_conversion = getattr(config, "convert_docx", False)
+        if self.enable_docx_conversion:
+            # Create DOCX converter config from ProcessingConfig
+            docx_config = None
+            if hasattr(config, 'docx_conversion'):
+                docx_config = {
+                    'max_file_size': config.docx_conversion.max_file_size,
+                    'output_format': config.docx_conversion.output_format,
+                    'extract_tables': config.docx_conversion.extract_tables,
+                    'extract_metadata': config.docx_conversion.extract_metadata,
+                    'extract_images': config.docx_conversion.extract_images,
+                    'enable_chunking': config.docx_conversion.enable_chunking,
+                    'max_chunk_tokens': config.docx_conversion.max_chunk_tokens,
+                    'chunk_overlap': config.docx_conversion.chunk_overlap,
+                }
+            self.docx_converter = DocxConverter(docx_config)
 
     def process_email(
         self, email_content: Union[bytes, BinaryIO, str], email_id: Optional[str] = None
@@ -169,6 +190,10 @@ class EmailProcessor:
             # Handle PDF conversions if enabled
             if self.enable_pdf_conversion:
                 self._process_pdf_attachments(result, email_id)
+            
+            # Handle DOCX conversions if enabled
+            if self.enable_docx_conversion:
+                self._process_docx_attachments(result, email_id)
 
             # Add metadata
             result["processing_metadata"] = {
@@ -290,6 +315,62 @@ class EmailProcessor:
             logger.error(f"Failed to process PDF attachments: {str(e)}", exc_info=True)
             # Don't raise exception to allow email processing to continue
             result["pdf_conversion_errors"] = str(e)
+
+    def _process_docx_attachments(self, result: Dict[str, Any], email_id: str) -> None:
+        """
+        Process DOCX attachments for conversion to Markdown.
+
+        Args:
+            result: Result dictionary from component extraction
+            email_id: Unique identifier for the email
+
+        Raises:
+            Exception: If DOCX conversion fails
+        """
+        if not self.enable_docx_conversion:
+            return
+
+        try:
+            docx_conversions = []
+
+            for attachment in result.get("attachments", []):
+                if attachment.get("original_filename", "").lower().endswith('.docx'):
+                    logger.info(f"Converting DOCX file: {attachment['original_filename']}")
+
+                    # Create output directory for this DOCX
+                    docx_output_dir = os.path.join(self.converted_docx_dir, f"docx_{email_id}_{len(docx_conversions)}")
+                    ensure_directory(docx_output_dir)
+
+                    try:
+                        # Convert DOCX to Markdown
+                        output_path = self.docx_converter.convert(
+                            input_path=Path(attachment["path"]),
+                            output_path=Path(docx_output_dir) / f"{Path(attachment['original_filename']).stem}.md"
+                        )
+
+                        # Register DOCX conversion
+                        docx_conversions.append({
+                            "original_filename": attachment["original_filename"],
+                            "secure_filename": attachment["secure_filename"],
+                            "markdown_path": str(output_path),
+                            "output_dir": docx_output_dir,
+                            "metadata_file": str(output_path.with_suffix('.json')) if output_path.with_suffix('.json').exists() else None
+                        })
+
+                        logger.info(f"Successfully converted DOCX file: {attachment['original_filename']}")
+
+                    except Exception as e:
+                        logger.error(f"Failed to convert DOCX file {attachment['original_filename']}: {str(e)}")
+                        # Continue processing other files
+
+            # Update the result with DOCX conversions
+            if docx_conversions:
+                result["docx_conversions"] = docx_conversions
+
+        except Exception as e:
+            logger.error(f"Failed to process DOCX attachments: {str(e)}", exc_info=True)
+            # Don't raise exception to allow email processing to continue
+            result["docx_conversion_errors"] = str(e)
 
     def process_email_batch(
         self,

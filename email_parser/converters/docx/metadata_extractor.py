@@ -274,8 +274,13 @@ class PropertyAnalyzer:
         
         # Document age analysis
         if metadata.created and metadata.modified:
-            age_days = (datetime.now() - metadata.created).days
-            last_modified_days = (datetime.now() - metadata.modified).days
+            # Handle timezone-aware/naive datetime comparison
+            now = datetime.now()
+            created = metadata.created.replace(tzinfo=None) if metadata.created.tzinfo else metadata.created
+            modified = metadata.modified.replace(tzinfo=None) if metadata.modified.tzinfo else metadata.modified
+            
+            age_days = (now - created).days
+            last_modified_days = (now - modified).days
             
             analysis['summary']['document_age_days'] = age_days
             analysis['summary']['last_modified_days'] = last_modified_days

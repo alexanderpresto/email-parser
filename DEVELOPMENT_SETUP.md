@@ -143,8 +143,8 @@ python -c "import email_parser; print('Email Parser: Success!')"
 python -c "import mistralai; print('MistralAI: Success!')"
 python -m email_parser --help
 
-# Test MistralAI connection (requires API key)
-python -m email_parser test-connection --service mistralai
+# Test basic functionality (requires API key for PDF conversion)
+python -c "import os; print('API Key set:', bool(os.environ.get('MISTRALAI_API_KEY')))"
 ```
 
 ### Running Tests

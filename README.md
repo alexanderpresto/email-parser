@@ -251,24 +251,25 @@ The email parser provides comprehensive command-line options for processing emai
 
 ```bash
 # Basic email processing
-python -m email_parser email.eml output/
+python -m email_parser process --input email.eml --output output/
 
 # With Excel and PDF conversions
-python -m email_parser email.eml output/ --convert-excel --convert-pdf --pdf-mode all
+python -m email_parser process --input email.eml --output output/ --convert-excel --convert-pdf --pdf-mode all
 
 # Batch processing with conversions
-python -m email_parser emails/ output/ --batch --parallel --convert-pdf
+python -m email_parser batch --input emails/ --output output/ --convert-pdf
 
 # Custom PDF extraction mode
-python -m email_parser email.eml output/ --convert-pdf --pdf-mode text  # Text only
-python -m email_parser email.eml output/ --convert-pdf --pdf-mode images  # Images only
-python -m email_parser email.eml output/ --convert-pdf --pdf-mode all  # Everything (default)
+python -m email_parser process --input email.eml --output output/ --convert-pdf --pdf-mode text  # Text only
+python -m email_parser process --input email.eml --output output/ --convert-pdf --pdf-mode images  # Images only
+python -m email_parser process --input email.eml --output output/ --convert-pdf --pdf-mode all  # Everything (default)
 
 # DOCX conversion with Week 2 features
-python -m email_parser email.eml output/ --convert-docx --docx-chunking --docx-images
+python -m email_parser process --input email.eml --output output/ --convert-docx --docx-chunking --docx-images
 
 # DOCX with all Week 2 options
-python -m email_parser email.eml output/ --convert-docx --docx-images --docx-metadata --docx-chunk-size 2000 --docx-styles --docx-comments
+python -m email_parser process --input email.eml --output output/ --convert-docx \
+  --docx-images --docx-metadata --docx-chunk-size 2000 --docx-styles --docx-comments
 ```
 
 ## Development Status & Roadmap

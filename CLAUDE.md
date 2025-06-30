@@ -232,26 +232,26 @@ pdf_conversion:
 
 ```bash
 # Basic
-python -m email_parser email.eml output/
+python -m email_parser process --input email.eml --output output/
 
 # With conversions
-python -m email_parser email.eml output/ --convert-excel --pdf-mode all
+python -m email_parser process --input email.eml --output output/ --convert-excel --convert-pdf --pdf-mode all
 
 # DOCX with Week 2 features (ALL ENABLED)
-python -m email_parser email.eml output/ --convert-docx --docx-chunking --docx-images --docx-styles
+python -m email_parser process --input email.eml --output output/ --convert-docx --docx-chunking --docx-images --docx-styles
 
 # Advanced DOCX processing with custom settings
-python -m email_parser email.eml output/ --convert-docx \
+python -m email_parser process --input email.eml --output output/ --convert-docx \
   --docx-chunk-size 1500 --docx-chunk-overlap 150 \
   --docx-chunk-strategy semantic --docx-metadata --docx-comments
 
 # Batch with all converters and Week 2 features
-python -m email_parser emails/ output/ --batch --parallel \
-  --convert-excel --pdf-mode all --convert-docx \
+python -m email_parser batch --input emails/ --output output/ \
+  --convert-excel --convert-pdf --pdf-mode all --convert-docx \
   --docx-chunking --docx-images --docx-styles
 
 # Complete Week 2 DOCX feature demonstration
-python -m email_parser email.eml output/ --convert-docx \
+python -m email_parser process --input email.eml --output output/ --convert-docx \
   --docx-chunking --docx-chunk-size 2000 --docx-chunk-overlap 200 \
   --docx-chunk-strategy hybrid --docx-metadata --docx-images \
   --docx-styles --docx-comments

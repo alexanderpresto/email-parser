@@ -50,6 +50,10 @@ class ExtractedImage:
         """Save image to file."""
         file_path = output_path / self.info.original_name
         
+        # Skip saving files with .bin extension as they're likely not valid images
+        if file_path.suffix.lower() == '.bin':
+            raise ValueError(f"unknown file extension: {file_path.suffix}")
+        
         if self.pil_image and Image:
             # Save using PIL with quality control
             if self.info.content_type == 'image/jpeg':

@@ -42,15 +42,30 @@ class DocxConversionConfig:
     max_file_size: int = 52428800  # 50MB
     output_format: str = "both"  # json, html, both
     extract_tables: bool = True
-    enable_chunking: bool = False  # Week 2 feature
+    
+    # Week 2: AI-ready chunking features
+    enable_chunking: bool = True  # Week 2 feature - ENABLED
+    chunking_strategy: str = "hybrid"  # token, semantic, hybrid
     max_chunk_tokens: int = 2000
     chunk_overlap: int = 200
+    preserve_structure: bool = True
+    
+    # Week 2: Enhanced metadata extraction
     extract_metadata: bool = True
+    include_custom_properties: bool = True
+    analyze_metadata: bool = True
+    
+    # Week 2: Style preservation system
     extract_styles: bool = True
+    preserve_styles: bool = True
+    style_output_format: str = "json"  # json, css
     include_comments: bool = True
-    extract_images: bool = False  # Week 2 feature
+    
+    # Week 2: Advanced image handling
+    extract_images: bool = True  # Week 2 feature - ENABLED
     image_quality: int = 85
     max_image_size: int = 1200
+    generate_image_manifest: bool = True
 
 
 @dataclass
@@ -149,9 +164,13 @@ class ProcessingConfig:
     
     # DOCX-specific convenience properties (for CLI and examples)
     docx_extract_metadata: bool = True
-    docx_extract_images: bool = False
-    docx_enable_chunking: bool = False
+    docx_extract_images: bool = True  # Week 2 - ENABLED
+    docx_enable_chunking: bool = True  # Week 2 - ENABLED
     docx_chunk_size: int = 2000
+    docx_chunk_overlap: int = 200
+    docx_chunk_strategy: str = "hybrid"
+    docx_extract_styles: bool = True
+    docx_extract_comments: bool = True
     
     # General settings
     enable_detailed_logging: bool = False
@@ -175,6 +194,10 @@ class ProcessingConfig:
         self.docx_conversion.extract_images = self.docx_extract_images
         self.docx_conversion.enable_chunking = self.docx_enable_chunking
         self.docx_conversion.max_chunk_tokens = self.docx_chunk_size
+        self.docx_conversion.chunk_overlap = self.docx_chunk_overlap
+        self.docx_conversion.chunking_strategy = self.docx_chunk_strategy
+        self.docx_conversion.extract_styles = self.docx_extract_styles
+        self.docx_conversion.include_comments = self.docx_extract_comments
         
         # Sync security settings
         self.security.max_attachment_size = self.max_attachment_size

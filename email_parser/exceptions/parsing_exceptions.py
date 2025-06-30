@@ -98,3 +98,25 @@ class OCRError(PDFConversionError):
             details,
             error_code
         )
+
+
+class DocxConversionError(EmailParsingError):
+    """Exception raised when DOCX to Markdown conversion fails."""
+
+    def __init__(
+        self,
+        message: str,
+        file_path: str,
+        component: Optional[str] = None,
+        details: Optional[Dict[str, Any]] = None,
+        error_code: Optional[str] = None,
+    ):
+        self.file_path = file_path
+        self.component = component  # chunking, metadata, styles, images
+        self.details = details or {}
+        
+        component_info = f" ({component})" if component else ""
+        super().__init__(
+            f"DOCX conversion error for {file_path}{component_info}: {message}", 
+            error_code
+        )

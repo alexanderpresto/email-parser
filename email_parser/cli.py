@@ -28,6 +28,12 @@ def process_email(args: argparse.Namespace) -> int:
         pdf_extraction_mode=args.pdf_mode if hasattr(args, 'pdf_mode') else 'all',
         docx_extract_metadata=getattr(args, 'docx_metadata', True),
         docx_extract_images=getattr(args, 'docx_images', False),
+        docx_enable_chunking=getattr(args, 'docx_chunking', True),
+        docx_chunk_size=getattr(args, 'docx_chunk_size', 2000),
+        docx_chunk_overlap=getattr(args, 'docx_chunk_overlap', 200),
+        docx_chunk_strategy=getattr(args, 'docx_chunk_strategy', 'hybrid'),
+        docx_extract_styles=getattr(args, 'docx_styles', True),
+        docx_extract_comments=getattr(args, 'docx_comments', True),
         max_attachment_size=args.max_attachment_size,
     )
 
@@ -56,6 +62,12 @@ def process_batch(args: argparse.Namespace) -> int:
         pdf_extraction_mode=args.pdf_mode if hasattr(args, 'pdf_mode') else 'all',
         docx_extract_metadata=getattr(args, 'docx_metadata', True),
         docx_extract_images=getattr(args, 'docx_images', False),
+        docx_enable_chunking=getattr(args, 'docx_chunking', True),
+        docx_chunk_size=getattr(args, 'docx_chunk_size', 2000),
+        docx_chunk_overlap=getattr(args, 'docx_chunk_overlap', 200),
+        docx_chunk_strategy=getattr(args, 'docx_chunk_strategy', 'hybrid'),
+        docx_extract_styles=getattr(args, 'docx_styles', True),
+        docx_extract_comments=getattr(args, 'docx_comments', True),
         max_attachment_size=args.max_attachment_size,
         batch_size=args.batch_size,
     )
@@ -100,6 +112,18 @@ def main(argv: Optional[List[str]] = None) -> int:
                                help="Extract metadata from DOCX files (default: True)")
     process_parser.add_argument("--docx-images", action="store_true", 
                                help="Extract images from DOCX files (Week 2 feature)")
+    process_parser.add_argument("--docx-chunking", action="store_true", default=True,
+                               help="Enable AI-ready document chunking (Week 2 feature)")
+    process_parser.add_argument("--docx-chunk-size", type=int, default=2000,
+                               help="Maximum tokens per chunk (default: 2000)")
+    process_parser.add_argument("--docx-chunk-overlap", type=int, default=200,
+                               help="Token overlap between chunks (default: 200)")
+    process_parser.add_argument("--docx-chunk-strategy", choices=['token', 'semantic', 'hybrid'], 
+                               default='hybrid', help="Chunking strategy (default: hybrid)")
+    process_parser.add_argument("--docx-styles", action="store_true", default=True,
+                               help="Extract style information (Week 2 feature)")
+    process_parser.add_argument("--docx-comments", action="store_true", default=True,
+                               help="Extract comments and track changes (default: True)")
     process_parser.add_argument(
         "--max-attachment-size",
         type=int,
@@ -121,6 +145,18 @@ def main(argv: Optional[List[str]] = None) -> int:
                              help="Extract metadata from DOCX files (default: True)")
     batch_parser.add_argument("--docx-images", action="store_true", 
                              help="Extract images from DOCX files (Week 2 feature)")
+    batch_parser.add_argument("--docx-chunking", action="store_true", default=True,
+                             help="Enable AI-ready document chunking (Week 2 feature)")
+    batch_parser.add_argument("--docx-chunk-size", type=int, default=2000,
+                             help="Maximum tokens per chunk (default: 2000)")
+    batch_parser.add_argument("--docx-chunk-overlap", type=int, default=200,
+                             help="Token overlap between chunks (default: 200)")
+    batch_parser.add_argument("--docx-chunk-strategy", choices=['token', 'semantic', 'hybrid'], 
+                             default='hybrid', help="Chunking strategy (default: hybrid)")
+    batch_parser.add_argument("--docx-styles", action="store_true", default=True,
+                             help="Extract style information (Week 2 feature)")
+    batch_parser.add_argument("--docx-comments", action="store_true", default=True,
+                             help="Extract comments and track changes (default: True)")
     batch_parser.add_argument(
         "--max-attachment-size",
         type=int,

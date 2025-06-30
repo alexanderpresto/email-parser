@@ -125,7 +125,7 @@ pdf_conversion:
     retry_on_rate_limit: true  # Auto-retry on rate limits
     fallback_mode: "text_only"  # Fallback extraction mode
 
-# DOCX Conversion Settings (v2.2.0-dev)
+# DOCX Conversion Settings (v2.2.0-dev - Week 2 Complete)
 docx_conversion:
   enabled: true
   max_file_size: 52428800  # 50MB
@@ -134,20 +134,40 @@ docx_conversion:
   output_format: "both"  # json, html, both
   extract_tables: true
   
-  # AI-ready chunking (Week 2 feature)
-  enable_chunking: false  # Set to true in Week 2
+  # AI-ready chunking (Week 2 feature - ENABLED)
+  enable_chunking: true  # Week 2 feature complete
+  chunking_strategy: "hybrid"  # token, semantic, hybrid
   max_chunk_tokens: 2000
   chunk_overlap: 200
+  preserve_structure: true  # Preserve document structure in chunks
   
-  # Metadata extraction
+  # Enhanced metadata extraction (Week 2 feature - ENABLED)
   extract_metadata: true
+  include_custom_properties: true  # Extract custom document properties
+  analyze_metadata: true  # Perform metadata analysis for insights
+  
+  # Style preservation system (Week 2 feature - ENABLED)
   extract_styles: true
+  preserve_styles: true  # Preserve style information
+  style_output_format: "json"  # json, css
   include_comments: true
   
-  # Image handling (Week 2 feature)
-  extract_images: false  # Set to true in Week 2
-  image_quality: 85
-  max_image_size: 1200
+  # Advanced image handling (Week 2 feature - ENABLED)
+  extract_images: true  # Week 2 feature complete
+  image_quality: 85  # JPEG quality for extracted images
+  max_image_size: 1200  # Maximum dimension for resizing
+  generate_image_manifest: true  # Create manifest of extracted images
+  
+  # Performance and validation
+  validation:
+    strict_docx_validation: true  # Validate DOCX structure
+    check_file_integrity: true  # Verify file is not corrupted
+    
+  # Error handling for advanced features
+  error_handling:
+    continue_on_feature_failure: true  # Continue if Week 2 features fail
+    fallback_to_basic: true  # Fall back to basic conversion on errors
+    log_feature_errors: true  # Log detailed errors for debugging
   
 # Output organization
 output:

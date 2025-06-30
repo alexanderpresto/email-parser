@@ -19,6 +19,7 @@ from email_parser.exceptions.parsing_exceptions import (
     SecurityError,
     PDFConversionError,
     OCRError,
+    DocxConversionError,
 )
 
 __all__ = [
@@ -31,4 +32,5 @@ __all__ = [
     "ExcelConversionError",
     "PDFConversionError",
     "OCRError",
+    "DocxConversionError",
 ]

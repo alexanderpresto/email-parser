@@ -186,9 +186,15 @@ email-parser/
 ### Roadmap
 
 1. **Phase 2** (Current): DOCX converter implementation
-2. **Phase 3**: Unified document processing API
-3. **Phase 4**: Advanced content analysis features
-4. **Phase 5**: Production deployment and scaling
+2. **Phase 3**: DOCX optimization and performance enhancement
+3. **Phase 3.5**: Interactive CLI Mode (3 weeks)
+   - Intelligent email content scanning
+   - Interactive processing options
+   - Smart conversion recommendations
+   - Progress indicators and profiles
+4. **Phase 4**: Unified document processing API
+5. **Phase 5**: Advanced content analysis features
+6. **Phase 6**: Production deployment and scaling
 
 ## Configuration
 

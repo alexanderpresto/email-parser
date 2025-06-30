@@ -5,6 +5,15 @@ All notable changes to the Email Parser project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - Phase 3.5: Interactive CLI Mode
+
+### Planned
+- Interactive CLI mode with email content scanning
+- Smart processing recommendations based on attachment detection
+- Progress indicators and configuration profiles
+- Single-command operation with progressive disclosure
+- Backward compatibility with existing CLI interface
+
 ## [2.2.0-dev] - 2025-06-28 - Phase 2: DOCX Converter Integration (IN PROGRESS)
 
 ### Branch

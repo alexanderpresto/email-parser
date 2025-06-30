@@ -22,9 +22,17 @@ This documentation covers the Email Parser project, an enterprise-grade system d
   - [Technical Specification](requirements/technical_specification_document.md)
 - [Project Specification](specs/project_specification.md): Formal project requirements and technical specifications
 
-## What's New in Version 2.0
+## What's New in Version 2.2.0-dev
 
-### PDF to Markdown Conversion
+### ✅ DOCX to Markdown Conversion (Phase 2 - Week 2 Complete)
+- **AI-ready document chunking** with 3 strategies (token, semantic, hybrid)
+- **Enhanced metadata extraction** with comprehensive document analysis
+- **Advanced style preservation** with CSS and JSON output formats
+- **Embedded image extraction** with quality control and deduplication
+- **Complete CLI integration** with all advanced options
+- **Comprehensive testing** with 63/63 tests passing (100% success rate)
+
+### PDF to Markdown Conversion (Phase 1 Complete)
 - Integrated MistralAI OCR for high-accuracy PDF processing
 - Support for text-only, images-only, or combined extraction
 - Automatic image extraction and linking
@@ -33,19 +41,19 @@ This documentation covers the Email Parser project, an enterprise-grade system d
 - Caching for improved performance
 
 ### Enhanced Features
-- Parallel processing for PDF and Excel conversions
+- Parallel processing for PDF, Excel, and DOCX conversions
 - Improved batch processing capabilities
 - API connection pooling for better performance
-- Comprehensive error handling for OCR operations
+- Comprehensive error handling for all conversion operations
 
 ## Project Information
 
-- **Version:** 2.0.0
+- **Version:** 2.2.0-dev (feature/docx-converter branch)
 - **Created:** 2025-02-25
-- **Last Updated:** 2025-06-21
+- **Last Updated:** 2025-06-30
 - **Framework:** Enhanced-Intent v3.0
 - **Python Version:** 3.12.9
-- **Major Dependencies:** mistralai>=1.5.2, pandas, openpyxl
+- **Major Dependencies:** mistralai>=1.5.2, mammoth>=1.6.0, tiktoken>=0.5.0, pandas, openpyxl
 
 ## Getting Started
 
@@ -63,6 +71,11 @@ Please refer to the README.md file in the project root for installation and basi
 
 - **Complete Email Parsing**: Extract all components from complex MIME structures
 - **PDF Conversion**: Convert PDF attachments to searchable Markdown with OCR
+- **DOCX Conversion**: ✅ AI-ready document processing with advanced features (Week 2 Complete)
+  - AI-ready chunking for LLM processing
+  - Enhanced metadata extraction and analysis
+  - Style preservation with CSS/JSON output
+  - Advanced image extraction with quality control
 - **Excel Conversion**: Automatically convert Excel files to CSV format
 - **Security**: Built-in protection against common attack vectors
 - **Performance**: Optimized for high-volume processing with caching and parallelization

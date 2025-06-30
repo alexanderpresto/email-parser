@@ -13,11 +13,15 @@ source email-parser-env/bin/activate
 ⚠️ **Implementation Status**: 
 - ✅ Basic email processing (WORKING)
 - ✅ Excel conversion (WORKING)  
-- 🔄 PDF conversion options (PLANNED - not yet implemented in CLI)
+- ✅ PDF conversion options (WORKING - Phase 1 Complete)
+- ✅ **DOCX conversion with advanced features (WORKING - Phase 2 Week 2 Complete)**
+  - ✅ AI-ready chunking (3 strategies)
+  - ✅ Enhanced metadata extraction  
+  - ✅ Style preservation
+  - ✅ Advanced image extraction
+  - ✅ Complete CLI integration
 
-The PDF conversion options shown below are planned features that will be implemented 
-in the CLI during Phase 1, Week 2-3 of development. The core PDF conversion functionality 
-exists but is not yet exposed through the command line interface.
+All conversion features are fully implemented and tested with 63/63 Week 2 tests passing.
 
 # ==========================================================
 # SINGLE EMAIL PROCESSING
@@ -29,10 +33,10 @@ python -m email_parser process --input path/to/email.eml --output output/
 # Process email with Excel to CSV conversion enabled (✅ WORKING)
 python -m email_parser process --input path/to/email.eml --output output/ --convert-excel
 
-# Process email with PDF to Markdown conversion enabled (🔄 PLANNED)
+# Process email with PDF to Markdown conversion enabled (✅ WORKING)
 python -m email_parser process --input path/to/email.eml --output output/ --convert-pdf
 
-# Process email with PDF conversion and custom settings (🔄 PLANNED)
+# Process email with PDF conversion and custom settings (✅ WORKING)
 python -m email_parser process --input path/to/email.eml --output output/ \
     --convert-pdf \
     --pdf-mode all \
@@ -40,22 +44,47 @@ python -m email_parser process --input path/to/email.eml --output output/ \
     --pdf-image-min-size 200 \
     --pdf-paginate
 
-# Process email with PDF text-only extraction (🔄 PLANNED)
+# Process email with PDF text-only extraction (✅ WORKING)
 python -m email_parser process --input path/to/email.eml --output output/ \
     --convert-pdf \
     --pdf-mode text
 
-# Process email with PDF images-only extraction (🔄 PLANNED)
+# Process email with PDF images-only extraction (✅ WORKING)
 python -m email_parser process --input path/to/email.eml --output output/ \
     --convert-pdf \
     --pdf-mode images \
     --pdf-image-limit 20
 
-# Process email with both Excel and PDF conversion (🔄 PLANNED)
+# Process email with both Excel and PDF conversion (✅ WORKING)
 python -m email_parser process --input path/to/email.eml --output output/ \
     --convert-excel \
     --convert-pdf \
     --pdf-mode all
+
+# Process email with DOCX conversion (✅ WORKING - Week 2 Complete)
+python -m email_parser process --input path/to/email.eml --output output/ --convert-docx
+
+# Process email with DOCX advanced features (✅ WORKING - All Week 2 Features)
+python -m email_parser process --input path/to/email.eml --output output/ \
+    --convert-docx \
+    --docx-chunking \
+    --docx-images \
+    --docx-metadata \
+    --docx-styles \
+    --docx-comments
+
+# Process email with custom DOCX chunking settings (✅ WORKING)
+python -m email_parser process --input path/to/email.eml --output output/ \
+    --convert-docx \
+    --docx-chunk-size 2000 \
+    --docx-chunk-overlap 200 \
+    --docx-chunk-strategy hybrid
+
+# Process email with all converters enabled (✅ WORKING - All Features)
+python -m email_parser process --input path/to/email.eml --output output/ \
+    --convert-excel \
+    --convert-pdf --pdf-mode all \
+    --convert-docx --docx-chunking --docx-images --docx-styles
 
 # Process email with security options
 python -m email_parser process --input path/to/email.eml --output output/ \

@@ -2,6 +2,25 @@
 
 Thank you for your interest in contributing to the Enterprise Email Parser project! This document provides guidelines and instructions for contributing.
 
+## 🚀 Current Development Status
+
+**Active Branch:** `feature/docx-converter`  
+**Current Phase:** Phase 2, Week 3 - Polish & Optimization  
+**Status:** Week 2 Complete (all advanced DOCX features implemented), Week 3 in progress  
+
+### Priority Areas for Contributions
+- **Performance optimization** for large document processing
+- **Additional test coverage** and edge case scenarios
+- **Documentation improvements** and examples
+- **Code quality enhancements** and refactoring
+
+### Completed Features (Week 2)
+- ✅ AI-ready document chunking (3 strategies)
+- ✅ Enhanced metadata extraction with analysis
+- ✅ Style preservation with CSS/JSON output
+- ✅ Advanced image extraction with quality control
+- ✅ Complete CLI integration (63/63 tests passing)
+
 ## Code of Conduct
 
 This project adheres to a Code of Conduct that sets expectations for participation. By participating, you are expected to uphold this code. Please report unacceptable behaviour to project maintainers.

@@ -48,9 +48,9 @@ This documentation covers the Email Parser project, an enterprise-grade system d
 
 ## Project Information
 
-- **Version:** 2.2.0-dev (feature/docx-converter branch)
+- **Version:** 2.2.0 (main branch)
 - **Created:** 2025-02-25
-- **Last Updated:** 2025-06-30
+- **Last Updated:** 2025-07-01
 - **Framework:** Enhanced-Intent v3.0
 - **Python Version:** 3.12.9
 - **Major Dependencies:** mistralai>=1.5.2, mammoth>=1.6.0, tiktoken>=0.5.0, pandas, openpyxl

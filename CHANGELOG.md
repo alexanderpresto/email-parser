@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.2.0] - 2025-07-01 - Phase 2: DOCX Converter Integration ✅ **PHASE 2 COMPLETE**
 
 ### Branch
-- `feature/docx-converter`
+- Merged to `main` (feature/docx-converter branch deleted)
 
 ### Added
 - **DOCX Converter Infrastructure**: New converter for Microsoft Word documents ✅

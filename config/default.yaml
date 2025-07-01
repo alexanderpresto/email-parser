@@ -125,7 +125,7 @@ pdf_conversion:
     retry_on_rate_limit: true  # Auto-retry on rate limits
     fallback_mode: "text_only"  # Fallback extraction mode
 
-# DOCX Conversion Settings (v2.2.0-dev - Week 2 Complete)
+# DOCX Conversion Settings (v2.2.0 - Phase 2 Complete)
 docx_conversion:
   enabled: true
   max_file_size: 52428800  # 50MB

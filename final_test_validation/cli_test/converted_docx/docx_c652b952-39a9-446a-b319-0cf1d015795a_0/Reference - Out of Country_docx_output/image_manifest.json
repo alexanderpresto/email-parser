@@ -1,0 +1,33 @@
+{
+  "total_images": 2,
+  "total_size": 11792,
+  "unique_images": 2,
+  "images": [
+    {
+      "image_id": "rId8",
+      "original_name": "image_rId8.bin",
+      "content_type": "image/x-wmf",
+      "width": 420,
+      "height": 39,
+      "file_size": 990,
+      "hash": "0febdab7bf80debdc9ae2d93910ca6fd6cdbd4ebbeff48c12745d0a4dd662f7e",
+      "alt_text": null,
+      "caption": null,
+      "paragraph_index": null,
+      "run_index": null
+    },
+    {
+      "image_id": "rId7",
+      "original_name": "image_rId7.png",
+      "content_type": "image/png",
+      "width": 248,
+      "height": 100,
+      "file_size": 10802,
+      "hash": "334840c0050c1edfb489c364f822a8f8ed185750f018a87a1169af9af494defc",
+      "alt_text": null,
+      "caption": null,
+      "paragraph_index": null,
+      "run_index": null
+    }
+  ]
+}

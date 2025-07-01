@@ -22,9 +22,9 @@ This documentation covers the Email Parser project, an enterprise-grade system d
   - [Technical Specification](requirements/technical_specification_document.md)
 - [Project Specification](specs/project_specification.md): Formal project requirements and technical specifications
 
-## What's New in Version 2.2.0-dev
+## What's New in Version 2.2.0
 
-### ✅ DOCX to Markdown Conversion (Phase 2 - Week 2 Complete)
+### ✅ DOCX to Markdown Conversion (Phase 2 Complete)
 - **AI-ready document chunking** with 3 strategies (token, semantic, hybrid)
 - **Enhanced metadata extraction** with comprehensive document analysis
 - **Advanced style preservation** with CSS and JSON output formats

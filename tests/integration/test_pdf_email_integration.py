@@ -12,7 +12,7 @@ from unittest.mock import patch, Mock
 
 from email_parser.core.config import ProcessingConfig
 from email_parser.core.email_processor import EmailProcessor
-from email_parser.exceptions.converter_exceptions import PDFConversionError
+from email_parser.exceptions.parsing_exceptions import PDFConversionError
 
 
 class TestPDFEmailIntegration:
@@ -126,7 +126,8 @@ This is a simple text email without attachments.
         assert len(result['attachments']) == 1
         
         # But no markdown conversion should occur
-        converted_dir = Path(processing_config.output_directory) / "converted_pdf"        if converted_dir.exists():
+        converted_dir = Path(processing_config.output_directory) / "converted_pdf"
+        if converted_dir.exists():
             assert len(list(converted_dir.glob("*.md"))) == 0
     
     def test_pdf_conversion_disabled(self, email_with_pdf, tmp_path):

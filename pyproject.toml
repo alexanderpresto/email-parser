@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "email_parser"
-version = "2.2.0-dev"
+version = "2.2.0"
 description = "Enterprise-grade email processing system with MIME parsing, PDF/DOCX to Markdown conversion via MistralAI OCR, security features, and performance optimization"
 readme = "README.md"
 authors = [

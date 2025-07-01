@@ -1,0 +1,44 @@
+{
+  "total_chunks": 6,
+  "chunking_strategy": "hybrid",
+  "max_tokens": 2000,
+  "overlap_tokens": 200,
+  "chunks": [
+    {
+      "chunk_id": 0,
+      "file_path": "/mnt/d/Users/alexp/dev/email-parser/final_test_validation/cli_test/converted_docx/docx_c652b952-39a9-446a-b319-0cf1d015795a_0/Reference - Out of Country_docx_output/chunks/chunk_000.md",
+      "token_count": 10315,
+      "overlap_with_previous": 0
+    },
+    {
+      "chunk_id": 1,
+      "file_path": "/mnt/d/Users/alexp/dev/email-parser/final_test_validation/cli_test/converted_docx/docx_c652b952-39a9-446a-b319-0cf1d015795a_0/Reference - Out of Country_docx_output/chunks/chunk_001.md",
+      "token_count": 765,
+      "overlap_with_previous": 200
+    },
+    {
+      "chunk_id": 2,
+      "file_path": "/mnt/d/Users/alexp/dev/email-parser/final_test_validation/cli_test/converted_docx/docx_c652b952-39a9-446a-b319-0cf1d015795a_0/Reference - Out of Country_docx_output/chunks/chunk_002.md",
+      "token_count": 51,
+      "overlap_with_previous": 200
+    },
+    {
+      "chunk_id": 3,
+      "file_path": "/mnt/d/Users/alexp/dev/email-parser/final_test_validation/cli_test/converted_docx/docx_c652b952-39a9-446a-b319-0cf1d015795a_0/Reference - Out of Country_docx_output/chunks/chunk_003.md",
+      "token_count": 50,
+      "overlap_with_previous": 200
+    },
+    {
+      "chunk_id": 4,
+      "file_path": "/mnt/d/Users/alexp/dev/email-parser/final_test_validation/cli_test/converted_docx/docx_c652b952-39a9-446a-b319-0cf1d015795a_0/Reference - Out of Country_docx_output/chunks/chunk_004.md",
+      "token_count": 1,
+      "overlap_with_previous": 200
+    },
+    {
+      "chunk_id": 5,
+      "file_path": "/mnt/d/Users/alexp/dev/email-parser/final_test_validation/cli_test/converted_docx/docx_c652b952-39a9-446a-b319-0cf1d015795a_0/Reference - Out of Country_docx_output/chunks/chunk_005.md",
+      "token_count": 539,
+      "overlap_with_previous": 0
+    }
+  ]
+}

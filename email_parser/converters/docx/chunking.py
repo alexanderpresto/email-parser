@@ -1,10 +1,12 @@
-"""AI-ready document chunking for DOCX files."""
+"""AI-ready document chunking for DOCX files with performance optimizations."""
 
 import logging
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Tuple
 from enum import Enum
+from functools import lru_cache
+import re
 
 try:
     import tiktoken
@@ -50,8 +52,9 @@ class BaseChunker(ABC):
             except Exception as e:
                 self.logger.warning(f"Failed to initialize tiktoken: {e}")
     
+    @lru_cache(maxsize=1024)
     def count_tokens(self, text: str) -> int:
-        """Count tokens in text using tiktoken or approximation."""
+        """Count tokens in text using tiktoken or approximation with caching."""
         if self.encoding:
             try:
                 return len(self.encoding.encode(text))
@@ -68,193 +71,183 @@ class BaseChunker(ABC):
 
 
 class TokenBasedChunker(BaseChunker):
-    """Simple token-based chunking with overlap."""
+    """Optimized token-based chunking with sliding window approach."""
+    
+    def __init__(self, max_tokens: int = 2000, overlap_tokens: int = 200):
+        super().__init__(max_tokens, overlap_tokens)
+        # Pre-compile regex for word splitting
+        self.word_splitter = re.compile(r'\s+')
+    
+    def _create_sliding_windows(self, tokens: List[Tuple[str, int]], 
+                               token_counts: List[int]) -> List[Tuple[int, int, int]]:
+        """Create sliding windows with pre-computed boundaries.
+        Returns list of (start_idx, end_idx, token_count) tuples."""
+        windows = []
+        n = len(tokens)
+        
+        i = 0
+        while i < n:
+            # Find window end
+            current_tokens = 0
+            j = i
+            
+            while j < n and current_tokens + token_counts[j] <= self.max_tokens:
+                current_tokens += token_counts[j]
+                j += 1
+            
+            # If no progress made, include at least one token
+            if j == i and j < n:
+                j = i + 1
+                current_tokens = token_counts[i]
+            
+            windows.append((i, j, current_tokens))
+            
+            # Calculate overlap start for next window
+            overlap_tokens = 0
+            overlap_start = j
+            
+            # Prevent infinite loop - ensure we make progress
+            for k in range(j - 1, i, -1):
+                if overlap_tokens + token_counts[k] <= self.overlap_tokens:
+                    overlap_start = k
+                    overlap_tokens += token_counts[k]
+                else:
+                    break
+            
+            # Ensure we advance to avoid infinite loop
+            i = max(overlap_start, i + 1) if overlap_start < j else j
+        
+        return windows
     
     def chunk(self, content: str, metadata: Optional[Dict[str, Any]] = None) -> List[DocumentChunk]:
-        """Split content into token-based chunks."""
+        """Split content into token-based chunks with optimized sliding window."""
         if not content:
             return []
         
         chunks = []
+        
         # Handle single-line content differently
         if '\n' not in content:
             # Split by words for single-line content
-            words = content.split()
-            current_chunk = []
-            current_tokens = 0
-            chunk_start_index = 0
-            chunk_id = 0
+            words = self.word_splitter.split(content.strip())
+            if not words:
+                return []
             
-            for i, word in enumerate(words):
-                word_tokens = self.count_tokens(word + ' ')
+            # Pre-compute token counts
+            token_counts = [self.count_tokens(word + ' ') for word in words]
+            tokens = list(zip(words, token_counts))
+            
+            # Create sliding windows
+            windows = self._create_sliding_windows(tokens, token_counts)
+            
+            # Create chunks from windows
+            for chunk_id, (start, end, token_count) in enumerate(windows):
+                chunk_words = [tokens[i][0] for i in range(start, end)]
+                chunk_content = ' '.join(chunk_words)
                 
-                if current_tokens + word_tokens > self.max_tokens and current_chunk:
-                    # Create chunk
-                    chunk_content = ' '.join(current_chunk)
-                    chunk = DocumentChunk(
-                        chunk_id=chunk_id,
-                        content=chunk_content,
-                        token_count=current_tokens,
-                        start_index=chunk_start_index,
-                        end_index=i - 1,
-                        metadata=metadata or {}
-                    )
-                    chunks.append(chunk)
-                    
-                    # Calculate overlap
-                    overlap_words = []
-                    overlap_tokens = 0
-                    for j in range(len(current_chunk) - 1, -1, -1):
-                        word_token_count = self.count_tokens(current_chunk[j] + ' ')
-                        if overlap_tokens + word_token_count <= self.overlap_tokens:
-                            overlap_words.insert(0, current_chunk[j])
-                            overlap_tokens += word_token_count
-                        else:
-                            break
-                    
-                    # Update overlap info
-                    if chunks and overlap_tokens > 0:
-                        chunks[-1].overlap_with_next = overlap_tokens
-                    
-                    # Start new chunk with overlap
-                    current_chunk = overlap_words + [word]
-                    current_tokens = overlap_tokens + word_tokens
-                    chunk_start_index = i - len(overlap_words)
-                    chunk_id += 1
-                else:
-                    current_chunk.append(word)
-                    current_tokens += word_tokens
-            
-            # Handle remaining content
-            if current_chunk:
-                chunk_content = ' '.join(current_chunk)
                 chunk = DocumentChunk(
                     chunk_id=chunk_id,
                     content=chunk_content,
-                    token_count=current_tokens,
-                    start_index=chunk_start_index,
-                    end_index=len(words) - 1,
-                    metadata=metadata or {}
+                    token_count=token_count,
+                    start_index=start,
+                    end_index=end - 1,
+                    metadata=metadata or {},
+                    overlap_with_previous=0 if chunk_id == 0 else self.overlap_tokens,
+                    overlap_with_next=self.overlap_tokens if chunk_id < len(windows) - 1 else 0
                 )
                 chunks.append(chunk)
         else:
-            # Multi-line content
+            # Multi-line content - use similar sliding window approach
             lines = content.split('\n')
-            current_chunk = []
-            current_tokens = 0
-            chunk_start_index = 0
-            chunk_id = 0
+            if not lines:
+                return []
             
-            for i, line in enumerate(lines):
-                line_tokens = self.count_tokens(line + '\n')
+            # Pre-compute token counts for all lines
+            token_counts = [self.count_tokens(line + '\n') for line in lines]
+            tokens = list(zip(lines, token_counts))
+            
+            # Create sliding windows
+            windows = self._create_sliding_windows(tokens, token_counts)
+            
+            # Create chunks from windows
+            for chunk_id, (start, end, token_count) in enumerate(windows):
+                chunk_lines = [tokens[i][0] for i in range(start, end)]
+                chunk_content = '\n'.join(chunk_lines)
                 
-                # Check if adding this line would exceed max tokens
-                if current_tokens + line_tokens > self.max_tokens and current_chunk:
-                    # Create chunk
-                    chunk_content = '\n'.join(current_chunk)
-                    chunk = DocumentChunk(
-                        chunk_id=chunk_id,
-                        content=chunk_content,
-                        token_count=current_tokens,
-                        start_index=chunk_start_index,
-                        end_index=i - 1,
-                        metadata=metadata or {}
-                    )
-                    chunks.append(chunk)
-                    
-                    # Calculate overlap
-                    overlap_lines = []
-                    overlap_tokens = 0
-                    for j in range(len(current_chunk) - 1, -1, -1):
-                        line_token_count = self.count_tokens(current_chunk[j] + '\n')
-                        if overlap_tokens + line_token_count <= self.overlap_tokens:
-                            overlap_lines.insert(0, current_chunk[j])
-                            overlap_tokens += line_token_count
-                        else:
-                            break
-                    
-                    # Update overlap info
-                    if chunks and overlap_tokens > 0:
-                        chunks[-1].overlap_with_next = overlap_tokens
-                    
-                    # Start new chunk with overlap
-                    current_chunk = overlap_lines + [line]
-                    current_tokens = overlap_tokens + line_tokens
-                    chunk_start_index = i - len(overlap_lines)
-                    chunk_id += 1
-                else:
-                    current_chunk.append(line)
-                    current_tokens += line_tokens
-            
-            # Handle remaining content
-            if current_chunk:
-                chunk_content = '\n'.join(current_chunk)
                 chunk = DocumentChunk(
                     chunk_id=chunk_id,
                     content=chunk_content,
-                    token_count=current_tokens,
-                    start_index=chunk_start_index,
-                    end_index=len(lines) - 1,
-                    metadata=metadata or {}
+                    token_count=token_count,
+                    start_index=start,
+                    end_index=end - 1,
+                    metadata=metadata or {},
+                    overlap_with_previous=0 if chunk_id == 0 else self.overlap_tokens,
+                    overlap_with_next=self.overlap_tokens if chunk_id < len(windows) - 1 else 0
                 )
                 chunks.append(chunk)
-        
-        # Update overlap information
-        for i in range(1, len(chunks)):
-            if i < len(chunks) and chunks[i-1].overlap_with_next > 0:
-                chunks[i].overlap_with_previous = chunks[i-1].overlap_with_next
         
         return chunks
 
 
 class SemanticChunker(BaseChunker):
-    """Semantic chunking that preserves document structure."""
+    """Optimized semantic chunking with paragraph-level caching."""
     
     def __init__(self, max_tokens: int = 2000, overlap_tokens: int = 200):
         super().__init__(max_tokens, overlap_tokens)
         self.section_markers = ['#', '##', '###', '####', '#####', '######']
+        # Pre-compile regex for heading detection
+        self.heading_pattern = re.compile(r'^(#{1,6})\s+(.+)$')
+        # Cache for section content tokens
+        self._section_token_cache = {}
     
     def _identify_sections(self, lines: List[str]) -> List[Dict[str, Any]]:
-        """Identify document sections based on markdown headings."""
+        """Identify document sections with optimized heading detection."""
         sections = []
-        current_section = {'start': 0, 'end': 0, 'level': 0, 'title': '', 'content': []}
+        current_section = {'start': 0, 'end': 0, 'level': 0, 'title': '', 'content': [], 'tokens': 0}
         
         for i, line in enumerate(lines):
-            stripped = line.strip()
+            # Use regex for faster heading detection
+            match = self.heading_pattern.match(line.strip())
             
-            # Check for markdown heading
-            is_heading = False
-            for level, marker in enumerate(self.section_markers, 1):
-                if stripped.startswith(marker + ' '):
-                    is_heading = True
-                    
-                    # Save previous section
-                    if current_section['content']:
-                        current_section['end'] = i - 1
-                        sections.append(current_section)
-                    
-                    # Start new section
-                    current_section = {
-                        'start': i,
-                        'end': i,
-                        'level': level,
-                        'title': stripped[len(marker):].strip(),
-                        'content': [line]
-                    }
-                    break
-            
-            if not is_heading and i > 0:
+            if match:
+                # Save previous section
+                if current_section['content']:
+                    current_section['end'] = i - 1
+                    # Cache token count
+                    section_key = (current_section['start'], current_section['end'])
+                    if section_key not in self._section_token_cache:
+                        content = '\n'.join(current_section['content'])
+                        self._section_token_cache[section_key] = self.count_tokens(content)
+                    current_section['tokens'] = self._section_token_cache[section_key]
+                    sections.append(current_section)
+                
+                # Start new section
+                marker, title = match.groups()
+                current_section = {
+                    'start': i,
+                    'end': i,
+                    'level': len(marker),
+                    'title': title,
+                    'content': [line],
+                    'tokens': 0
+                }
+            else:
                 current_section['content'].append(line)
         
         # Save last section
         if current_section['content']:
             current_section['end'] = len(lines) - 1
+            section_key = (current_section['start'], current_section['end'])
+            if section_key not in self._section_token_cache:
+                content = '\n'.join(current_section['content'])
+                self._section_token_cache[section_key] = self.count_tokens(content)
+            current_section['tokens'] = self._section_token_cache[section_key]
             sections.append(current_section)
         
         return sections
     
     def chunk(self, content: str, metadata: Optional[Dict[str, Any]] = None) -> List[DocumentChunk]:
-        """Split content into semantic chunks based on document structure."""
+        """Split content into semantic chunks with optimized section handling."""
         if not content:
             return []
         
@@ -263,13 +256,15 @@ class SemanticChunker(BaseChunker):
         chunks = []
         chunk_id = 0
         
-        # Group sections into chunks
+        # Use cached token counts from sections
         current_chunk_sections = []
         current_tokens = 0
         
+        # Create token-based chunker once for reuse
+        token_chunker = TokenBasedChunker(self.max_tokens, self.overlap_tokens)
+        
         for section in sections:
-            section_content = '\n'.join(section['content'])
-            section_tokens = self.count_tokens(section_content)
+            section_tokens = section['tokens']  # Use pre-computed token count
             
             # Check if section alone exceeds max tokens
             if section_tokens > self.max_tokens:
@@ -290,7 +285,7 @@ class SemanticChunker(BaseChunker):
                     current_tokens = 0
                 
                 # Split large section using token-based approach
-                token_chunker = TokenBasedChunker(self.max_tokens, self.overlap_tokens)
+                section_content = '\n'.join(section['content'])
                 section_chunks = token_chunker.chunk(section_content, 
                     {**(metadata or {}), 'section_title': section['title'], 'section_level': section['level']})
                 

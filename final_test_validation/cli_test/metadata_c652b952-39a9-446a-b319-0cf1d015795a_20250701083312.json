@@ -1,0 +1,154 @@
+{
+  "email_id": "c652b952-39a9-446a-b319-0cf1d015795a",
+  "processing_time": "20250701083312",
+  "headers": {
+    "From": "Alex Presto <alex.presto@outlook.com>",
+    "To": "Alex Presto <alex.presto@outlook.com>",
+    "Subject": "test docx pdf xlsx",
+    "Date": "Mon, 30 Jun 2025 02:09:29 +0000",
+    "Message-ID": "<SEZPR01MB492258399CE5154703B08503ED46A@SEZPR01MB4922.apcprd01.prod.exchangelabs.com>",
+    "Received": "from SEZPR01MB4663.apcprd01.prod.exchangelabs.com (2603:1096:101:cf::5) by SEZPR01MB4922.apcprd01.prod.exchangelabs.com with HTTPS; Mon, 30 Jun 2025 02:11:14 +0000",
+    "ARC-Seal": "i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass; b=Z0FZyfWfVEMK60uIYHNhKotdlRx2CfyXLmqy6AEdd8rHQbxmj8K2JURdNAMZ8tjTn49ygHUHXbVButoTZI2oAtsv7hV13B+f6Nkm9h/Nn2o9bhbvAQnCIhuXMktkMRYhFRp+4SSRzdaLYjh6Prvay0523kDzYLczQKVmbhcANz/NlfFwoD/MlfOTLNglJiab5/asEN6j3e+ftF0gqC8KbvP096yO95WSaodHKx7S3U5mToyFtQNQuPOhbwPSw+P93A/HjSQpTRlRIneI92Q9XnTRiXhA8RuBhGnPNElgw8M5zPuyEcGbYf1Ioq8sAAc/8mse/jEJ4AnzHyuDrp3f/w==",
+    "ARC-Message-Signature": "i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; s=arcselector10001; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1; bh=qPT1GCZ23SjTfVQbwqe4hGQ9Y6Q/4b9Wa/wDkMyoLLY=; b=dcGJAOlFus+4TZ6RZizOOVrOtlVQcQe3dLj4ATNk65Ztv39TxHr+/UepOGKrJza6KM8rROfPspEiNowF7UklNpgb2kxV+d9xGHp5Md8R6rnBrS55HPnMwE5l2zzUg1n+g1TMJ1oCjHXpSU/X2cFUngJGA5F+RMogO1ahO0Yhe/zn1PMsBga8/+DoZ4sEzsMl9rv2ZEndRMoMAvwQVgVDWgkRfY5jirLKkDJIMsawvlfzJnwt6AjPWu4vK4p7up9gM9yG3wpqh+ICACV429hiCq/RC6ZP1V1mjqBxg9/NJk27Ej0RCbCAlCMFLT6hK966MCo0YKbSZDTb+NxteP4X4g==",
+    "ARC-Authentication-Results": "i=2; mx.microsoft.com 1; spf=pass (sender ip is 52.103.43.77) smtp.rcpttodomain=outlook.com smtp.mailfrom=outlook.com; dmarc=pass (p=none sp=quarantine pct=100) action=none header.from=outlook.com; dkim=pass (signature was verified) header.d=outlook.com; arc=pass (0 oda=0 ltdi=1)",
+    "Authentication-Results": "spf=pass (sender IP is 52.103.43.77) smtp.mailfrom=outlook.com; dkim=pass (signature was verified) header.d=outlook.com;dmarc=pass action=none header.from=outlook.com;compauth=pass reason=100",
+    "Received-SPF": "Pass (protection.outlook.com: domain of outlook.com designates 52.103.43.77 as permitted sender) receiver=protection.outlook.com; client-ip=52.103.43.77; helo=TYDPR03CU002.outbound.protection.outlook.com; pr=C",
+    "X-IncomingTopHeaderMarker": "OriginalChecksum:E6ACA5AFE8D242145495968FE108F31D0490C520F58CD0C5E4E2252EE34E21F9;UpperCasedChecksum:23E41EF97C495E3406ED2DB9C6DBE12BF32BEB4EAEBFF7D5AA3592DFB9355B0C;SizeAsReceived:9119;Count:38",
+    "DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com; s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck; bh=qPT1GCZ23SjTfVQbwqe4hGQ9Y6Q/4b9Wa/wDkMyoLLY=; b=hQZu3cpFbKnlZ9FbVq7znSO72d5ll3ztovOM2NgvD6DxFk3TLoZ7eNAv1WKYXuSLL6++zcyQgzpV6fTnnwpiHGdUXx+l2avyL6cvdGni2YTQupHYFq7nU1DHb1PrF2EY8b5A4SM/DTLNgNRhY502/E6tuFcKQEri0cXCk83ZBt8QkMM+FlzoarLY9ugnap8EoORpsFwD/w6mV3DJUCMKqkAQb5y/wodfUFjAUerZEwUCNquDEI9fUPrRgdhRaRvAmmMEO9ZMwI0C2+6MhAPNbyrEF2cKL7A5u4f+14yGluVMGkQCBxEBhJ+FmIupb6Cic/a+XmeRqkQvSv94IbhYhQ==",
+    "Thread-Topic": "test docx pdf xlsx",
+    "Thread-Index": "AQHb6WMVPWaBMuD6HUyaagGPDDX3fA==",
+    "Accept-Language": "en-CA, en-SG, en-GB, en-US",
+    "Content-Language": "en-CA",
+    "X-MS-Has-Attach": "yes",
+    "X-MS-TNEF-Correlator": "",
+    "msip_labels": "",
+    "x-ms-exchange-messagesentrepresentingtype": "1",
+    "x-ms-traffictypediagnostic": "SEZPR01MB4922:EE_|TY1PPF1058C7DFC:EE_|BN2PEPF00004FC1:EE_|SEZPR01MB4663:EE_|SEZPR01MB4922:EE_",
+    "X-MS-Office365-Filtering-Correlation-Id": "336b97ef-2d7b-449b-c0af-08ddb77b28b4",
+    "X-Microsoft-Antispam-Untrusted": "BCL:0;ARA:14566002|1680799057|461199028|9000799050|5062599005|6072599003|6092099012|41001999006|19110799006|15030799003|15080799009|7092599006|8060799009|8062599006|12050799012|12121999007|9400799033|56899033|1602099012|7002799012|20055399003|4302099013|3412199025|440099028|40105399003|102099032|12091999003|19111999003|1710799026;",
+    "X-Microsoft-Antispam-Message-Info-Original": "dguwo7xMa45KoCtwWRtDl5Xp4RI+EIuyC9llNg95IWM1/hhP3HpWedYWtpNib3ljrmNtl9EmNwBQCD6Nb8fYGnYTZWtugvZ2KklX1Yh2fw42Qc+ljWYmQwc/B5ETUKnu/rAqDvJaetxkD774MW+S/2cck74NPPblXnaVvVaAvROCP5vrewUugRt45G+B7nyHWKcQCeRmSZ5GYIN+gpuVbyHgTgJOPs4ckODgGQ/rWjnw+uZN/5pT0R8vo6zLGvdAK+toAyahbOKHsS6BUKszgoA4oV2FjJ3O7OAxnJK9Ms0R+Mqygab2PrlTgetrWNkcsZ9QxEvfU9RN/4XYYW5FlEf717XJ04dcyAPitvIFsSwBpkaVyu+fab9D3KTTA9CDPx0U3H7DzTwg340VVdsvKw5kUMQ94dJnGx8rTwCSWRTUjdmZq8kNRAvicHVdbL1cTxamjY7FA10JkX16tR12wRTG/v6pxhXJMLpExQGvMess711TbWcMLSFmVTMVOZn6/x/57UTCP6His1Kt8yiyKPaUZ+qndwh6UsNiKQFEl00ZRPp6BpOLdumaTUGZNC/Z5IV3LxkL1k+vG8ZRn9/jlnvS18YOXXFvr9gvjVaYeGNOdJE5/Pq3eXvAQmLPN5SDRpHfFQOqtcPn6+TC42fmK96x0pZcq6nqLQvdcN4ByFnxNFPhC9kP4Tk7ee/jhLt74zIZn5buAd5R5D+F1j9UKJ6ehM29XM1H8tys0gyK8NNY9uvkfOF3jpALrUj1RZXUC14VBtucWaGp68lYrYZJFF4918l54f/Iv6K+qzIc2dawRRyGTS+hOVIrDR54B/NpdekqnPIPstaodgkJXrPp8HDLGFeXtm5wjfwvQqcvc7YLlvTku90WciEsdMoowLpsZZhVjlRXZzxKXSvv6NPfhVFAqIj2CsAD+Cs2xr02BRON6lBO39Y3Pl6v+nNQYYkIglnGc3fZD71IzmlYxvzzDexXkUK88+hQB5xvd7TihyipNEGPL8T6nBPsyQFPhplLrIuEI4+f50cyLubMQ5FnhfOCGZXkL9Otk8aVGX0ayxfuEfMjX0mZXz4o6dTNQi4Uyw7aHjk2S37wz/kZbRYJLrFDE5fkIn1MLKFG/NYRIJY1eS1aVn6CqheTljDP+/tj98Q8P4ZK7lztYmCKQfrerl0aauH5bnVKQFmUgLJwQci+VBZkgAn0IrAb/qUZpr3FaZSL2N1AI3guZu5sIga9FqthcGTjH/BuiVJzDGTnl0ExH9HjSDeMRiy9EJ8lyN5sJaeVMr1SaLxe/UlUnhwO5uHWiBOmrlUHdMaJP1w6f8ZEBkquCpijDKYDTLbBmuNqhycs38sx4Cd70KRQkhfFSA99k6i2ApxgDnLsnKpn5hg+lAwZ/nxEZQ0okIS+aEYE1rwuHnUwwxgp1Fc2BEsCbo7L9iVifIc1qXh0w409IhTxzyNnos3ULU27g30z2z3sqCwITfCvVaKMTP9VNQriSfgm4kKF5Ijqvvxs9f6ldG8HRW5NsrlR93h9eHyZKxkUSq2TlnYmvo6efGjGYihkO22Prat5iXCm1PelIREh4SVKROMqMyZmSrT8XE+F+RV/2P2DoCIP5+Al8hzBL+J7jQ==",
+    "X-MS-Exchange-AntiSpam-MessageData-Original-ChunkCount": "1",
+    "X-MS-Exchange-AntiSpam-MessageData-Original-0": "oly78PqoDnpXRhNofZanIIQGLimRkvDaLAk4JXDtUS2o+oQ4yLsYP4KvIBIRnpbafJeV6SYKunjZFgMfz2ujsiDyYR7hzigvoKFHzI6IIcHfY62w7ZXtxH/YlTpwfoTxnt7y29aezX2/g6xxD6KsyBQKE5RO/79T1G6zNFTGGpHULEgHBcuP9dQ6aENiKTltE51mN1D9SJvP4KMbGSsNr5nH59LW/SBrS7VS9Rywm/G+hkpO4AVE4nVDS0inW7a8FURS9fvx/n0bs2qWDul/CjjNEhc/VJeqtvLNZX8e3/+XXDgVFvRD5dAKnB/3UaEA7KzB22uMY5XPDXMNBI45RD1Ah0ZmcLKfuwgcee9qXvH65hi505W8hlQHYbjhrGBoRK0LWQ0l2EyEdrlo9A2pEr2lM7GWsYI2trMvvxC+V9COZocPslgK5VQDNARBw6kY6zKfK0NddogEUFFf963eMV7Grt9lbQPWew7DJRU++VIUVmrEOTzKxnUP3yAu8oRuIn0dsoDEc9u/PSnohaCqaN1h2fX51ZGZBRDDXPxmybWpduxXeiz7ZkjJMo/qg0s+Ib6ZjxhnXW2xRE4yrvX5rJ9zKRchi1ZpAY/HZmG39khihS28WKUtJKmKZGTrn+/ErBeMW6fIvJK0uhA62Fl648IbkuVVfJwAVp6WXNXLMf5Y4gVk/ffsHg0PdLuyOHJKXyCzD9MqjisA+ZXHg0UioRyNWeCGkmhKMLESwGwRl1wb+D5eHg+tJuJDDZWXXjQsP39/28ED9LJ63bMYCoWxHSvUEP9pta2bUo7QkH5sdRXOD3l6IFq3rlndABzF8XGr/SrAuYGWACfGvX8Mct1OU0bklwIffBsk276ZWAEBg77re/aFS5/YvnHAIEM+XioM4hCi5suP9PIcbXQSYohSH8Ek6QVX2WPhxu6hTmm3iaNyOtQbl4WQTqf0ghRyH6pBd8CT7uj2cD5A8Ytb5nlOwSkxLlztlc8E2aCK7exRJrp5qbT9uZ7H4lJGvjKrWDx2gKCGpqOyYm8is0c+lj2SDOPmECAj6Euq9A7iOGEfvzJoLQ3AA8uIz1SmB3Eqgb3Ck4cWb4gTTMPbpAIxK19Skt7eYrBijuQvy8Xwi7Vg0BbWiXyHd9j+BsArVkNXBJtmgD/lyApx0TA++WVnXeWw9Z0n4auBlPHcSkfrj78S0eiISKCSZf+Ibcgqiuj74MkA5H6BYBgU3zL9wAAxEwYZxfNKzpRMOlgjp6cyjl2yyRc=",
+    "Content-Type": "multipart/mixed; boundary=\"_009_SEZPR01MB492258399CE5154703B08503ED46ASEZPR01MB4922apcp_\"",
+    "X-MS-Exchange-Transport-CrossTenantHeadersStamped": "TY1PPF1058C7DFC",
+    "X-IncomingHeaderCount": "38",
+    "Return-Path": "alex.presto@outlook.com",
+    "X-MS-Exchange-Organization-ExpirationStartTime": "30 Jun 2025 02:09:34.8273 (UTC)",
+    "X-MS-Exchange-Organization-ExpirationStartTimeReason": "OriginalSubmit",
+    "X-MS-Exchange-Organization-ExpirationInterval": "1:00:00:00.0000000",
+    "X-MS-Exchange-Organization-ExpirationIntervalReason": "OriginalSubmit",
+    "X-MS-Exchange-Organization-Network-Message-Id": "336b97ef-2d7b-449b-c0af-08ddb77b28b4",
+    "X-EOPAttributedMessage": "0",
+    "X-EOPTenantAttributedMessage": "84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0",
+    "X-MS-Exchange-Organization-MessageDirectionality": "Incoming",
+    "X-MS-Exchange-Transport-CrossTenantHeadersStripped": "BN2PEPF00004FC1.namprd04.prod.outlook.com",
+    "X-MS-Exchange-Transport-CrossTenantHeadersPromoted": "BN2PEPF00004FC1.namprd04.prod.outlook.com",
+    "X-MS-PublicTrafficType": "Email",
+    "X-MS-Exchange-Organization-AuthSource": "BN2PEPF00004FC1.namprd04.prod.outlook.com",
+    "X-MS-Exchange-Organization-AuthAs": "Anonymous",
+    "X-MS-UserLastLogonTime": "6/30/2025 2:08:51 AM",
+    "X-MS-Office365-Filtering-Correlation-Id-Prvs": "7e15d3bc-09aa-4f7c-4e56-08ddb77b255e",
+    "X-MS-Exchange-EOPDirect": "true",
+    "X-Sender-IP": "52.103.43.77",
+    "X-SID-PRA": "ALEX.PRESTO@OUTLOOK.COM",
+    "X-SID-Result": "PASS",
+    "X-MS-Exchange-AtpMessageProperties": "SA|SL",
+    "X-MS-Exchange-Organization-SCL": "1",
+    "X-Microsoft-Antispam": "BCL:0;ARA:1444111002|19300799024|7140799003|9000799050|47200799021|58200799018|1680799057|13020799006|9400799033|461199028|6092099012|10300799035|56899033|1602099012|1370799030|1360799030|1380799030|13082799006|440099028|3412199025|4302099013|1710799026;",
+    "X-MS-Exchange-CrossTenant-OriginalArrivalTime": "30 Jun 2025 02:09:34.4478 (UTC)",
+    "X-MS-Exchange-CrossTenant-Network-Message-Id": "336b97ef-2d7b-449b-c0af-08ddb77b28b4",
+    "X-MS-Exchange-CrossTenant-Id": "84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa",
+    "X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg": "00000000-0000-0000-0000-000000000000",
+    "X-MS-Exchange-CrossTenant-rms-persistedconsumerorg": "00000000-0000-0000-0000-000000000000",
+    "X-MS-Exchange-CrossTenant-AuthSource": "BN2PEPF00004FC1.namprd04.prod.outlook.com",
+    "X-MS-Exchange-CrossTenant-AuthAs": "Anonymous",
+    "X-MS-Exchange-CrossTenant-FromEntityHeader": "Internet",
+    "X-MS-Exchange-Transport-EndToEndLatency": "00:01:39.7526225",
+    "X-MS-Exchange-Processed-By-BccFoldering": "15.20.8880.026",
+    "X-Microsoft-Antispam-Mailbox-Delivery": "\tucf:0;jmr:0;ex:0;auth:1;dest:I;OFR:SpamFilterPass;ENG:(5062000311)(920221119095)(90000117)(920221120095)(90013020)(91025020)(91040095)(9050020)(9060121)(9100341)(1000006)(944500132)(2008001181)(4810010)(4910033)(9920006)(9510006)(10105021)(9320005)(9230038)(120001)(1110175);",
+    "X-Message-Delivery": "Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0xO1NDTD0tMQ==",
+    "X-Microsoft-Antispam-Message-Info": "\t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",
+    "MIME-Version": "1.0"
+  },
+  "components": {
+    "text_files": 2,
+    "attachments": 3,
+    "inline_images": 2,
+    "excel_conversions": 2
+  },
+  "file_mappings": {
+    "attachments": [
+      {
+        "original": "7. EIC Governance Policies.pdf",
+        "secure": "7. EIC Governance Policies_20250701083312_58159a78.pdf",
+        "content_type": "application/pdf"
+      },
+      {
+        "original": "Reference - Out of Country.docx",
+        "secure": "Reference - Out of Country_20250701083312_58159a78_1.docx",
+        "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      },
+      {
+        "original": "May 2022 SALES.xlsx",
+        "secure": "May 2022 SALES_20250701083312_58159a78_2.xlsx",
+        "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      }
+    ],
+    "inline_images": [
+      {
+        "content_id": "024f1f60-a996-41d6-8ee6-b792c8ceed5e",
+        "original": "Outlook-rvqz1y2f.png",
+        "secure": "Outlook-rvqz1y2f_20250701083312_58159a78.png"
+      },
+      {
+        "content_id": "ae0249b2-9394-4bd6-a0c1-34ca21e3c99a",
+        "original": "Outlook-hnabvwv3.png",
+        "secure": "Outlook-hnabvwv3_20250701083312_58159a78_1.png"
+      }
+    ],
+    "excel_conversions": [
+      {
+        "source": "May 2022 SALES_20250701083312_58159a78_2.xlsx",
+        "sheet": "SUMMARY",
+        "csv": "May 2022 SALES_20250701083312_58159a78_2_SUMMARY.csv"
+      },
+      {
+        "source": "May 2022 SALES_20250701083312_58159a78_2.xlsx",
+        "sheet": "Billable",
+        "csv": "May 2022 SALES_20250701083312_58159a78_2_Billable.csv"
+      }
+    ]
+  },
+  "position_map": {
+    "attachment_0": {
+      "type": "attachment",
+      "filename": "7. EIC Governance Policies_20250701083312_58159a78.pdf",
+      "original_filename": "7. EIC Governance Policies.pdf",
+      "path": "/mnt/d/Users/alexp/dev/email-parser/final_test_validation/cli_test/attachments/7. EIC Governance Policies_20250701083312_58159a78.pdf"
+    },
+    "attachment_1": {
+      "type": "attachment",
+      "filename": "Reference - Out of Country_20250701083312_58159a78_1.docx",
+      "original_filename": "Reference - Out of Country.docx",
+      "path": "/mnt/d/Users/alexp/dev/email-parser/final_test_validation/cli_test/attachments/Reference - Out of Country_20250701083312_58159a78_1.docx"
+    },
+    "attachment_2": {
+      "type": "attachment",
+      "filename": "May 2022 SALES_20250701083312_58159a78_2.xlsx",
+      "original_filename": "May 2022 SALES.xlsx",
+      "path": "/mnt/d/Users/alexp/dev/email-parser/final_test_validation/cli_test/attachments/May 2022 SALES_20250701083312_58159a78_2.xlsx"
+    },
+    "inline_0": {
+      "type": "inline_image",
+      "filename": "Outlook-rvqz1y2f_20250701083312_58159a78.png",
+      "content_id": "024f1f60-a996-41d6-8ee6-b792c8ceed5e",
+      "path": "/mnt/d/Users/alexp/dev/email-parser/final_test_validation/cli_test/inline_images/Outlook-rvqz1y2f_20250701083312_58159a78.png"
+    },
+    "inline_1": {
+      "type": "inline_image",
+      "filename": "Outlook-hnabvwv3_20250701083312_58159a78_1.png",
+      "content_id": "ae0249b2-9394-4bd6-a0c1-34ca21e3c99a",
+      "path": "/mnt/d/Users/alexp/dev/email-parser/final_test_validation/cli_test/inline_images/Outlook-hnabvwv3_20250701083312_58159a78_1.png"
+    }
+  }
+}

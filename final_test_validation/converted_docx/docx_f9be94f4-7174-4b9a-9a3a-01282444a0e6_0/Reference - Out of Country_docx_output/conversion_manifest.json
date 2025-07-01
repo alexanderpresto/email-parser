@@ -1,0 +1,56 @@
+{
+  "source_file": "/mnt/d/Users/alexp/dev/email-parser/final_test_validation/attachments/Reference - Out of Country_20250701083213_bfd8a8f3.docx",
+  "conversion_time": null,
+  "main_output": "/mnt/d/Users/alexp/dev/email-parser/final_test_validation/converted_docx/docx_f9be94f4-7174-4b9a-9a3a-01282444a0e6_0/Reference - Out of Country.md",
+  "output_directory": "/mnt/d/Users/alexp/dev/email-parser/final_test_validation/converted_docx/docx_f9be94f4-7174-4b9a-9a3a-01282444a0e6_0/Reference - Out of Country_docx_output",
+  "features_used": {
+    "enhanced_metadata": true,
+    "style_extraction": true,
+    "image_extraction": true,
+    "chunking": true
+  },
+  "metadata": {
+    "title": null,
+    "subject": null,
+    "author": "Moira Cole",
+    "keywords": null,
+    "description": null,
+    "last_modified_by": "Christine Sim",
+    "revision": 2,
+    "version": null,
+    "created": "2020-02-11T00:42:00+00:00",
+    "modified": "2020-02-11T00:42:00+00:00",
+    "last_printed": null,
+    "word_count": 429,
+    "character_count": 2550,
+    "paragraph_count": 17,
+    "page_count": null,
+    "line_count": null,
+    "table_count": 1,
+    "image_count": 1,
+    "category": null,
+    "content_status": null,
+    "language": null,
+    "company": null,
+    "manager": null,
+    "custom_properties": null,
+    "has_track_changes": false,
+    "has_comments": false,
+    "protection_type": null
+  },
+  "metadata_analysis": {
+    "summary": {
+      "document_age_days": 1967,
+      "last_modified_days": 1967
+    },
+    "warnings": [
+      "Document hasn't been updated in over 6 months"
+    ],
+    "insights": [
+      "Document is over 5 year(s) old",
+      "Document has been modified by someone other than the original author"
+    ]
+  },
+  "chunks_count": 6,
+  "images_count": 2
+}

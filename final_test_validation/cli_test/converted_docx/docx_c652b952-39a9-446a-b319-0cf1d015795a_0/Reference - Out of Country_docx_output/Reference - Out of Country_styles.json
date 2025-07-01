@@ -1,0 +1,37 @@
+{
+  "Heading1": {
+    "font": {
+      "name": "FrizQuadrata BT",
+      "size": 24.0,
+      "bold": true,
+      "italic": true
+    },
+    "paragraph": {
+      "indent_right": -79.2,
+      "keep_with_next": true
+    },
+    "type": "paragraph",
+    "name": "Heading 1"
+  },
+  "Normal": {
+    "font": {
+      "name": "MS Sans Serif",
+      "size": 10.0
+    },
+    "paragraph": {
+      "line_spacing": 1.0
+    },
+    "type": "paragraph",
+    "name": "Normal"
+  },
+  "DefaultParagraphFont": {
+    "font": {},
+    "type": "character",
+    "name": "Default Paragraph Font"
+  },
+  "TableGrid": {
+    "font": {},
+    "type": "table",
+    "name": "Table Grid"
+  }
+}

@@ -22,7 +22,7 @@ This documentation covers the Email Parser project, an enterprise-grade system d
   - [Product Requirements Document](requirements/product_requirements_document.md)
   - [Project Plan & Phasing](requirements/project_plan_and_phasing.md)
   - [Technical Specification](requirements/technical_specification_document.md)
-- [Project Specification](specs/project_specification.md): Formal project requirements and technical specifications
+- [Project Specifications](specifications/): Formal project requirements and technical specifications with version history
 
 ## What's New in Version 2.2.0
 

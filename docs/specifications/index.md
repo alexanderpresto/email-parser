@@ -2,10 +2,14 @@
 
 This directory contains the formal specifications for the Email Parser project.
 
-## Available Specifications
+## Current Specification
 
 - [Project Specification v1.1.0](project_specification_v1.1.0.md) - Current version (Last updated: 2025-03-16)
-- [Project Specification v1.0.0](project_specification_v1.0.0.md) - Original version (Created: 2025-02-25)
+
+## Archived Versions
+
+Previous versions are preserved in the [archive](archive/) directory:
+- [Project Specification v1.0.0](archive/project_specification_v1.0.0.md) - Original version (Created: 2025-02-25)
 
 ## Version History
 

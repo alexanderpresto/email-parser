@@ -18,11 +18,10 @@ This documentation covers the Email Parser project, an enterprise-grade system d
 - [API Documentation](api/index.md): Technical API references
 - [Implementation Guide](implementation/index.md): Internal technical documentation
 - [Examples](examples/index.md): Usage examples for common scenarios
-- [Project Requirements](requirements/): Comprehensive project requirements
+- [Project Requirements](requirements/): Comprehensive project requirements and specifications
   - [Product Requirements Document](requirements/product_requirements_document.md)
   - [Project Plan & Phasing](requirements/project_plan_and_phasing.md)
   - [Technical Specification](requirements/technical_specification_document.md)
-- [Project Specifications](specifications/): Formal project requirements and technical specifications with version history
 
 ## What's New in Version 2.2.0
 

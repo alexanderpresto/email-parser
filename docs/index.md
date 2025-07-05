@@ -7,7 +7,9 @@ Enterprise-grade email processing system with MIME parsing, PDF to Markdown conv
 This documentation covers the Email Parser project, an enterprise-grade system designed for processing emails with a focus on:
 - MIME parsing
 - PDF to Markdown conversion using MistralAI OCR
+- DOCX to Markdown conversion with AI-ready features
 - Excel to CSV conversion
+- Gemini CLI integration for intelligent analysis (Claude Code environments)
 - Security implementation
 - Performance optimization
 
@@ -65,7 +67,12 @@ Please refer to the README.md file in the project root for installation and basi
 2. Create and activate a virtual environment
 3. Install dependencies: `pip install -r requirements.txt`
 4. Set up MistralAI API key: `export MISTRALAI_API_KEY="your-key"`
-5. Run basic example: `python examples/basic_parsing.py`
+5. Optional: Set up Gemini CLI: `pip install gemini-cli && export GEMINI_API_KEY="your-key"`
+6. Run basic example: `python examples/basic_parsing.py`
+
+**Note**: For detailed, platform-specific setup instructions, see:
+- [CLAUDE.md](../CLAUDE.md) - Claude Code (WSL2/Linux) instructions
+- [CLAUDE-DESKTOP.md](../CLAUDE-DESKTOP.md) - Claude Desktop (Windows) instructions
 
 ## Key Features
 
@@ -77,6 +84,10 @@ Please refer to the README.md file in the project root for installation and basi
   - Style preservation with CSS/JSON output
   - Advanced image extraction with quality control
 - **Excel Conversion**: Automatically convert Excel files to CSV format
+- **Gemini CLI Integration**: Intelligent analysis of large files (>100KB) and advanced processing
+  - Automatic delegation for complex tasks and large file analysis
+  - Advanced business intelligence extraction
+  - Available in Claude Code environments (WSL2/Linux)
 - **Security**: Built-in protection against common attack vectors
 - **Performance**: Optimized for high-volume processing with caching and parallelization
 - **Flexibility**: Configurable processing pipeline for custom workflows

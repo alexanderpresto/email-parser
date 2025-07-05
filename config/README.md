@@ -20,9 +20,13 @@ The configuration system follows a hierarchy:
 To create local configuration overrides:
 
 ```bash
+# Claude Code (WSL2/Linux):
 mkdir -p config/local
 cp config/default.yaml config/local/my-config.yaml
 # Edit config/local/my-config.yaml as needed
+
+# Claude Desktop (Windows):
+wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && mkdir -p config/local && cp config/default.yaml config/local/my-config.yaml"
 ```
 
 Local configuration files are ignored by git to prevent accidental commits of sensitive data.

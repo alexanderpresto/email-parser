@@ -4,7 +4,25 @@
 
 **This production-ready project REQUIRES virtual environment activation for ALL Python work.**
 
-### Production Environment Checklist
+## 📋 Platform-Specific Setup Instructions
+
+**IMPORTANT**: Choose the correct setup based on your development environment:
+
+### 🐧 **Claude Code (WSL2/Linux)**
+If you're using Claude Code and running IN WSL2/Ubuntu environment:
+- **See**: [CLAUDE.md](CLAUDE.md) for complete setup instructions
+- Uses native Linux commands directly (no WSL prefix)
+
+### 🪟 **Claude Desktop (Windows)**  
+If you're using Claude Desktop on Windows 11 accessing WSL2:
+- **See**: [CLAUDE-DESKTOP.md](CLAUDE-DESKTOP.md) for complete setup instructions
+- All commands use `wsl -d Ubuntu-24.04` prefix
+
+**Quick Check**: Your environment platform determines which setup to follow:
+- Platform: `linux` → Follow [CLAUDE.md](CLAUDE.md) setup
+- Platform: `win32` → Follow [CLAUDE-DESKTOP.md](CLAUDE-DESKTOP.md) setup
+
+## Production Environment Checklist
 
 Before ANY Python work on this production system:
 1. ✅ Virtual environment exists (`email-parser-env` folder present)
@@ -12,163 +30,106 @@ Before ANY Python work on this production system:
 3. ✅ Correct Python interpreter is active (run verification command below)
 4. ✅ All production dependencies installed and up to date
 
-### Initial Setup (One-time)
+## Universal Setup Steps (All Platforms)
 
-#### Windows PowerShell Setup
-
-```powershell
-# Navigate to project directory
-cd "D:\Users\alexp\dev\email-parser"  # Update with your actual path
-
-# Create virtual environment if not exists
-python -m venv email-parser-env
-
-# MANDATORY: Activate virtual environment
-.\email-parser-env\Scripts\Activate.ps1
-
-# Verify activation (MUST show True)
-python -c "import sys; print('Virtual env active:', 'email-parser-env' in sys.prefix)"
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Install package in development mode
-pip install -e .
-```
-
-### Linux/Mac/WSL2 Setup
-
-```bash
-# Navigate to project directory
-cd /path/to/email-parser  # Use your actual project path
-
-# Create virtual environment
-python -m venv email-parser-env
-
-# Activate virtual environment
-source email-parser-env/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Install package in development mode
-pip install -e .
-```
+### Project Location
+- **WSL2 Path**: `/home/alexp/dev/email-parser`
+- **Windows Access** (for Claude Desktop): `\\wsl.localhost\Ubuntu-24.04\home\alexp\dev\email-parser`
 
 ### MistralAI API Setup (Required for PDF Conversion)
 
-The PDF to Markdown conversion feature requires a MistralAI API key.
+The PDF to Markdown conversion feature requires a MistralAI API key:
 
-#### Windows PowerShell
-```powershell
-# Set for current session
-$env:MISTRALAI_API_KEY = "your-api-key-here"
-
-# Set permanently for user
-[Environment]::SetEnvironmentVariable("MISTRALAI_API_KEY", "your-api-key-here", "User")
-```
-
-#### Windows Command Prompt
-```cmd
-# Set for current session
-set MISTRALAI_API_KEY=your-api-key-here
-
-# Set permanently
-setx MISTRALAI_API_KEY "your-api-key-here"
-```
-
-#### Linux/Mac
 ```bash
-# Set for current session
+# Set as environment variable (Linux/WSL2)
 export MISTRALAI_API_KEY="your-api-key-here"
 
-# Add to ~/.bashrc or ~/.zshrc for permanent setting
+# Add to ~/.bashrc for permanent setting
 echo 'export MISTRALAI_API_KEY="your-api-key-here"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-### Daily Development Workflow
+### Gemini CLI Setup (Optional, Enhanced Analysis)
+
+For intelligent analysis of large email processing outputs (>100KB), optionally install Gemini CLI:
+
+**Platform Availability:**
+- ✅ **Claude Code (WSL2/Linux)**: Full Gemini CLI support via Bash tool
+- ❌ **Claude Desktop (Windows)**: Not available due to terminal compatibility limitations
+
+**Installation (WSL2/Linux only):**
+
+```bash
+# Install Gemini CLI
+pip install gemini-cli
+
+# Set up Gemini API key
+export GEMINI_API_KEY="your-gemini-api-key-here"
+
+# Add to ~/.bashrc for permanent setting
+echo 'export GEMINI_API_KEY="your-gemini-api-key-here"' >> ~/.bashrc
+source ~/.bashrc
+
+# Verify installation
+gemini --version
+```
+
+**Integration with Email Parser:**
+The system automatically routes large files to Gemini CLI for analysis when available, enabling:
+- Smart analysis of large email content files (>100KB)
+- Advanced business intelligence extraction from attachments
+- Autonomous delegation for complex processing tasks
+
+### Verification Commands
+
+To verify the setup is working (adapt command format to your platform):
+
+```bash
+# Basic imports check
+python -c "import email_parser; print('Email Parser: Success!')"
+python -c "import mistralai; print('MistralAI: Success!')"
+
+# Help command
+python -m email_parser --help
+
+# API key verification
+python -c "import os; print('MistralAI API Key set:', bool(os.environ.get('MISTRALAI_API_KEY')))"
+python -c "import os; print('Gemini API Key set:', bool(os.environ.get('GEMINI_API_KEY')))"
+
+# Gemini CLI verification (WSL2/Linux only)
+gemini --version  # Should show version if installed
+```
+
+## Daily Development Workflow
 
 **🔴 NEVER run Python commands without virtual environment active!**
 
-#### Windows PowerShell Daily Workflow
+### Essential Steps (All Platforms)
+1. Navigate to project directory: `/home/alexp/dev/email-parser`
+2. **MANDATORY**: Activate virtual environment: `source email-parser-env/bin/activate`
+3. Verify activation shows `(email-parser-env)` in prompt
+4. Run your development commands
+5. Deactivate when done (optional): `deactivate`
 
-```powershell
-# STEP 1: Navigate to project directory
-cd "D:\Users\alexp\dev\email-parser"  # Update with your actual path
+**Note**: Command format varies by platform - see platform-specific instruction files for exact syntax.
 
-# STEP 2: MANDATORY - Activate virtual environment
-.\email-parser-env\Scripts\Activate.ps1
-
-# STEP 3: Verify activation (MUST show True)
-python -c "import sys; print('Virtual env active:', 'email-parser-env' in sys.prefix)"
-
-# STEP 4: Verify MistralAI API key is set (optional)
-python -c "import os; print('API Key set:', bool(os.environ.get('MISTRALAI_API_KEY')))"
-
-# Now you can safely run Python commands:
-# - pytest
-# - python -m email_parser ...
-# - Any development tasks
-
-# When done, deactivate (optional)
-deactivate
-```
-
-### Linux/Mac/WSL2 Daily Workflow
-
-```bash
-# Navigate to project directory
-cd /path/to/email-parser  # Use your actual project path
-
-# Activate virtual environment
-source email-parser-env/bin/activate
-
-# Verify MistralAI API key is set (optional)
-python -c "import os; print('API Key set:', bool(os.environ.get('MISTRALAI_API_KEY')))"
-
-# Your virtual environment is now active!
-# Run tests, development commands, etc.
-
-# When done, deactivate (optional)
-deactivate
-```
-
-### Verification
-
-To verify the setup is working:
-
-```powershell
-# With virtual environment activated
-python -c "import email_parser; print('Email Parser: Success!')"
-python -c "import mistralai; print('MistralAI: Success!')"
-python -m email_parser --help
-
-# Test basic functionality (requires API key for PDF conversion)
-python -c "import os; print('API Key set:', bool(os.environ.get('MISTRALAI_API_KEY')))"
-```
+## Testing & Quality
 
 ### Running Tests
-
-```powershell
+```bash
 # Run all tests
 pytest
 
-# Run specific test categories
+# Run specific test categories  
 pytest tests/unit/
 pytest tests/integration/
-pytest tests/test_pdf_converter.py
 
 # Run with coverage
 pytest --cov=email_parser
-
-# Run PDF-specific tests
-pytest tests/unit/test_pdf_converter.py -v
 ```
 
 ### Development Tools
-
-```powershell
+```bash
 # Format code with Black
 black email_parser tests
 
@@ -182,90 +143,58 @@ mypy email_parser
 bandit -r email_parser
 ```
 
-### Common Issues
+**Note**: Above commands show the Linux format. Adapt to your platform using the appropriate instruction file.
 
-#### Issue: MistralAI API Key Not Found
+## Common Issues & Solutions
+
+### Issue: MistralAI API Key Not Found
 ```
 Error: MISTRALAI_API_KEY environment variable not set
 ```
 **Solution**: Set the environment variable as shown above.
 
-#### Issue: Module Import Errors
+### Issue: Module Import Errors
 ```
 ImportError: No module named 'mistralai'
 ```
-**Solution**: Ensure you've activated the virtual environment and run `pip install -r requirements.txt`
+**Solution**: Ensure virtual environment is activated and dependencies installed.
 
-#### Issue: Permission Denied on Activation
+### Issue: Wrong Command Format
 ```
-cannot be loaded because running scripts is disabled on this system
+Command not found or permission denied
 ```
-**Solution**: Run PowerShell as Administrator and execute:
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
-
-### Notes
-
-- Always activate the virtual environment before development work
-- The virtual environment directory (`email-parser-env/`) is git-ignored
-- Dependencies are managed in `requirements.txt` and `pyproject.toml`
-- PDF conversion features require the MistralAI API key to be set
-- Cache directory (`.cache/pdf/`) is created automatically and is git-ignored
+**Solution**: Use platform-appropriate command format from your instruction file.
 
 ## Archival Protocol (Development)
 
 **CRITICAL**: Never overwrite existing files. Always archive before modification.
 
-### Archival Rules for Development
-
+### Universal Archival Rules
 1. **Before any file modification**: Archive to `archive/filename_YYYY-MM-DD.ext`
 2. **Multiple archives same day**: Use incremental numbering `filename_YYYY-MM-DD_001.ext`
 3. **Deprecated files**: Move to `archive/del_filename_YYYY-MM-DD.ext`
 4. **Never overwrite archives**: Check for existing files and increment counter
 
-### Efficient Archival Method
+### Platform-Specific Archival Commands
 
-Use native file system operations for maximum efficiency:
+**See your platform-specific instruction file for exact archival command syntax:**
+- **WSL2/Linux**: Native `cp` commands
+- **Windows**: WSL-prefixed commands
 
-#### Windows PowerShell
-```powershell
-# Check for existing archives
-ls archive/
+## Benefits of Platform-Specific Approach
 
-# Copy file using native PowerShell (zero token transmission!)
-Copy-Item -Path "email_parser\core\email_processor.py" `
-          -Destination "archive\email_processor_2025-06-22.py"
+- ✅ **Clear command format** for each environment
+- ✅ **No command confusion** between platforms  
+- ✅ **Platform-optimized workflows**
+- ✅ **Reduced errors** from wrong command syntax
+- ✅ **Context-appropriate instructions**
 
-# Make targeted edits after archiving
-# Edit specific sections of the file
-```
+## Next Steps
 
-#### Linux/Mac/WSL2
-```bash
-# Check for existing archives
-ls archive/
+1. **Identify your platform** (linux vs win32)
+2. **Open the correct instruction file** ([CLAUDE.md](CLAUDE.md) or [CLAUDE-DESKTOP.md](CLAUDE-DESKTOP.md))
+3. **Follow platform-specific setup** and daily workflow
+4. **Refer back to this file** for universal concepts and troubleshooting
 
-# Copy file using native bash (zero token transmission!)
-cp email_parser/core/email_processor.py archive/email_processor_2025-06-22.py
-
-# Make targeted edits after archiving
-# Edit specific sections of the file
-```
-
-### Benefits of Native Copy Method
-
-- ✅ **Zero token transmission** for file content
-- ✅ **Native file system operation** (fastest possible)
-- ✅ **Handles large files effortlessly**
-- ✅ **Preserves all file attributes**
-- ✅ **Creates archive copy** before modifications
-- ✅ **Platform-agnostic approach**
-
-### Example Development Workflow
-
-1. Check for existing archives: `ls archive/filename_*`
-2. Archive current version: `Copy-Item` or `cp` command
-3. Make targeted modifications to the original file
-4. Test changes thoroughly
-5. Document changes in project notes
+---
+**Remember**: The instruction files contain the complete, platform-specific command sequences. This file provides the conceptual framework that applies to all platforms.

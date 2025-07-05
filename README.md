@@ -29,7 +29,7 @@ All features on the main branch are production ready and fully tested:
 
 ## Overview
 
-This library provides a comprehensive solution for parsing and processing emails in enterprise environments with high volume requirements. It handles complex MIME structures, extracts all components (text, HTML, attachments, inline images), converts PDFs to searchable Markdown using MistralAI OCR, and ensures secure processing throughout.
+This library provides a comprehensive solution for parsing and processing emails in enterprise environments with high volume requirements. It handles complex MIME structures, extracts all components (text, HTML, attachments, inline images), converts PDFs to searchable Markdown using MistralAI OCR, and ensures secure processing throughout. **Features Gemini CLI integration for intelligent analysis of large email processing outputs and advanced business intelligence extraction.**
 
 ### ✅ Production Features
 
@@ -41,6 +41,9 @@ This library provides a comprehensive solution for parsing and processing emails
 - ✅ **Style preservation system** - CSS and JSON output with formatting preservation
 - ✅ **Advanced image extraction** - Quality control and deduplication for DOCX files
 - ✅ **Comments and revision tracking** extraction from Word documents
+- ✅ **Gemini CLI integration** - Intelligent analysis of large email processing outputs (>100KB)
+- ✅ **Autonomous file routing** - Automatic delegation to Gemini for complex analysis tasks
+- ✅ **Advanced business intelligence** - Email pattern recognition and compliance scanning
 - Automatic Excel to CSV conversion capability
 - Secure file handling with protection against common attack vectors
 - Support for multiple encodings (UTF-8, UTF-16, ASCII, ISO-8859, Base64, etc.) with automatic encoding detection
@@ -61,6 +64,23 @@ This library provides a comprehensive solution for parsing and processing emails
 - Python 3.12.9 or higher
 - Virtual environment (required for development)
 - MistralAI API key (for PDF conversion)
+- Gemini CLI (optional, for advanced analysis of large files >100KB)
+
+### 📋 Development Instructions
+
+**IMPORTANT**: Choose the correct instruction set for your development environment:
+
+#### 🐧 **Claude Code (WSL2/Linux)**
+If you're using Claude Code and running IN WSL2/Ubuntu environment:
+- **See**: [CLAUDE.md](CLAUDE.md) - Native Linux commands, no WSL prefix needed
+
+#### 🪟 **Claude Desktop (Windows)**
+If you're using Claude Desktop on Windows 11 accessing WSL2:
+- **See**: [CLAUDE-DESKTOP.md](CLAUDE-DESKTOP.md) - All commands use `wsl -d Ubuntu-24.04` prefix
+
+**Quick Check**: Your environment platform determines which instructions to use:
+- Platform: `linux` → Use [CLAUDE.md](CLAUDE.md)
+- Platform: `win32` → Use [CLAUDE-DESKTOP.md](CLAUDE-DESKTOP.md)
 
 ### Development Setup
 
@@ -102,6 +122,41 @@ For PDF to Markdown conversion, you'll need a MistralAI API key:
 export MISTRALAI_API_KEY="your-api-key-here"  # Linux/Mac
 set MISTRALAI_API_KEY=your-api-key-here       # Windows PowerShell
 ```
+
+### Gemini CLI Setup (Optional)
+
+For intelligent analysis of large email processing outputs (>100KB), you can optionally install Gemini CLI:
+
+**Platform Availability:**
+- ✅ **Claude Code (WSL2/Linux)**: Full Gemini CLI support
+- ❌ **Claude Desktop (Windows)**: Not available due to terminal compatibility limitations
+
+**Installation and Setup:**
+
+```bash
+# WSL2/Linux installation
+pip install gemini-cli
+
+# Set up Gemini API key
+export GEMINI_API_KEY="your-gemini-api-key-here"
+
+# Verify installation
+gemini --version
+```
+
+**Email Processing Integration:**
+
+The email parser automatically routes large files to Gemini CLI when available:
+
+```bash
+# Analyze large email content files (Claude Code only)
+cat /home/alexp/dev/email-parser/output/processed_text/large_email.txt | gemini -p "extract key information and summarize email contents"
+
+# Process complex attachment analysis
+cat output/converted_pdf/document.md | gemini -m gemini-2.0-flash-thinking-exp -p "analyze document structure and extract business intelligence"
+```
+
+For detailed Gemini CLI integration instructions, see [CLAUDE.md](CLAUDE.md).
 
 ## Quick Start
 
@@ -501,9 +556,10 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for gui
 ### Development Workflow
 
 1. **Environment**: Always activate virtual environment before development
-2. **Archival**: Archive existing files before modifications (see `project-instructions.md`)
-3. **Testing**: Run tests before committing changes
-4. **Documentation**: Update relevant documentation with changes
+2. **Instructions**: Follow platform-specific instructions ([CLAUDE.md](CLAUDE.md) for WSL2/Linux, [CLAUDE-DESKTOP.md](CLAUDE-DESKTOP.md) for Windows)
+3. **Archival**: Archive existing files before modifications
+4. **Testing**: Run tests before committing changes
+5. **Documentation**: Update relevant documentation with changes
 
 ## License
 

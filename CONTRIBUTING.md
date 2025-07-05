@@ -69,27 +69,77 @@ We actively welcome pull requests:
 
 ## Development Environment Setup
 
+### 📋 Platform-Specific Setup Instructions
+
+**IMPORTANT**: Choose the correct setup based on your development environment:
+
+#### 🐧 **Claude Code (WSL2/Linux)**
+If you're using Claude Code and running IN WSL2/Ubuntu environment:
+- **See**: [CLAUDE.md](CLAUDE.md) for complete setup and workflow instructions
+- Uses native Linux commands directly (no WSL prefix)
+
+#### 🪟 **Claude Desktop (Windows)**  
+If you're using Claude Desktop on Windows 11 accessing WSL2:
+- **See**: [CLAUDE-DESKTOP.md](CLAUDE-DESKTOP.md) for complete setup and workflow instructions  
+- All commands use `wsl -d Ubuntu-24.04` prefix
+
+#### Universal Setup Steps
+
 ```bash
 # Fork and clone the repository
 git clone https://github.com/alexanderpresto/email-parser.git
 cd email-parser
 
-# Option 1: Create development environment with Anaconda
-conda env create -f environment.yml
-conda activate email-parser-dev
+# Create virtual environment (MANDATORY)
+python -m venv email-parser-env
 
-# Option 2: Create development environment with pip
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+# Activate virtual environment (format varies by platform)
+# See platform-specific instruction files for exact syntax
+
+# Install dependencies
 pip install -r requirements.txt
 
-# Install for development
-pip install -e ".[dev,test,docs]"
+# Install for development  
+pip install -e .
+
+# Optional: Set up Gemini CLI for enhanced analysis (Claude Code only)
+pip install gemini-cli
+export GEMINI_API_KEY="your-gemini-api-key-here"
 ```
+
+**Note**: Command format varies by platform. See platform-specific instruction files for exact syntax.
+
+#### Gemini CLI Integration (Optional)
+
+For contributions involving large file analysis or advanced processing:
+
+**Platform Support:**
+- ✅ **Claude Code (WSL2/Linux)**: Full Gemini CLI support
+- ❌ **Claude Desktop (Windows)**: Not available due to terminal compatibility
+
+**Setup for Contributors (Claude Code only):**
+```bash
+# Install Gemini CLI
+pip install gemini-cli
+
+# Set up API key
+export GEMINI_API_KEY="your-api-key-here"
+
+# Verify installation
+gemini --version
+```
+
+**Integration Guidelines:**
+- Use Gemini CLI for processing files >100KB
+- Document any Gemini-dependent features clearly
+- Ensure fallback behavior when Gemini CLI is unavailable
+- Test contributions in both environments (with/without Gemini CLI)
 
 ## Development Workflow
 
 ### Running Tests
+
+**Commands shown in WSL2/Linux format. For Windows, see [CLAUDE-DESKTOP.md](CLAUDE-DESKTOP.md).**
 
 ```bash
 # Run the full test suite
@@ -112,7 +162,7 @@ All code must:
 - Pass security checks with Bandit
 - Have appropriate docstrings in the Google format
 
-Automated tools:
+Automated tools (WSL2/Linux format):
 
 ```bash
 # Format code

@@ -1,30 +1,10 @@
-# CLAUDE.md - Email Parser Project Instructions (Claude Code/WSL2)
+# CLAUDE.md - Email Parser Project Instructions
 
-Single source of truth for Email Parser project when using Claude Code in WSL2/Ubuntu environment.
-
-**Platform**: `linux` (WSL2/Ubuntu environment)  
-**Context**: You are running IN WSL2 - use native Linux commands directly  
-**Key Rule**: NO WSL prefix needed - you're already in the Linux environment
+**Project-Specific Instructions**: This file contains only email parser project-specific instructions. Universal WSL2 development patterns are maintained in `~/.claude/CLAUDE.md`.
 
 ## Cross-Reference
 
 For Claude Desktop (Windows), see: [CLAUDE-DESKTOP.md](CLAUDE-DESKTOP.md)
-
-**IMPORTANT**: This file is for Claude Code (WSL2/Linux) ONLY. If you're running on Windows (platform: win32), use CLAUDE-DESKTOP.md instead.
-
-## Memory System Overview
-
-**Basic-Memory**: Claude's persistent memory system enabling conversation continuity across:
-
-- **Time Spans**: Access context from days, weeks, months, or years ago
-- **Session Boundaries**: Bridge disconnected conversations seamlessly
-- **Context Windows**: Retrieve information beyond current conversation limits
-
-**Primary Commands**:
-
-- `build_context("memory://email-parser/*")` - Load historical project context
-- `recent_activity("1 week")` - Review recent work and decisions
-- `search_notes("query")` - Find specific past discussions or solutions
 
 ## Critical Setup
 
@@ -35,8 +15,6 @@ get_current_project() → IF ≠ "dev" → switch_project("dev")
 # Production main branch (no feature branches needed)
 git branch --show-current  # Should show: main
 
-# All Phase 2 features merged and production ready
-
 # Project Location:
 Project Path: /home/alexp/dev/email-parser
 Virtual Environment: /home/alexp/dev/email-parser/email-parser-env
@@ -45,38 +23,17 @@ Virtual Environment: /home/alexp/dev/email-parser/email-parser-env
 ## Quick Reference
 
 ```bash
-# Memory: recent_activity("1 week"), search_notes("query"), build_context("memory://email-parser/*")
+# Memory: build_context("memory://email-parser/*")
 # Time: mcp-server-time:get_current_time("America/Winnipeg")
 # Obsidian: Use `obsidian` MCP tool with vault="dev" for ALL PROJECT DOCUMENTATION
 
-# ALWAYS activate venv before Python work:
-source /home/alexp/dev/email-parser/email-parser-env/bin/activate
+# ALWAYS activate venv before Python work (Windows-style venv in WSL2):
+source /home/alexp/dev/email-parser/email-parser-env/Scripts/activate
 ```
 
-## Gemini CLI Availability
-
-**CRITICAL CAPABILITY**: Gemini CLI is FULLY FUNCTIONAL in Claude Code (WSL2/Linux environment)
-
-### Platform Support Status
-
-1. **Claude Code (WSL2/Ubuntu)** ✅
-   - FULL Gemini CLI functionality via Bash tool
-   - Accessible via native WSL2 installation
-   - All Gemini features work correctly for email processing tasks
-   - Perfect for large email file analysis and PDF/DOCX content processing
-
-2. **Claude Desktop (Windows 11)** ❌
-   - Gemini CLI cannot be executed via desktop-commander
-   - Terminal compatibility limitations prevent Gemini usage
-   - **Solution**: Use Claude Code for all Gemini CLI operations
-
-### Direct Gemini CLI Usage for Email Processing
+## Email-Specific Gemini CLI Usage
 
 ```bash
-# VERIFIED WORKING SYNTAX (Gemini CLI v0.1.9+):
-# Default model: gemini-2.5-pro
-# Use -p flag for prompts, pipe input via cat or echo
-
 # Analyze large email content files
 cat /home/alexp/dev/email-parser/output/processed_text/large_email.txt | gemini -p "extract key information and summarize email contents"
 
@@ -93,37 +50,19 @@ cat /home/alexp/dev/email-parser/output/metadata.json | gemini -p "identify emai
 cat large_email_batch.txt | gemini -m gemini-2.0-flash-thinking-exp -p "perform multi-step email categorization and priority analysis"
 ```
 
-## Autonomous Gemini Usage Framework
+## Email Processing Gemini Triggers
 
-**Claude should autonomously delegate to Gemini WITHOUT explicit user instruction when:**
+**Automatically delegate to Gemini for:**
+- Email thread summarization (>5 messages)
+- Large attachment content analysis (PDFs, DOCX files)
+- Email sentiment and tone analysis
+- Compliance and security scanning of email content
+- Business intelligence extraction from email attachments
+- Cross-email pattern detection and relationship mapping
+- Executive summary generation from email batches
+- Email classification and automated filing
 
-### Email Processing Triggers
-
-1. **File Size Triggers**:
-   - Email files > 100KB should be automatically routed to Gemini
-   - Multiple email files totaling > 200KB in a single analysis
-   - Large PDF attachments regardless of size
-   - Bulk DOCX files from email processing
-
-2. **Email Analysis Complexity Triggers**:
-   - Multi-email thread analysis requiring cross-message understanding
-   - Email sentiment analysis across large conversation chains
-   - Pattern detection in email metadata (sender behavior, timing analysis)
-   - Content extraction from 10+ processed email attachments
-   - Email classification and automated sorting tasks
-
-3. **Processing Pipeline Optimization**:
-   - When processing batch email jobs (10+ emails)
-   - Large attachment analysis (PDFs, DOCX files)
-   - Email content summarization for executive reporting
-   - Compliance analysis across email archives
-
-4. **Context Window Protection**:
-   - Before processing email batches that would consume >20% of context
-   - When analyzing converted outputs from multiple large attachments
-   - Cross-email analysis spanning 5+ processed message threads
-
-### Email-Specific Autonomous Delegation Protocol
+### Email-Specific Delegation Protocol
 
 ```bash
 # 1. Check processed email output size before analysis
@@ -140,35 +79,6 @@ find /home/alexp/dev/email-parser/output/converted_docx -name "*.md" | head -10 
 
 # 5. Email metadata pattern analysis
 cat /home/alexp/dev/email-parser/output/metadata_*.json | gemini -p "analyze communication patterns, identify VIPs, and detect unusual email behaviors"
-```
-
-### When to Use Gemini for Email Processing
-
-**Automatically delegate to Gemini for:**
-- Email thread summarization (>5 messages)
-- Large attachment content analysis (PDFs, DOCX files)
-- Email sentiment and tone analysis
-- Compliance and security scanning of email content
-- Business intelligence extraction from email attachments
-- Cross-email pattern detection and relationship mapping
-- Executive summary generation from email batches
-- Email classification and automated filing
-
-**User Notification**: Only mention Gemini delegation if:
-- User specifically asks about analysis methodology
-- Gemini encounters processing errors
-- Results require context about the analysis approach used
-
-## Archival Protocol (CRITICAL)
-
-**Rule**: Archive before ANY modification to `archive/filename_YYYY-MM-DD.ext`
-
-```bash
-# Native Linux copy (you're already in WSL2):
-cp /home/alexp/dev/email-parser/file.py /home/alexp/dev/email-parser/archive/file_2025-07-05.py
-
-# Then edit with Edit tool for targeted changes
-# Multiple same-day: Use _001, _002 suffix
 ```
 
 ## Project Structure
@@ -220,25 +130,37 @@ output/
 └── metadata.json
 ```
 
-## Production Maintenance Workflow
+## Email Parser Maintenance Workflow
 
-1. **Retrieve context**:
-   - `recent_activity("3 days")` - Check recent work
+1. **Project Setup**:
+   - `get_current_project()` → IF ≠ "dev" → `switch_project("dev")`
    - `build_context("memory://email-parser/*")` - Load project memory
-   - `search_notes("specific issue")` - Find past solutions
-2. **Activate venv**: REQUIRED for all Python work
-3. **Resolve dependencies**: Install missing requests, psutil if needed
-4. **Archive**: Use native copy (you're already in WSL2)
-5. **Edit**: Use Edit tool for changes
-6. **Process large files**: Use Gemini CLI for files >100KB or complex analysis
-7. **Test**: pytest (unit/integration/performance)
-8. **Document & Store**:
-   - Technical documentation → `obsidian` (vault: "dev")
-   - Conversation context & insights → `basic-memory` (for future retrieval)
+   - `source email-parser-env/Scripts/activate` - Activate virtual environment
 
-### Gemini CLI Integration Workflow
+2. **Dependencies**: Install missing requests, psutil if needed
+3. **Development**: Archive files before editing, use Edit tool for changes
+4. **Testing**: pytest (unit/integration/performance) 
+5. **Documentation**: Store in `obsidian` vault="dev"
 
-When working with large email processing outputs or complex analysis:
+### Email Parser Testing
+
+⚠️ **Dependencies**: Ensure `requests` and `psutil` are installed before testing
+
+```bash
+# Install missing dependencies first  
+# Note: Windows-style venv structure in WSL2
+cd /home/alexp/dev/email-parser && source email-parser-env/Scripts/activate && pip install requests>=2.31.0 psutil>=5.9.0
+
+# Testing
+pytest                          # Full suite
+pytest --cov=email_parser      # Coverage
+pytest tests/unit/             # Unit tests
+pytest tests/integration/      # Integration tests
+```
+
+### Email Parser Analysis Workflow
+
+When working with large email processing outputs:
 
 ```bash
 # Check output file sizes first
@@ -256,55 +178,9 @@ find /home/alexp/dev/email-parser/output -name "*.md" -size +100k | xargs cat | 
 cat /home/alexp/dev/email-parser/output/metadata_*.json | gemini -p "analyze patterns and generate insights for email processing optimization"
 ```
 
-## Testing & Quality
+## Email Parser Documentation Structure
 
-⚠️ **Dependencies**: Ensure `requests` and `psutil` are installed before testing
-
-```bash
-# Install missing dependencies first
-cd /home/alexp/dev/email-parser && source email-parser-env/bin/activate && pip install requests>=2.31.0 psutil>=5.9.0
-
-# Testing
-pytest                          # Full suite
-pytest --cov=email_parser      # Coverage
-pytest tests/unit/             # Unit tests
-pytest tests/integration/      # Integration tests
-
-# Quality
-black email_parser tests       # Format
-isort email_parser tests       # Imports
-mypy email_parser             # Types
-bandit -r email_parser        # Security
-```
-
-## Knowledge Management
-
-**CRITICAL DISTINCTION**: Two separate tools serving different memory and documentation needs:
-
-### 1. Basic-Memory (`basic-memory` MCP tool)
-
-**PRIMARY PURPOSE**: Claude's persistent memory system for context continuity across:
-
-- **Temporal Boundaries**: Days, weeks, months, or years ago
-- **Conversation Windows**: Beyond current context limits
-- **Session Continuity**: Bridging disconnected conversations
-
-**KEY FUNCTIONS**:
-
-1. **Context Retrieval**: `build_context("memory://email-parser/*")` - Retrieve historical context
-2. **Recent Activity**: `recent_activity("1 week")` - Check recent work and decisions
-3. **Search History**: `search_notes("query")` - Find past discussions and solutions
-4. **Memory Storage**: Personal insights, learnings, debugging discoveries, conversation context
-**USAGE SCENARIOS**:
-
-- "What did we discuss about PDF conversion last month?"
-- "Continue from where we left off yesterday"
-- "What was the solution we found for that MIME parsing issue?"
-- "Retrieve context from the architecture discussion in June"
-
-### 2. Obsidian (`obsidian` MCP tool with `vault="dev"`)
-
-**PURPOSE**: ALL FORMAL PROJECT DOCUMENTATION including:
+**Obsidian Vault**: `vault="dev"`
 
 ```
 email-parser/
@@ -315,102 +191,10 @@ email-parser/
 └── performance/     # Optimizations - Tag: #performance #optimization
 ```
 
-**Documentation Guidelines**:
-
-1. **Tool Selection**:
-   - Personal insights/learnings → `basic-memory`
-   - Project documentation → `obsidian` (vault: "dev")
-2. **Tags**: Apply relevant tags from above categories
-3. **Linking**: Use `[[Note Name]]` syntax for cross-references in Obsidian
-
 **Obsidian Linking Examples**:
-
 - Architecture: `[[Email Parser Architecture]]`
 - Features: `[[DOCX Converter Implementation]]`
 - Bugs: `[[PDF Conversion Issues]]`
-
-## Tool Selection Decision Matrix
-
-### When to Use Basic-Memory (`basic-memory`)
-
-#### Primary Use Cases (Persistent Memory)
-
-1. **Retrieving past context**: `build_context("memory://email-parser/*")`
-2. **Checking recent work**: `recent_activity("3 days")` or `recent_activity("last week")`
-3. **Finding historical solutions**: `search_notes("PDF conversion issue")`
-4. **Bridging conversations**: When user references "yesterday", "last month", "that bug we discussed"
-5. **Context beyond window**: When current conversation lacks necessary historical context
-
-#### Secondary Use Cases (Knowledge Storage)
-
-1. **Personal insights** from debugging sessions
-2. **Learning notes** about Python patterns discovered
-3. **Conversation summaries** for future reference
-4. **Problem-solution pairs** for quick retrieval
-5. **"Aha moments"** and breakthroughs
-
-### When to Use Obsidian (`obsidian` with vault="dev")
-
-1. **Technical specifications** and architecture docs
-2. **Feature documentation** and implementation guides
-3. **Bug reports** with reproduction steps
-4. **API documentation** and integration guides
-5. **Design decisions** and rationale
-6. **Performance benchmarks** and optimization notes
-7. **Edge case documentation** with test scenarios
-8. **Project roadmaps** and planning documents
-
-### Decision Rules
-
-1. **Need historical context?** → Basic-Memory (search/retrieve)
-2. **Storing conversation context?** → Basic-Memory (for future retrieval)
-3. **Creating formal documentation?** → Obsidian
-4. **User says "as we discussed"?** → Basic-Memory first, then continue
-
-## Basic-Memory Practical Examples
-
-### Context Retrieval Scenarios
-
-**1. Resuming Previous Work**
-
-```bash
-# User: "Let's continue working on that PDF converter bug from last week"
-build_context("memory://email-parser/bugs/pdf-converter")
-recent_activity("1 week")
-```
-
-**2. Historical Problem Lookup**
-
-```bash
-# User: "How did we handle that MIME parsing edge case?"
-search_notes("MIME parsing edge case")
-search_notes("multipart boundary")
-```
-
-**3. Project Evolution Tracking**
-
-```bash
-# User: "What was our original approach for DOCX conversion?"
-build_context("memory://email-parser/features/docx-converter")
-search_notes("DOCX converter implementation" after_date="2025-06-01")
-```
-
-**4. Cross-Conversation Continuity**
-
-```bash
-# New conversation after days/weeks
-# User: "Regarding the email parser project..."
-recent_activity("2 weeks")  # Get recent context
-build_context("memory://email-parser/*")  # Load project context
-```
-
-### Memory Storage Best Practices
-
-1. **After Complex Debugging**: Store the problem, process, and solution
-2. **Design Decisions**: Record why certain approaches were chosen
-3. **Conversation Milestones**: Save key decisions and action items
-4. **Learning Moments**: Document new patterns or techniques discovered
-5. **Context Bridges**: Create notes that link related conversations
 
 ## Current Status
 
@@ -442,7 +226,7 @@ build_context("memory://email-parser/*")  # Load project context
 - [x] **Advanced Features** (Week 2) - AI-ready chunking, enhanced metadata, style preservation, image extraction, complete integration, comprehensive testing  
 - [x] **Polish & Optimization** (Week 3) - Performance optimization, benchmarking, additional fixtures, documentation, merge completion
 
-**Production Status**: All 63 Week 2 tests passing, 34% test coverage, fully integrated with main CLI
+**Production Status**: 119/182 tests passing (core features working), test suite needs maintenance, fully integrated with main CLI
 
 ### Roadmap
 
@@ -523,19 +307,15 @@ cat output/processed_text/*.txt | gemini -p "scan for sensitive information, com
 cat output/processed_text/inbox_batch.txt | gemini -m gemini-2.0-flash-thinking-exp -p "categorize emails by priority, topic, and required actions"
 ```
 
-## Production Guidelines
+## Email Parser Production Guidelines
 
-1. **Always**: Check project="dev", activate venv, archive first
-2. **Branch**: Work on main branch (all features production ready)
-3. **Dependencies**: Install missing requests/psutil before development
-4. **Use**: Native Linux commands (you're already in WSL2)
-5. **Large files**: Automatically delegate to Gemini CLI for files >100KB
-6. **Document**: Insights in Basic-Memory, not code
-7. **Test**: Edge cases, MIME variants, large files
-8. **Secure**: Validate inputs, sanitise outputs, protect API keys
-9. **Monitor**: Performance metrics, error rates, user feedback
+1. **Branch**: Work on main branch (all features production ready)
+2. **Dependencies**: Install missing requests/psutil before development
+3. **Testing**: Focus on edge cases, MIME variants, large files
+4. **Security**: Validate inputs, sanitise outputs, protect API keys
+5. **Monitoring**: Track performance metrics, error rates, user feedback
 
-### Gemini CLI Performance Guidelines
+### Email Parser Gemini Performance Guidelines
 
 **File Size Thresholds:**
 - Email text files >100KB → Route to Gemini automatically
@@ -543,16 +323,10 @@ cat output/processed_text/inbox_batch.txt | gemini -m gemini-2.0-flash-thinking-
 - DOCX conversion outputs >75KB → Use Gemini for content extraction
 - Metadata files >20KB → Use Gemini for pattern analysis
 
-**Model Selection Strategy:**
+**Model Selection for Email Processing:**
 - `gemini-2.5-pro` (default): General email analysis, content summarization
 - `gemini-2.0-flash-thinking-exp`: Complex multi-step email processing workflows
 - `gemini-exp-1206`: Advanced reasoning for compliance and business intelligence
-
-**Optimization Tips:**
-- Batch similar analysis tasks to reduce API calls
-- Use piped commands for efficient file processing
-- Monitor token usage for cost optimization
-- Cache Gemini results for repeated analysis patterns
 
 ## Phase 2: DOCX Converter Integration ✅ PRODUCTION READY
 
@@ -663,55 +437,33 @@ All configuration options tested and validated in production.
 - Model: `mistral-ocr-latest`
 - Cost: ~$0.001 per page
 
-## WSL2 Development Environment
-
-### Key Environment Details
+## Email Parser Environment
 
 **Project Location**: `/home/alexp/dev/email-parser`  
 **Windows Access**: `\\wsl.localhost\Ubuntu-24.04\home\alexp\dev\email-parser`  
 **Virtual Environment**: `/home/alexp/dev/email-parser/email-parser-env`
 
-### Platform-Specific Commands
-
-```bash
-# File Operations
-ls /home/alexp/dev/email-parser
-cat /home/alexp/dev/email-parser/file.py
-
-# Git Operations
-git -C /home/alexp/dev/email-parser status
-git -C /home/alexp/dev/email-parser branch --show-current
-
-# Python Operations (Always with venv activation)
-cd /home/alexp/dev/email-parser && source email-parser-env/bin/activate && python command
-```
-
-### Virtual Environment Management
+### Virtual Environment (Windows-style structure in WSL2)
 
 ```bash
 # Activate virtual environment (required before all Python work)
-cd /home/alexp/dev/email-parser && source email-parser-env/bin/activate
-
-# Install dependencies
-pip install package_name
+cd /home/alexp/dev/email-parser && source email-parser-env/Scripts/activate
 
 # Check virtual environment status
 python -c 'import sys; print(sys.prefix)'
 ```
 
-## Emergency Recovery
+## Email Parser Emergency Recovery
 
 - **Corruption**: Check archive/, git history, recreate venv in WSL2
 - **Performance**: Profile with cProfile, check API limits
 - **Security**: Disable feature, archive, audit, rotate keys
 
-## Standards
+## Email Parser Standards
 
 - **Python**: Black, Google docstrings, type hints
 - **Security**: Input validation, path safety, API encryption
 - **Performance**: Lazy loading, streaming, progress indicators
-- **Platform**: Native WSL2/Ubuntu commands (you're already inside)
-- **Gemini CLI**: Autonomous delegation for >100KB files, intelligent model selection
 - **Analysis**: Use Gemini for complex email pattern recognition and business intelligence
 
 ---

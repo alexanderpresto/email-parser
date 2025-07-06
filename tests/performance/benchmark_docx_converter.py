@@ -139,13 +139,14 @@ class TestDocxConverterPerformance:
     @pytest.fixture
     def converter(self):
         """Create a DOCX converter instance."""
-        config = ProcessingConfig()
-        config.docx_conversion.enabled = True
-        config.docx_conversion.enable_chunking = True
-        config.docx_conversion.extract_metadata = True
-        config.docx_conversion.extract_styles = True
-        config.docx_conversion.extract_images = True
-        return DocxConverter(config)
+        with tempfile.TemporaryDirectory() as tmpdir:
+            config = ProcessingConfig(output_directory=tmpdir)
+            config.docx_conversion.enabled = True
+            config.docx_conversion.enable_chunking = True
+            config.docx_conversion.extract_metadata = True
+            config.docx_conversion.extract_styles = True
+            config.docx_conversion.extract_images = True
+            return DocxConverter(config)
     
     @pytest.fixture
     def temp_dir(self):

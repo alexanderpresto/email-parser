@@ -1,30 +1,10 @@
-# CLAUDE-DESKTOP.md - Email Parser Project Instructions (Windows)
+# CLAUDE-DESKTOP.md - Email Parser Project Instructions
 
-Single source of truth for Email Parser project when using Claude Desktop on Windows 11.
-
-**Platform**: `win32` (Windows environment)  
-**Context**: You are running on Windows and accessing WSL2 remotely  
-**Key Rule**: ALL commands must be prefixed with `wsl -d Ubuntu-24.04`
+**Project-Specific Instructions**: This file contains only email parser project-specific instructions for Windows/Claude Desktop. Universal Windows development patterns are maintained in `/mnt/d/Users/alexp/dev/settings/claude-personal-preferences.md`.
 
 ## Cross-Reference
 
 For Claude Code (running IN WSL2/Linux), see: [CLAUDE.md](CLAUDE.md)
-
-**IMPORTANT**: This file is for Windows/Claude Desktop ONLY. If you're running in WSL2 (platform: linux), use CLAUDE.md instead.
-
-## Memory System Overview
-
-**Basic-Memory**: Claude's persistent memory system enabling conversation continuity across:
-
-- **Time Spans**: Access context from days, weeks, months, or years ago
-- **Session Boundaries**: Bridge disconnected conversations seamlessly
-- **Context Windows**: Retrieve information beyond current conversation limits
-
-**Primary Commands**:
-
-- `build_context("memory://email-parser/*")` - Load historical project context
-- `recent_activity("1 week")` - Review recent work and decisions
-- `search_notes("query")` - Find specific past discussions or solutions
 
 ## Critical Setup
 
@@ -35,8 +15,6 @@ get_current_project() → IF ≠ "dev" → switch_project("dev")
 # Production main branch (no feature branches needed)
 wsl -d Ubuntu-24.04 git branch --show-current  # Should show: main
 
-# All Phase 2 features merged and production ready
-
 # Project Location:
 WSL2 Path: /home/alexp/dev/email-parser
 Windows Access: \\wsl.localhost\Ubuntu-24.04\home\alexp\dev\email-parser
@@ -45,7 +23,7 @@ Windows Access: \\wsl.localhost\Ubuntu-24.04\home\alexp\dev\email-parser
 ## Quick Reference
 
 ```bash
-# Memory: recent_activity("1 week"), search_notes("query"), build_context("memory://email-parser/*")
+# Memory: build_context("memory://email-parser/*")
 # Time: mcp-server-time:get_current_time("America/Winnipeg")
 # Obsidian: Use `obsidian` MCP tool with vault="dev" for ALL PROJECT DOCUMENTATION
 
@@ -54,23 +32,11 @@ list_directory("\\wsl.localhost\\Ubuntu-24.04\\home\\alexp\\dev\\email-parser")
 read_file("\\wsl.localhost\\Ubuntu-24.04\\home\\alexp\\dev\\email-parser\\file.py")
 write_file("\\wsl.localhost\\Ubuntu-24.04\\home\\alexp\\dev\\email-parser\\file.py", content)
 
-# ALWAYS activate venv before Python work:
-wsl -d Ubuntu-24.04 source /home/alexp/dev/email-parser/email-parser-env/bin/activate
+# ALWAYS activate venv before Python work (Windows-style venv):
+wsl -d Ubuntu-24.04 source /home/alexp/dev/email-parser/email-parser-env/Scripts/activate
 ```
 
-## Archival Protocol (CRITICAL)
-
-**Rule**: Archive before ANY modification to `archive/filename_YYYY-MM-DD.ext`
-
-```bash
-# WSL2 Copy from Windows:
-wsl -d Ubuntu-24.04 cp /home/alexp/dev/email-parser/file.py /home/alexp/dev/email-parser/archive/file_2025-07-05.py
-
-# Then edit with Edit tool for targeted changes
-# Multiple same-day: Use _001, _002 suffix
-```
-
-## Testing & Quality
+## Email Parser Testing & Quality
 
 ⚠️ **Dependencies**: Ensure `requests` and `psutil` are installed before testing
 
@@ -110,79 +76,50 @@ wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-par
 wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-parser-env/bin/activate && python -m email_parser batch --input emails/ --output output/ --convert-excel --convert-pdf --pdf-mode all --convert-docx --docx-chunking --docx-images --docx-styles"
 ```
 
-## Windows Integration Commands
+## Email Parser Windows Integration
+
+### File Operations (Desktop Commander)
 
 ```bash
-# File Operations (Desktop Commander)
+# Email parser specific file operations
 list_directory("\\wsl.localhost\\Ubuntu-24.04\\home\\alexp\\dev\\email-parser")
 read_file("\\wsl.localhost\\Ubuntu-24.04\\home\\alexp\\dev\\email-parser\\file.py")
 write_file("\\wsl.localhost\\Ubuntu-24.04\\home\\alexp\\dev\\email-parser\\file.py", content)
-
-# Terminal Operations (WSL Commands)
-wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && command"
-
-# Git Operations
-wsl -d Ubuntu-24.04 git -C /home/alexp/dev/email-parser status
-wsl -d Ubuntu-24.04 git -C /home/alexp/dev/email-parser branch --show-current
-
-# Python Operations (Always with venv activation)
-wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-parser-env/bin/activate && python command"
 ```
 
-## Virtual Environment Management
+### Email Parser Virtual Environment
 
 ```bash
-# Activate virtual environment (required before all Python work)
+# Activate email parser virtual environment (required before all Python work)
 wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-parser-env/bin/activate"
 
-# Install dependencies
-wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-parser-env/bin/activate && pip install package_name"
-
-# Check virtual environment status
+# Check email parser virtual environment status
 wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-parser-env/bin/activate && python -c 'import sys; print(sys.prefix)'"
 ```
 
-## Production Guidelines
+## Email Parser Production Guidelines
 
-1. **Always**: Check project="dev", activate venv, archive first
-2. **Branch**: Work on main branch (all features production ready)
-3. **Dependencies**: Install missing requests/psutil before development
-4. **Use**: WSL commands for all operations
-5. **Document**: Insights in Basic-Memory, not code
-6. **Test**: Edge cases, MIME variants, large files
-7. **Secure**: Validate inputs, sanitise outputs, protect API keys
-8. **Monitor**: Performance metrics, error rates, user feedback
+1. **Branch**: Work on main branch (all features production ready)
+2. **Dependencies**: Install missing requests/psutil before development
+3. **Testing**: Focus on edge cases, MIME variants, large files
+4. **Security**: Validate inputs, sanitise outputs, protect API keys
+5. **Monitoring**: Track performance metrics, error rates, user feedback
 
-## Key Differences from Claude Code
+## Email Parser Common Patterns
 
-When using Claude Desktop on Windows:
-
-1. **ALL commands** need `wsl -d Ubuntu-24.04` prefix
-2. **File paths** use Windows format for tool functions: `\\wsl.localhost\\Ubuntu-24.04\\...`
-3. **Complex commands** use `bash -c` wrapper: `wsl -d Ubuntu-24.04 bash -c "cd ... && ..."`
-4. **No direct Linux commands** - everything goes through WSL
-
-## Common Patterns
-
-### Running Python Scripts
+### Running Email Parser Scripts
 
 ```bash
-wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-parser-env/bin/activate && python script.py"
+wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-parser-env/bin/activate && python -m email_parser"
 ```
 
-### Installing Packages
+### Installing Email Parser Dependencies
 
 ```bash
-wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-parser-env/bin/activate && pip install package"
+wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-parser-env/bin/activate && pip install requests psutil"
 ```
 
-### Running Tests
-
-```bash
-wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-parser-env/bin/activate && pytest"
-```
-
-### Git Operations
+### Email Parser Git Operations
 
 ```bash
 wsl -d Ubuntu-24.04 git -C /home/alexp/dev/email-parser status

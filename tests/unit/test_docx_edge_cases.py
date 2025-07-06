@@ -14,9 +14,9 @@ class TestDocxEdgeCases:
     """Test edge cases and error scenarios for DOCX converter."""
     
     @pytest.fixture
-    def converter(self):
+    def converter(self, temp_dir):
         """Create a DOCX converter instance."""
-        config = ProcessingConfig()
+        config = ProcessingConfig(output_directory=str(temp_dir))
         config.docx_conversion.enabled = True
         config.docx_conversion.max_file_size = 10 * 1024 * 1024  # 10MB
         return DocxConverter(config)

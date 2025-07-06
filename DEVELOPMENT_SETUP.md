@@ -106,7 +106,7 @@ gemini --version  # Should show version if installed
 
 ### Essential Steps (All Platforms)
 1. Navigate to project directory: `/home/alexp/dev/email-parser`
-2. **MANDATORY**: Activate virtual environment: `source email-parser-env/bin/activate`
+2. **MANDATORY**: Activate virtual environment: `source email-parser-env/Scripts/activate` *(Windows-style venv)*
 3. Verify activation shows `(email-parser-env)` in prompt
 4. Run your development commands
 5. Deactivate when done (optional): `deactivate`

@@ -97,6 +97,11 @@ def process_batch(args: argparse.Namespace) -> int:
 def main(argv: Optional[List[str]] = None) -> int:
     """Main entry point for the CLI."""
     parser = argparse.ArgumentParser(description="Enterprise Email Parser")
+    
+    # Add interactive mode option
+    parser.add_argument("--interactive", "-i", action="store_true", 
+                       help="Run in interactive mode")
+    
     subparsers = parser.add_subparsers(dest="command", help="Command to run")
 
     # Process command
@@ -166,6 +171,17 @@ def main(argv: Optional[List[str]] = None) -> int:
     batch_parser.add_argument("--batch-size", type=int, default=100, help="Batch size")
 
     args = parser.parse_args(argv)
+
+    # Check for interactive mode
+    if args.interactive:
+        try:
+            from email_parser.cli.interactive import InteractiveCLI
+            cli = InteractiveCLI()
+            return cli.run()
+        except ImportError as e:
+            print(f"Interactive mode requires additional dependencies: {e}", file=sys.stderr)
+            print("Install with: pip install rich prompt-toolkit", file=sys.stderr)
+            return 1
 
     if args.command == "process":
         return process_email(args)

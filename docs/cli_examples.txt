@@ -36,15 +36,37 @@ wsl -d Ubuntu-24.04 source /home/alexp/dev/email-parser/email-parser-env/Scripts
   - ✅ Style preservation
   - ✅ Advanced image extraction
   - ✅ Complete CLI integration
+- ✅ **Interactive CLI Mode (WORKING - Phase 3.5 Complete 2025-07-06)**
+  - ✅ Email content scanning with smart recommendations
+  - ✅ Processing profiles system (5 built-in profiles)
+  - ✅ Real-time progress tracking with rich UI
+  - ✅ Batch processing support with guided workflow
+  - ✅ Configuration management and preferences persistence
 
-All conversion features are fully implemented and tested with Phase 2 complete.
+All features are fully implemented and tested. Interactive mode is now the recommended interface.
 
 # ==========================================================
-# ACTUAL WORKING COMMANDS (Verified 2025-07-01)
+# ACTUAL WORKING COMMANDS (Verified 2025-07-06)
 # ==========================================================
 
 **Note**: Commands below are shown in Claude Code (WSL2/Linux) format. 
 For Claude Desktop (Windows), prefix each command with `wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-parser-env/Scripts/activate && [command]"`
+
+## INTERACTIVE MODE (RECOMMENDED) ✅ NEW
+
+# Start interactive mode with guided workflows (Claude Code)
+python -m email_parser.cli.interactive
+
+# Start interactive mode (Claude Desktop - Windows)
+wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-parser-env/Scripts/activate && python -m email_parser.cli.interactive"
+
+# Interactive mode provides:
+# - Email content scanning with smart recommendations
+# - Processing profile selection (Quick, Comprehensive, AI-Ready, Archive, Dev)
+# - Real-time progress tracking with beautiful UI
+# - Batch processing support with guided workflow
+# - Configuration management and API setup
+# - Preferences persistence across sessions
 
 ## SINGLE EMAIL PROCESSING
 

@@ -343,12 +343,17 @@ class PDFConverter(BaseConverter):
         except Exception:
             self.logger.warning("Could not extract PDF version from header")
         
-        # Check for password protection
-        if b'/Encrypt' in pdf_data and b'/Filter' in pdf_data:
-            raise ConversionError(
-                "PDF appears to be password-protected or encrypted. "
-                "Please provide an unencrypted PDF file."
-            )
+        # Check for password protection (more specific check)
+        # Look for actual encryption dictionary, not just the presence of /Encrypt
+        if b'/Encrypt' in pdf_data:
+            # More sophisticated check for actual encryption
+            encrypt_pattern = pdf_data.find(b'/Encrypt')
+            if encrypt_pattern != -1:
+                # Look for signs of actual encryption (like /V entries indicating encryption version)
+                after_encrypt = pdf_data[encrypt_pattern:encrypt_pattern + 200]
+                if b'/V' in after_encrypt and (b'/R' in after_encrypt or b'/P' in after_encrypt):
+                    self.logger.warning("PDF may be encrypted, but attempting conversion anyway")
+                    # Don't raise error - let the OCR API handle it
         
         # Basic structure validation
         if self.config['validation']['validate_pdf_structure']:

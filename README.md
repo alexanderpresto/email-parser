@@ -6,19 +6,21 @@
 [![Type Checking](https://img.shields.io/badge/type%20checking-mypy-blue.svg)](https://github.com/python/mypy)
 [![Development Status](https://img.shields.io/badge/status-production%20ready-green.svg)](https://github.com/alexanderpresto/email-parser)
 
-An enterprise-grade email processing system with robust MIME parsing, security features, PDF to Markdown conversion, and performance optimization.
+An enterprise-grade email processing system with robust MIME parsing, security features, PDF/DOCX to Markdown conversion, and an intuitive Interactive CLI Mode for guided email processing workflows.
 
 ## 🚀 Production Status
 
 **Current Version:** 2.2.0 (main branch)  
 **PDF Conversion Status:** ✅ **PRODUCTION READY** - MistralAI OCR Integration Complete  
 **DOCX Conversion Status:** ✅ **PRODUCTION READY** - All Advanced Features Complete  
+**Interactive CLI Status:** ✅ **NEW** - Phase 3.5 Interactive Mode Complete  
 **Performance Status:** ✅ **OPTIMIZED** - Benchmarked & Production Tested
 
 ### ✅ Production Ready Features
 
 All features on the main branch are production ready and fully tested:
 
+- ✅ **Interactive CLI Mode** - Intuitive guided email processing with smart recommendations
 - ✅ DOCX to Markdown conversion using mammoth library
 - ✅ AI-ready document chunking for LLM processing 
 - ✅ Comprehensive metadata and style extraction
@@ -50,12 +52,14 @@ This library provides a comprehensive solution for parsing and processing emails
 - Comprehensive error handling and logging
 - Complete type annotations and rigorous testing
 
-### 📋 Next Phase Features (Phase 3.5 - Planning)
+### 🎯 Latest Enhancement (Phase 3.5 Complete)
 
-- Interactive CLI mode with email content scanning
-- Smart processing recommendations based on attachment detection  
-- Progress indicators and configuration profiles
-- High-performance batch processing optimizations
+- ✅ **Interactive CLI mode** with intuitive guided workflows
+- ✅ **Email content scanning** with smart recommendations and complexity analysis
+- ✅ **Processing profiles system** with 5 built-in profiles (Quick, Comprehensive, AI-Ready, Archive, Dev)
+- ✅ **Real-time progress tracking** with beautiful terminal UI and fallback modes
+- ✅ **Batch processing support** with guided workflow and progress indicators
+- ✅ **Configuration management** with preferences persistence and API setup
 
 ## Installation
 
@@ -159,6 +163,43 @@ cat output/converted_pdf/document.md | gemini -m gemini-2.0-flash-thinking-exp -
 For detailed Gemini CLI integration instructions, see [CLAUDE.md](CLAUDE.md).
 
 ## Quick Start
+
+### Interactive CLI Mode (Recommended) ✅ NEW
+
+The easiest way to use the Email Parser is through the new Interactive CLI Mode:
+
+```bash
+# Start interactive mode
+python -m email_parser.cli.interactive
+
+# Features include:
+# - Email content scanning with smart recommendations
+# - Processing profile selection (Quick, Comprehensive, AI-Ready, Archive, Dev)
+# - Real-time progress tracking with beautiful UI
+# - Batch processing support with guided workflow
+# - Configuration management and API setup
+# - Preferences persistence across sessions
+```
+
+### Traditional CLI Mode
+
+```bash
+# Basic email processing
+python -m email_parser process --input email.eml --output output/
+
+# With all conversions enabled
+python -m email_parser process --input email.eml --output output/ \
+    --convert-excel --convert-pdf --convert-docx \
+    --docx-chunking --docx-images --docx-styles
+
+# Batch processing
+python -m email_parser batch --input emails/ --output output/ \
+    --convert-pdf --convert-docx
+```
+
+### Programmatic Usage
+
+For automation and scripting, you can use the Python API directly:
 
 ### Basic Email Processing
 
@@ -300,6 +341,31 @@ print(f"Generated CSV files: {result.csv_files}")
 
 The email parser provides comprehensive command-line options for processing emails:
 
+### 🎯 Interactive Mode (Recommended)
+
+**NEW in v2.2.0**: Interactive mode provides an intuitive, guided experience with smart recommendations:
+
+```bash
+# Launch interactive mode
+python -m email_parser --interactive
+# or
+python -m email_parser -i
+```
+
+**Interactive Mode Features:**
+- 📧 **Email scanning** with attachment analysis
+- 🤖 **Smart recommendations** based on content complexity  
+- 📋 **Processing profiles** (Quick, Comprehensive, AI-Ready, Archive)
+- 📊 **Real-time progress** tracking with resource monitoring
+- ⚙️ **Configuration management** and API setup assistance
+
+**Prerequisites for Interactive Mode:**
+```bash
+pip install rich prompt-toolkit
+```
+
+### Traditional Command Line
+
 ```bash
 # Basic email processing
 python -m email_parser process --input email.eml --output output/
@@ -315,10 +381,10 @@ python -m email_parser process --input email.eml --output output/ --convert-pdf 
 python -m email_parser process --input email.eml --output output/ --convert-pdf --pdf-mode images  # Images only
 python -m email_parser process --input email.eml --output output/ --convert-pdf --pdf-mode all  # Everything (default)
 
-# DOCX conversion with Week 2 features
+# DOCX conversion with advanced features
 python -m email_parser process --input email.eml --output output/ --convert-docx --docx-chunking --docx-images
 
-# DOCX with all Week 2 options
+# DOCX with all advanced options
 python -m email_parser process --input email.eml --output output/ --convert-docx \
   --docx-images --docx-metadata --docx-chunk-size 2000 --docx-styles --docx-comments
 ```
@@ -379,12 +445,15 @@ python -m email_parser process --input email.eml --output output/ --convert-docx
 - Advanced analytics and monitoring
 - API and integration improvements
 
-### 📋 Phase 3.5: Interactive CLI Mode (3 weeks)
+### ✅ Phase 3.5: Interactive CLI Mode (Complete - 2025-07-06)
 
-- Intelligent email content scanning
-- Interactive processing options with smart recommendations
-- Progress indicators and configuration profiles
-- Single-command operation with progressive disclosure
+- ✅ **Email Scanner Component** - Intelligent attachment detection and complexity analysis
+- ✅ **Smart Recommendations Engine** - AI-powered processing suggestions based on content
+- ✅ **Processing Profiles System** - Pre-configured settings (Quick, Comprehensive, AI-Ready, Archive, Dev)
+- ✅ **Real-time Progress Tracking** - Rich terminal UI with resource monitoring
+- ✅ **Interactive CLI Framework** - Intuitive guided workflows for single and batch processing
+- ✅ **Configuration Management** - Profile creation, API setup, and preference persistence
+- ✅ **Comprehensive Test Suite** - Unit and integration tests for all interactive components
 
 ### 📋 Phase 4: Production Readiness (Weeks 16-19)
 

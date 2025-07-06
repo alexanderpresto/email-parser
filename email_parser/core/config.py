@@ -236,6 +236,35 @@ class ProcessingConfig:
         }
     
     @classmethod
+    def from_dict(cls, config_dict: Dict[str, Any]) -> "ProcessingConfig":
+        """Create ProcessingConfig from dictionary."""
+        # Extract the main config values, with defaults for required fields
+        output_directory = config_dict.get('output_directory', './output')
+        
+        # Create instance with all the config values
+        instance = cls(
+            output_directory=output_directory,
+            batch_size=config_dict.get('batch_size', 100),
+            convert_excel=config_dict.get('convert_excel', True),
+            convert_pdf=config_dict.get('convert_pdf', True),
+            convert_docx=config_dict.get('convert_docx', True),
+            max_attachment_size=config_dict.get('max_attachment_size', 10_000_000),
+            pdf_extraction_mode=config_dict.get('pdf_extraction_mode', 'all'),
+            docx_extract_metadata=config_dict.get('docx_extract_metadata', True),
+            docx_extract_images=config_dict.get('docx_extract_images', False),
+            docx_enable_chunking=config_dict.get('docx_enable_chunking', True),
+            docx_chunk_size=config_dict.get('docx_chunk_size', 2000),
+            docx_chunk_overlap=config_dict.get('docx_chunk_overlap', 200),
+            docx_chunk_strategy=config_dict.get('docx_chunk_strategy', 'hybrid'),
+            docx_extract_styles=config_dict.get('docx_extract_styles', True),
+            docx_extract_comments=config_dict.get('docx_extract_comments', True),
+            max_workers=config_dict.get('max_workers', 4),
+            enable_detailed_logging=config_dict.get('enable_detailed_logging', False)
+        )
+        
+        return instance
+
+    @classmethod
     def from_yaml(cls, yaml_path: str) -> "ProcessingConfig":
         """Create configuration from YAML file.
         

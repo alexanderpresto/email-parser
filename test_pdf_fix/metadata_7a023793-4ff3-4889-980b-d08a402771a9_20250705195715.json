@@ -1,0 +1,225 @@
+{
+  "email_id": "7a023793-4ff3-4889-980b-d08a402771a9",
+  "processing_time": "20250705195715",
+  "headers": {
+    "From": "Karly Melville <KMelville@exchangetech.ca>",
+    "To": "\"alex.presto@outlook.com\" <alex.presto@outlook.com>",
+    "Subject": "Welcome to ETS!",
+    "Date": "Wed, 04 Jun 2025 18:27:58 +0000",
+    "Message-ID": "<YQBPR0101MB8119570A014EE0C187A5B418A26CA@YQBPR0101MB8119.CANPRD01.PROD.OUTLOOK.COM>",
+    "Received": "from SEZPR01MB4277.apcprd01.prod.exchangelabs.com (::1) by SEZPR01MB4922.apcprd01.prod.exchangelabs.com with HTTPS; Wed, 4 Jun 2025 18:29:18 +0000",
+    "Authentication-Results": "spf=temperror (sender IP is 170.10.145.104) smtp.mailfrom=exchangetech.ca; dkim=pass (signature was verified) header.d=exchangetech.ca;dmarc=pass action=none header.from=exchangetech.ca;compauth=pass reason=100",
+    "Received-SPF": "TempError (protection.outlook.com: error in processing during lookup of exchangetech.ca: DNS Timeout)",
+    "X-IncomingTopHeaderMarker": "OriginalChecksum:488531D4D05B83D6834F49FC54CEC8911252B39274AA422A23244C5773BB43B2;UpperCasedChecksum:B82E1897B0B167FC04D784548AEDEBBDAD504B98860F0E5B38A7EA908111778C;SizeAsReceived:10473;Count:57",
+    "DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed; d=exchangetech.ca;\ts=mimecast20230907; t=1749061738;\th=from:from:reply-to:subject:subject:date:date:message-id:message-id:\t to:to:cc:mime-version:mime-version:content-type:content-type:\t references:references; bh=bKvRjwYB0RfGOHGNJz84Ihxb/X8BRAU9mqDReT4GBnI=;\tb=A4zWnUpkpPvrMIm+chet1ux+fA1w5wVBKcm9QW5Jwuc80H6mgAT4wc4G319Rx2oC4H4IVQ\tzPGdsaAAl7k8NnH7XuFj83NvkPw8lY/nsCMElYZW6MIphXHEH7W09RHnxrJd/L3pSmMFBN\tWUMjHwtV2jAlTDss32J1DbLDkMIBUqo=",
+    "X-MC-Unique": "kc1EYtLWPtCsX6dwn7565Q-1",
+    "X-Mimecast-MFC-AGG-ID": "kc1EYtLWPtCsX6dwn7565Q_1749061714",
+    "X-MS-Exchange-Authentication-Results": "spf=pass (sender IP is 52.240.209.173) smtp.mailfrom=exchangetech.ca; dkim=none (message not signed) header.d=none;dmarc=pass action=none header.from=exchangetech.ca",
+    "Thread-Topic": "Welcome to ETS!",
+    "Thread-Index": "AQHb1XAIMJ8H1BWFwEu24SUq89voRA==",
+    "Accept-Language": "en-US",
+    "X-MS-Has-Attach": "yes",
+    "X-MS-TNEF-Correlator": "",
+    "msip_labels": "",
+    "Authentication-Results-Original": "dkim=none (message not signed) header.d=none;dmarc=none action=none header.from=exchangetech.ca",
+    "x-ms-traffictypediagnostic": "YQBPR0101MB8119:EE_|YQBPR0101MB9789:EE_|TO1PEPF00005346:EE_|YQXPR01MB6185:EE_|SJ1PEPF00001CE1:EE_|SEZPR01MB4277:EE_|SEZPR01MB4922:EE_",
+    "X-MS-Office365-Filtering-Correlation-Id": "4c518674-a723-4acc-dfa4-08dda395ac29",
+    "X-MS-Exchange-SenderADCheck": "1",
+    "X-MS-Exchange-AntiSpam-Relay": "0",
+    "X-Microsoft-Antispam-Untrusted": "BCL:0;ARA:13230040|1800799024|376014|366016|4053099003|8096899003|38070700018",
+    "X-Microsoft-Antispam-Message-Info-Original": "BUxaTS80Zuu96ytc6uSPySqQdmxzm2DC3Q8sRbMF+9Q7S5CYyTNHfpDfoH6c84O4KR7ssUB+F8leSEQ3Zf7y5iCmFCvfQa+QagW+zNO2U1WyczJX7JHTmb4il6tcsdkhWv6TMtey20cRqC6C8XoIuTZMx9VzQ/+V8TmQS+5DxT6XWk+N6cJSL3faE9vIM6WD5zbPjMtVfyVHt1hxw0K5WIxm4R6zcd0mbiltrtxiP229RDjgLRnZe7RTMCMcP9tZbT2hvtBDyPnEZrCLzSGv7MBlHNaeQ9DvgP9uP/xwZ2X93WBODcRGZmLEydr9bY0u34ISWBXX8OJdJF57QA5QUupjD+7AFJLtKFDG007visY8NxO9PnJdniqvLdUmTKGbvpQbBf+IAN1kB2LH7i+4sP9r4r4jXTY+A5TqWT1XPN+OVjBqyaQkVR1mYMAWyBQdffhk4REKGIJeCzmvwPqSDg17INpfdw1mHeZ/Xq0QQWpssuwXON9PLqexWVTwSZgN7RXsCBqHQRLEWNsmZeBbWIzP8Phv6CVvOGk+PZWGm4BYaBn6ziApPZH1tS7XIlQ6ORcByb/DTMxXra2o5qaI4HQCXZKlolhjXbdo/xNEX4HNHKjn1epPSVS0RLFhV03nneh6hmgyx01apKmeKrwK6gpuqLxakpocyG8OJStAN7SrvnnRUNd4uvfRsue79yTfnTSIAwL7LuQf3X5Y6OnQNP2YyINFmkDtRU7sQwhCuJ0O3sFfYwE9E/XFu0aqArAK3MWySDwfe9bBdKSCK5ILN2CnjYx51yY5uOjG1FVQ3GUfqRMT6STtviORwwxDyZ19K+QHIeZHQDvFpYMLwnZvE0FtiCnMdEyRkCdHZEH7aJ/oE7x1/3F8hh4rV77TbtH2y5GDw2LdsBSrQfaM1qW1ihv6DzXvNbgjDPsKdB0Qj6+dWd3JyBv1BsUwPj5DcES4meTYIqYG6cvdnrvqOXqlS/Ttj40Wt6CQLrSVmZqWRTzDVXdUBtd6JOpTN7EguXgufce+J5Nlq8maRKlpxOEn3JBuLrpNWgiBWjzLrOeNrBvfzkY/fczD24UgLntjXzLir0lHa3wm26/CtTC2fVIy18R02aakUCNlMWCNqpjCiC8mmRu1Izt7sXP2DV98TEbQOfpl3LkoCA+l0U5XEn6bupi1Au8DDUkA0/BPWNlfAa6h1tCEItnUbgSAySz8DM5DSzN87/kxhfPbY2j7gjdSJmjAWm+xde2wklqJJkMF/bTKEHpTtvFQJsGNkXm2YjAR8wcihjTnD5mxl7oCh4lNv5hOw1SOZqgQITbjL/8TD7KZ4dSV0gx1JHfH5ALOjlXYKADynp0Merjw9JVgWexzD60oYgFqUzVesxFaRVROVXs=",
+    "X-Forefront-Antispam-Report-Untrusted": "CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YQBPR0101MB8119.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(4053099003)(8096899003)(38070700018);DIR:OUT;SFP:1102",
+    "X-MS-Exchange-Transport-CrossTenantHeadersStamped": "YQBPR0101MB9789",
+    "X-CodeTwo-MessageID": "c3f5e1a9-49a0-4721-94d3-b8fce3c14392.20250604182813@us2-emailsignatures-cloud.codetwo.com",
+    "References": "<d6633c9d-e09a-49f1-858f-5a14394fad45.d9fe164b-ebab-401b-8aeb-f678723d335e.30787972-feff-4767-9152-dfd91e598ab1@emailsignatures365.codetwo.com>",
+    "X-CodeTwoProcessed": "true",
+    "Return-Path": "kmelville@exchangetech.ca",
+    "X-EOPAttributedMessage": "1",
+    "X-MS-Exchange-Transport-CrossTenantHeadersStripped": "TO1PEPF00005346.CANPRD01.PROD.OUTLOOK.COM",
+    "X-MS-Office365-Filtering-Correlation-Id-Prvs": "49453e4c-90e1-47a8-72f0-08dda3958808",
+    "X-Mimecast-Spam-Score": "0",
+    "X-Mimecast-MFC-PROC-ID": "gBEdZHL7JBbIlIc_ZynJ1qc75udSNCWfyYXuIoWMS-k_1749061714",
+    "X-Mimecast-Originator": "exchangetech.ca",
+    "Content-Language": "en-US",
+    "Content-Type": "multipart/mixed; boundary=\"_013_YQBPR0101MB8119570A014EE0C187A5B418A26CAYQBPR0101MB8119_\"",
+    "X-IncomingHeaderCount": "57",
+    "X-MS-Exchange-Organization-ExpirationStartTime": "04 Jun 2025 18:28:59.0358 (UTC)",
+    "X-MS-Exchange-Organization-ExpirationStartTimeReason": "OriginalSubmit",
+    "X-MS-Exchange-Organization-ExpirationInterval": "1:00:00:00.0000000",
+    "X-MS-Exchange-Organization-ExpirationIntervalReason": "OriginalSubmit",
+    "X-MS-Exchange-Organization-Network-Message-Id": "4c518674-a723-4acc-dfa4-08dda395ac29",
+    "X-EOPTenantAttributedMessage": "84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0",
+    "X-MS-Exchange-Organization-MessageDirectionality": "Incoming",
+    "X-MS-PublicTrafficType": "Email",
+    "X-MS-Exchange-Organization-AuthSource": "SJ1PEPF00001CE1.namprd05.prod.outlook.com",
+    "X-MS-Exchange-Organization-AuthAs": "Anonymous",
+    "X-MS-UserLastLogonTime": "6/4/2025 6:03:44 PM",
+    "X-MS-Exchange-EOPDirect": "true",
+    "X-Sender-IP": "170.10.145.104",
+    "X-SID-PRA": "KMELVILLE@EXCHANGETECH.CA",
+    "X-SID-Result": "PASS",
+    "X-MS-Exchange-AtpMessageProperties": "SA|SL",
+    "X-MS-Exchange-Organization-SCL": "1",
+    "X-Microsoft-Antispam": "BCL:0;ARA:1444111002|12005499003|2700799026|6092099012|10300799035|470799035|3151999006|28045499009|461199028|33080799003|47200799021|9400799033|15110799015|9000799050|32080799003|1680799057|970799057|58200799018|13020799006|3412199025|13082799006|4302099013|440099028|18021999003|18042799006|16125499006|1380799030|1370799030|1360799030|56899033|18301999012|17101999012|1602099012|7002799012|1701999012;",
+    "X-MS-Exchange-CrossTenant-OriginalArrivalTime": "04 Jun 2025 18:28:58.7586 (UTC)",
+    "X-MS-Exchange-CrossTenant-Network-Message-Id": "4c518674-a723-4acc-dfa4-08dda395ac29",
+    "X-MS-Exchange-CrossTenant-Id": "84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa",
+    "X-MS-Exchange-CrossTenant-AuthSource": "SJ1PEPF00001CE1.namprd05.prod.outlook.com",
+    "X-MS-Exchange-CrossTenant-AuthAs": "Anonymous",
+    "X-MS-Exchange-CrossTenant-FromEntityHeader": "Internet",
+    "X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg": "00000000-0000-0000-0000-000000000000",
+    "X-MS-Exchange-Transport-EndToEndLatency": "00:00:19.6717324",
+    "X-MS-Exchange-Processed-By-BccFoldering": "15.20.8813.020",
+    "X-Microsoft-Antispam-Mailbox-Delivery": "\tucf:0;jmr:0;ex:0;auth:1;dest:I;ENG:(5062000308)(920221119095)(90000117)(920221120095)(90005022)(91005020)(91035115)(9050020)(9100341)(944500132)(2008001181)(2008121020)(4810010)(4910033)(9575002)(10195002)(9320005)(120001)(1110175);",
+    "X-Message-Delivery": "Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0xO1NDTD0z",
+    "X-Microsoft-Antispam-Message-Info": "\t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",
+    "MIME-Version": "1.0"
+  },
+  "components": {
+    "text_files": 2,
+    "attachments": 10,
+    "inline_images": 2,
+    "excel_conversions": 0
+  },
+  "file_mappings": {
+    "attachments": [
+      {
+        "original": "1 - RRSP Member Application.pdf",
+        "secure": "1 - RRSP Member Application_20250705195715_24cf420d.pdf",
+        "content_type": "application/pdf"
+      },
+      {
+        "original": "2 - DPSP Member Application.pdf",
+        "secure": "2 - DPSP Member Application_20250705195715_24cf420d_1.pdf",
+        "content_type": "application/pdf"
+      },
+      {
+        "original": "Commerce Parking.pdf",
+        "secure": "Commerce Parking_20250705195715_24cf420d_2.pdf",
+        "content_type": "application/pdf"
+      },
+      {
+        "original": "1. Employee Direct Deposit Form.pdf",
+        "secure": "1. Employee Direct Deposit Form_20250705195715_24cf420d_3.pdf",
+        "content_type": "application/pdf"
+      },
+      {
+        "original": "2. Personal Emergency Notification Form.pdf",
+        "secure": "2. Personal Emergency Notification Form_20250705195715_24cf420d_4.pdf",
+        "content_type": "application/pdf"
+      },
+      {
+        "original": "3. TD1 2025-fill.pdf",
+        "secure": "3. TD1 2025-fill_20250705195715_24cf420d_5.pdf",
+        "content_type": "application/pdf"
+      },
+      {
+        "original": "4. TD1MB 2025-fill.pdf",
+        "secure": "4. TD1MB 2025-fill_20250705195715_24cf420d_6.pdf",
+        "content_type": "application/pdf"
+      },
+      {
+        "original": "5. Computer Policy Agreement.pdf",
+        "secure": "5. Computer Policy Agreement_20250705195715_24cf420d_7.pdf",
+        "content_type": "application/pdf"
+      },
+      {
+        "original": "6. Employee ID Badge Access Form.pdf",
+        "secure": "6. Employee ID Badge Access Form_20250705195715_24cf420d_8.pdf",
+        "content_type": "application/pdf"
+      },
+      {
+        "original": "7. EIC Governance Policies.pdf",
+        "secure": "7. EIC Governance Policies_20250705195715_24cf420d_9.pdf",
+        "content_type": "application/pdf"
+      }
+    ],
+    "inline_images": [
+      {
+        "content_id": "x-logo_21105749-fcbf-43c0-a1ab-adfe158d32a3.png",
+        "original": "x-logo_21105749-fcbf-43c0-a1ab-adfe158d32a3.png",
+        "secure": "x-logo_21105749-fcbf-43c0-a1ab-adfe158d32a3_20250705195715_24cf420d.png"
+      },
+      {
+        "content_id": "youtube-logo_48c7e675-c964-4fb1-a669-ea4ff0f1891e.png",
+        "original": "youtube-logo_48c7e675-c964-4fb1-a669-ea4ff0f1891e.png",
+        "secure": "youtube-logo_48c7e675-c964-4fb1-a669-ea4ff0f1891e_20250705195715_24cf420d_1.png"
+      }
+    ],
+    "excel_conversions": []
+  },
+  "position_map": {
+    "attachment_0": {
+      "type": "attachment",
+      "filename": "1 - RRSP Member Application_20250705195715_24cf420d.pdf",
+      "original_filename": "1 - RRSP Member Application.pdf",
+      "path": "./test_pdf_fix/attachments/1 - RRSP Member Application_20250705195715_24cf420d.pdf"
+    },
+    "attachment_1": {
+      "type": "attachment",
+      "filename": "2 - DPSP Member Application_20250705195715_24cf420d_1.pdf",
+      "original_filename": "2 - DPSP Member Application.pdf",
+      "path": "./test_pdf_fix/attachments/2 - DPSP Member Application_20250705195715_24cf420d_1.pdf"
+    },
+    "attachment_2": {
+      "type": "attachment",
+      "filename": "Commerce Parking_20250705195715_24cf420d_2.pdf",
+      "original_filename": "Commerce Parking.pdf",
+      "path": "./test_pdf_fix/attachments/Commerce Parking_20250705195715_24cf420d_2.pdf"
+    },
+    "attachment_3": {
+      "type": "attachment",
+      "filename": "1. Employee Direct Deposit Form_20250705195715_24cf420d_3.pdf",
+      "original_filename": "1. Employee Direct Deposit Form.pdf",
+      "path": "./test_pdf_fix/attachments/1. Employee Direct Deposit Form_20250705195715_24cf420d_3.pdf"
+    },
+    "attachment_4": {
+      "type": "attachment",
+      "filename": "2. Personal Emergency Notification Form_20250705195715_24cf420d_4.pdf",
+      "original_filename": "2. Personal Emergency Notification Form.pdf",
+      "path": "./test_pdf_fix/attachments/2. Personal Emergency Notification Form_20250705195715_24cf420d_4.pdf"
+    },
+    "attachment_5": {
+      "type": "attachment",
+      "filename": "3. TD1 2025-fill_20250705195715_24cf420d_5.pdf",
+      "original_filename": "3. TD1 2025-fill.pdf",
+      "path": "./test_pdf_fix/attachments/3. TD1 2025-fill_20250705195715_24cf420d_5.pdf"
+    },
+    "attachment_6": {
+      "type": "attachment",
+      "filename": "4. TD1MB 2025-fill_20250705195715_24cf420d_6.pdf",
+      "original_filename": "4. TD1MB 2025-fill.pdf",
+      "path": "./test_pdf_fix/attachments/4. TD1MB 2025-fill_20250705195715_24cf420d_6.pdf"
+    },
+    "attachment_7": {
+      "type": "attachment",
+      "filename": "5. Computer Policy Agreement_20250705195715_24cf420d_7.pdf",
+      "original_filename": "5. Computer Policy Agreement.pdf",
+      "path": "./test_pdf_fix/attachments/5. Computer Policy Agreement_20250705195715_24cf420d_7.pdf"
+    },
+    "attachment_8": {
+      "type": "attachment",
+      "filename": "6. Employee ID Badge Access Form_20250705195715_24cf420d_8.pdf",
+      "original_filename": "6. Employee ID Badge Access Form.pdf",
+      "path": "./test_pdf_fix/attachments/6. Employee ID Badge Access Form_20250705195715_24cf420d_8.pdf"
+    },
+    "attachment_9": {
+      "type": "attachment",
+      "filename": "7. EIC Governance Policies_20250705195715_24cf420d_9.pdf",
+      "original_filename": "7. EIC Governance Policies.pdf",
+      "path": "./test_pdf_fix/attachments/7. EIC Governance Policies_20250705195715_24cf420d_9.pdf"
+    },
+    "inline_0": {
+      "type": "inline_image",
+      "filename": "x-logo_21105749-fcbf-43c0-a1ab-adfe158d32a3_20250705195715_24cf420d.png",
+      "content_id": "x-logo_21105749-fcbf-43c0-a1ab-adfe158d32a3.png",
+      "path": "./test_pdf_fix/inline_images/x-logo_21105749-fcbf-43c0-a1ab-adfe158d32a3_20250705195715_24cf420d.png"
+    },
+    "inline_1": {
+      "type": "inline_image",
+      "filename": "youtube-logo_48c7e675-c964-4fb1-a669-ea4ff0f1891e_20250705195715_24cf420d_1.png",
+      "content_id": "youtube-logo_48c7e675-c964-4fb1-a669-ea4ff0f1891e.png",
+      "path": "./test_pdf_fix/inline_images/youtube-logo_48c7e675-c964-4fb1-a669-ea4ff0f1891e_20250705195715_24cf420d_1.png"
+    }
+  }
+}

@@ -67,6 +67,41 @@ wsl -d Ubuntu-24.04 bash -c "cat large_email_batch.txt | gemini -m gemini-2.0-fl
 - Executive summary generation from email batches
 - Email classification and automated filing
 
+## Windows-Specific Library Documentation
+
+**Context7 Integration**: Check documentation for Windows/cross-platform considerations
+
+### Windows Development Documentation
+
+1. **Platform-Specific Libraries**:
+   ```bash
+   # Check Windows compatibility for libraries
+   resolve-library-id("pywin32")  # Windows APIs
+   get-library-docs("/mhammond/pywin32", topic="windows-integration")
+   
+   # Path handling libraries
+   resolve-library-id("pathlib")
+   get-library-docs("/python/pathlib", topic="windows-paths")
+   
+   # Cross-platform file operations
+   resolve-library-id("shutil")
+   get-library-docs("/python/shutil", topic="cross-platform")
+   ```
+
+2. **WSL2 Integration Patterns**:
+   - Check library installation methods for WSL2
+   - Verify path conversion requirements
+   - Document Windows-specific configuration needs
+   - Cross-platform compatibility checks
+
+3. **Email Parser Dependencies (Windows Context)**:
+   ```bash
+   # Verify Windows compatibility
+   resolve-library-id("mammoth")  # Check WSL2 installation
+   resolve-library-id("mistralai")  # Verify API access from WSL2
+   resolve-library-id("pillow")  # Image handling across platforms
+   ```
+
 ### Email-Specific Delegation Protocol
 
 ```bash

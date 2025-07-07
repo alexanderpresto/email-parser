@@ -62,6 +62,42 @@ cat large_email_batch.txt | gemini -m gemini-2.0-flash-thinking-exp -p "perform 
 - Executive summary generation from email batches
 - Email classification and automated filing
 
+## Email Parser Library Documentation
+
+**Context7 Integration**: Check documentation for all email parsing dependencies
+
+### Key Libraries to Document via Context7
+
+1. **Core Dependencies**:
+   - `mammoth` → DOCX to HTML conversion patterns
+   - `mistralai` → PDF OCR API usage and best practices
+   - `beautifulsoup4` → HTML parsing and manipulation
+   - `tiktoken` → Token counting for AI-ready chunking
+   - `python-docx` → Advanced DOCX metadata extraction
+   - `openpyxl` → Excel file processing
+   - `pillow` → Image handling and optimization
+
+2. **Documentation Lookup Workflow**:
+   ```bash
+   # Before implementing new converter features
+   resolve-library-id("mammoth")  # Get library ID
+   get-library-docs("/org/mammoth", topic="table-extraction")
+   
+   # When debugging API issues
+   resolve-library-id("mistralai") 
+   get-library-docs("/mistralai/client-python", topic="ocr-api")
+   
+   # For performance optimization
+   resolve-library-id("beautifulsoup4")
+   get-library-docs("/org/beautifulsoup4", topic="performance")
+   ```
+
+3. **Integration Patterns**:
+   - Before adding new file format support → Check library capabilities
+   - When implementing converter features → Verify against official docs
+   - For error handling → Check documented exceptions
+   - Performance tuning → Use library-specific optimizations
+
 ### Email-Specific Delegation Protocol
 
 ```bash

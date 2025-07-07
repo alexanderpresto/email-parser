@@ -10,10 +10,11 @@ An enterprise-grade email processing system with robust MIME parsing, security f
 
 ## 🚀 Production Status
 
-**Current Version:** 2.2.0 (main branch)  
+**Current Version:** 2.3.0-dev (feature/phase-4-direct-file-conversion branch)  
 **PDF Conversion Status:** ✅ **PRODUCTION READY** - MistralAI OCR Integration Complete  
 **DOCX Conversion Status:** ✅ **PRODUCTION READY** - All Advanced Features Complete  
 **Interactive CLI Status:** ✅ **PRODUCTION READY** - Phase 3.5 Complete (2025-07-06)  
+**Direct File Conversion Status:** 🚧 **IN DEVELOPMENT** - Phase 4 Started (2025-07-08)  
 **Performance Status:** ✅ **OPTIMIZED** - Benchmarked & Production Tested
 
 ### ✅ Production Ready Features
@@ -196,6 +197,29 @@ python -m email_parser process --input email.eml --output output/ \
 python -m email_parser batch --input emails/ --output output/ \
     --convert-pdf --convert-docx
 ```
+
+## Direct File Conversion (New in v2.3.0)
+
+Convert documents directly without email processing:
+
+```bash
+# Convert a single file
+python -m email_parser convert --file document.pdf --output converted/
+
+# Convert with specific profile
+python -m email_parser convert --file report.docx --output converted/ --profile ai_ready
+
+# Batch convert multiple files
+python -m email_parser convert --directory documents/ --output converted/ --type pdf,docx,xlsx
+
+# Interactive conversion mode
+python -m email_parser.cli.interactive --mode convert
+```
+
+### Supported Formats
+- **PDF**: Converts to Markdown using MistralAI OCR
+- **DOCX**: Converts to Markdown with metadata and styling
+- **Excel**: Converts to CSV format
 
 ### Programmatic Usage
 

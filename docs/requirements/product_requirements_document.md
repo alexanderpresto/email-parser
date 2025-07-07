@@ -144,6 +144,13 @@ To provide an enterprise-grade email processing solution that seamlessly transfo
 - **FR-5.3**: System shall create manifest files for uploads
 - **FR-5.4**: System shall preserve email relationships
 
+#### FR-6: Direct File Conversion (Phase 4)
+- **FR-6.1**: System shall support standalone file conversion without email context
+- **FR-6.2**: System shall auto-detect file types (PDF, DOCX, Excel) by extension
+- **FR-6.3**: System shall provide batch conversion for multiple files
+- **FR-6.4**: System shall apply processing profiles to direct conversions
+- **FR-6.5**: System shall maintain backward compatibility with email processing
+
 ### Non-Functional Requirements
 
 #### NFR-1: Performance

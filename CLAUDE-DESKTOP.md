@@ -306,9 +306,9 @@ wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-par
 
 ## Current Status
 
-**Version**: 2.2.0 (main branch)  
-**Phase**: Phase 3.5 Interactive CLI Mode ✅ **COMPLETED 2025-07-06**  
-**Priority**: 🎯 **PRODUCTION READY** - Interactive CLI Mode Complete, All Features Operational
+**Version**: 2.3.0-dev (feature/phase-4-direct-file-conversion branch)  
+**Phase**: Phase 4: Direct File Conversion 🚧 **IN DEVELOPMENT**  
+**Priority**: 🎯 **Direct File Conversion** - Enable standalone document processing without email context
 
 ### ✅ Completed Features (Production Ready)
 
@@ -357,12 +357,60 @@ wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-par
 
 **Production Status**: Fully tested and operational, all bugs resolved, comprehensive error handling
 
+### Phase 4: Direct File Conversion 🚧 **IN DEVELOPMENT (Started 2025-07-08)**
+
+**Objective**: Enable standalone file conversion without email wrapper
+
+**Week 1 Goals**:
+- [ ] Menu system enhancement for direct conversion
+- [ ] DirectFileConverter implementation
+- [ ] File type auto-detection
+- [ ] Integration with existing converters
+- [ ] Batch conversion support
+
+**Week 2 Goals**:
+- [ ] Unified DocumentProcessor API
+- [ ] Standardized processing options
+- [ ] Enhanced error handling
+- [ ] Performance optimization
+- [ ] Comprehensive documentation
+
+**Technical Components**:
+- `email_parser/cli/file_converter.py` - Direct conversion interface
+- `email_parser/core/document_processor.py` - Unified API
+- `email_parser/utils/file_detector.py` - File type detection
+
+**Success Criteria**:
+- All three converters (PDF, DOCX, Excel) work standalone
+- Batch processing operational
+- Consistent with existing UI/UX patterns
+- Maintains backward compatibility
+
+## Phase 4 Windows Integration Patterns
+
+### Direct File Conversion (Windows Paths)
+```bash
+# Single file conversion
+wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-parser-env/bin/activate && python -m email_parser convert --file document.pdf --output output/"
+
+# Batch conversion
+wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-parser-env/bin/activate && python -m email_parser convert --directory documents/ --output output/ --type pdf,docx,xlsx"
+
+# Interactive file conversion
+wsl -d Ubuntu-24.04 bash -c "cd /home/alexp/dev/email-parser && source email-parser-env/bin/activate && python -m email_parser.cli.interactive --mode convert"
+```
+
+### Windows File Selection Patterns
+- Support Windows path formats in file selection
+- Handle UNC paths for network files
+- Integrate with Windows file dialogs (future enhancement)
+
 ### Roadmap
 
 1. **Phase 2** ✅ **COMPLETE**: DOCX converter implementation (Production Ready)
 2. **Phase 3.5** ✅ **COMPLETE**: Interactive CLI Mode (Production Ready - 2025-07-06)
-3. **Phase 4** 🎯 **NEXT**: Unified document processing API
-4. **Phase 5**: Advanced content analysis features  
+3. **Phase 4** 🚧 **IN DEVELOPMENT**: Direct File Conversion (Started 2025-07-08)
+4. **Phase 5** 🎯 **NEXT**: Advanced content analysis features  
 5. **Phase 6**: Production deployment and scaling
 
 ## Configuration

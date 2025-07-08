@@ -4,6 +4,7 @@ Excel converter module for converting Excel workbooks to CSV files.
 
 import logging
 import os
+from pathlib import Path
 
 # from typing import Dict, List, Optional, Tuple, Any, Callable
 from typing import Any, Callable, Dict, List, Optional
@@ -223,3 +224,53 @@ class ExcelConverter:
             return True
 
         return False
+    
+    def convert_standalone(self, file_path: Path, output_dir: Path, 
+                          options: Optional[Dict[str, Any]] = None) -> Path:
+        """
+        Convert an Excel file standalone without email context.
+        
+        Args:
+            file_path: Path to the Excel file to convert
+            output_dir: Directory where output should be saved
+            options: Optional conversion options
+            
+        Returns:
+            Path to the main output file
+            
+        Raises:
+            ExcelConversionError: If conversion fails
+        """
+        from pathlib import Path as PathlibPath
+        
+        # Ensure output directory exists
+        output_dir = PathlibPath(output_dir)
+        output_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Convert to the specified output directory
+        original_output_dir = self.output_dir
+        self.output_dir = str(output_dir)
+        
+        try:
+            # Generate unique identifiers for standalone conversion
+            email_id = f"standalone_{file_path.stem}"
+            secure_filename = file_path.name
+            
+            # Convert all sheets
+            results = self.convert_excel_to_csv(
+                excel_path=str(file_path),
+                original_filename=file_path.name,
+                secure_filename=secure_filename,
+                email_id=email_id,
+                prompt_callback=None  # Convert all sheets by default
+            )
+            
+            if not results:
+                raise ExcelConversionError("No sheets were converted", str(file_path))
+            
+            # Return path to the first converted file
+            return PathlibPath(results[0]['csv_path'])
+            
+        finally:
+            # Restore original output directory
+            self.output_dir = original_output_dir

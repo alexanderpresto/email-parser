@@ -413,3 +413,26 @@ class DocxConverter(BaseConverter):
             return word_count
         except:
             return 0
+    
+    def convert_standalone(self, file_path: Path, output_dir: Path, 
+                          options: Optional[Dict[str, Any]] = None) -> Path:
+        """
+        Convert a DOCX file standalone without email context.
+        
+        Args:
+            file_path: Path to the DOCX file to convert
+            output_dir: Directory where output should be saved
+            options: Optional conversion options
+            
+        Returns:
+            Path to the converted file
+            
+        Raises:
+            ConversionError: If conversion fails
+        """
+        # Generate output filename
+        output_filename = f"{file_path.stem}.md"
+        output_path = output_dir / output_filename
+        
+        # Use existing convert method with the specified output path
+        return self.convert(file_path, output_path)

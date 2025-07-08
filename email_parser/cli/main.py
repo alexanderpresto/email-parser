@@ -6,6 +6,7 @@ from typing import List, Optional
 
 from email_parser.core.config import ProcessingConfig
 from email_parser.core.email_processor import EmailProcessor
+from email_parser.cli.file_converter import DirectFileConverter
 
 
 def process_email(args: argparse.Namespace) -> int:
@@ -45,6 +46,93 @@ def process_email(args: argparse.Namespace) -> int:
         return 0
     except Exception as e:
         print(f"Error processing email: {e}", file=sys.stderr)
+        return 1
+
+
+def convert_file(args: argparse.Namespace) -> int:
+    """Convert a single file directly without email context."""
+    from pathlib import Path
+    
+    input_path = Path(args.file)
+    output_dir = Path(args.output)
+    
+    # Check if input file exists
+    if not input_path.exists():
+        print(f"Error: File not found: {input_path}", file=sys.stderr)
+        return 1
+    
+    try:
+        # Create converter
+        converter = DirectFileConverter(output_directory=str(output_dir))
+        
+        # Convert the file
+        result = converter.convert_file(input_path, output_dir)
+        
+        if result.success:
+            print(f"Successfully converted {input_path.name}")
+            print(f"Output: {result.output_path}")
+            print(f"Type: {result.converter_type}")
+            print(f"Duration: {result.duration_seconds:.2f}s")
+            return 0
+        else:
+            print(f"Conversion failed: {result.error_message}", file=sys.stderr)
+            return 1
+            
+    except Exception as e:
+        print(f"Error converting file: {e}", file=sys.stderr)
+        return 1
+
+
+def convert_batch(args: argparse.Namespace) -> int:
+    """Convert multiple files in a directory."""
+    from pathlib import Path
+    
+    input_dir = Path(args.directory)
+    output_dir = Path(args.output)
+    
+    # Check if input directory exists
+    if not input_dir.exists() or not input_dir.is_dir():
+        print(f"Error: Directory not found: {input_dir}", file=sys.stderr)
+        return 1
+    
+    try:
+        # Create converter
+        converter = DirectFileConverter(output_directory=str(output_dir))
+        
+        # Scan for files
+        files = converter.scan_directory(
+            input_dir, 
+            pattern=getattr(args, 'pattern', '*'),
+            recursive=getattr(args, 'recursive', False)
+        )
+        
+        if not files:
+            print(f"No supported files found in {input_dir}")
+            return 0
+        
+        print(f"Found {len(files)} supported files")
+        
+        # Convert files
+        results = converter.convert_batch(files, output_dir)
+        
+        # Print summary
+        successful = sum(1 for r in results if r.success)
+        failed = len(results) - successful
+        
+        print(f"\nConversion completed:")
+        print(f"  Successful: {successful}")
+        print(f"  Failed: {failed}")
+        
+        if failed > 0:
+            print("\nFailed files:")
+            for result in results:
+                if not result.success:
+                    print(f"  {result.input_path.name}: {result.error_message}")
+        
+        return 0 if failed == 0 else 1
+        
+    except Exception as e:
+        print(f"Error in batch conversion: {e}", file=sys.stderr)
         return 1
 
 
@@ -170,6 +258,18 @@ def main(argv: Optional[List[str]] = None) -> int:
     )
     batch_parser.add_argument("--batch-size", type=int, default=100, help="Batch size")
 
+    # Convert file command
+    convert_parser = subparsers.add_parser("convert", help="Convert a single file directly")
+    convert_parser.add_argument("--file", required=True, help="Input file to convert")
+    convert_parser.add_argument("--output", required=True, help="Output directory")
+    
+    # Convert batch command
+    convert_batch_parser = subparsers.add_parser("convert-batch", help="Convert multiple files in a directory")
+    convert_batch_parser.add_argument("--directory", required=True, help="Input directory containing files")
+    convert_batch_parser.add_argument("--output", required=True, help="Output directory")
+    convert_batch_parser.add_argument("--pattern", default="*", help="File pattern to match (default: *)")
+    convert_batch_parser.add_argument("--recursive", action="store_true", help="Search subdirectories")
+
     args = parser.parse_args(argv)
 
     # Check for interactive mode
@@ -187,6 +287,10 @@ def main(argv: Optional[List[str]] = None) -> int:
         return process_email(args)
     elif args.command == "batch":
         return process_batch(args)
+    elif args.command == "convert":
+        return convert_file(args)
+    elif args.command == "convert-batch":
+        return convert_batch(args)
     else:
         parser.print_help()
         return 1

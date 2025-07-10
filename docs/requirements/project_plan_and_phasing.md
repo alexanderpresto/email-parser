@@ -47,7 +47,7 @@ Implementation of comprehensive document conversion capabilities (PDF and DOCX) 
 ### Week 1: Environment Preparation ✅ **COMPLETE**
 
 #### 1.1 Development Environment Setup ✅ **COMPLETE**
-- ✅ **DONE** Activate virtual environment: `.\email-parser-env\Scripts\Activate.ps1`
+- ✅ **DONE** Activate virtual environment: `source email-parser-env/Scripts/activate`
 - ✅ **DONE** Install MistralAI SDK: `pip install mistralai>=1.5.2` (included in requirements.txt)
 - ✅ **DONE** Update requirements.txt with new dependency
 - ✅ **DONE** Update pyproject.toml with new dependency and version 2.1.0

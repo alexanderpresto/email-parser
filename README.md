@@ -10,11 +10,11 @@ An enterprise-grade email processing system with robust MIME parsing, security f
 
 ## 🚀 Production Status
 
-**Current Version:** 2.3.0-dev (feature/phase-4-direct-file-conversion branch)  
+**Current Version:** 2.3.0-dev  
 **PDF Conversion Status:** ✅ **PRODUCTION READY** - MistralAI OCR Integration Complete  
 **DOCX Conversion Status:** ✅ **PRODUCTION READY** - All Advanced Features Complete  
 **Interactive CLI Status:** ✅ **PRODUCTION READY** - Phase 3.5 Complete (2025-07-06)  
-**Direct File Conversion Status:** ✅ **FEATURE COMPLETE** - Phase 4 Ready for Testing (2025-07-08)  
+**Direct File Conversion Status:** ✅ **FEATURE COMPLETE** - Phase 4 Complete  
 **Performance Status:** ✅ **OPTIMIZED** - Benchmarked & Production Tested
 
 ### ✅ Production Ready Features
@@ -93,6 +93,10 @@ If you're using Claude Desktop on Windows 11 accessing WSL2:
 
 **🚨 CRITICAL:** Virtual environment activation is MANDATORY for all Python development work.
 
+**Requirements:**
+- Python 3.12 or higher (3.12.10 recommended)
+- Virtual environment support
+
 ```bash
 # Clone the repository
 git clone https://github.com/alexanderpresto/email-parser.git
@@ -157,7 +161,7 @@ The email parser automatically routes large files to Gemini CLI when available:
 
 ```bash
 # Analyze large email content files (Claude Code only)
-cat /home/alexp/dev/email-parser/output/processed_text/large_email.txt | gemini -p "extract key information and summarize email contents"
+cat output/processed_text/large_email.txt | gemini -p "extract key information and summarize email contents"
 
 # Process complex attachment analysis
 cat output/converted_pdf/document.md | gemini -m gemini-2.0-flash-thinking-exp -p "analyze document structure and extract business intelligence"

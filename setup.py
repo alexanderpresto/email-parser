@@ -22,6 +22,7 @@ setup(
         "lxml>=4.9.0",
         "tiktoken>=0.5.0",
         "python-docx>=0.8.11",
+        "prompt_toolkit>=3.0.0",
     ],
     python_requires=">=3.12",
 )

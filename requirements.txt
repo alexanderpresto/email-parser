@@ -17,6 +17,9 @@ lxml>=4.9.0  # XML processing support
 tiktoken>=0.5.0  # Token counting for AI model compatibility
 python-docx>=0.8.11  # Enhanced DOCX metadata and structure access
 
+# Interactive CLI dependencies
+prompt_toolkit>=3.0.0  # Interactive prompts and validation for CLI mode
+
 # Development dependencies
 pytest>=7.0.0
 pytest-cov>=4.0.0

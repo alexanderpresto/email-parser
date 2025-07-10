@@ -4,20 +4,13 @@
 
 ## Cross-Reference
 
-For Claude Desktop (Windows), see: [CLAUDE-DESKTOP.md](CLAUDE-DESKTOP.md)
+For global WSL2 development patterns, see: [~/.claude/CLAUDE.md](~/.claude/CLAUDE.md)
 
 ## Critical Setup
 
 ```bash
-# ALWAYS FIRST: Ensure correct project
-get_current_project() → IF ≠ "dev" → switch_project("dev")
-
 # Production main branch (no feature branches needed)
 git branch --show-current  # Should show: main
-
-# Project Location:
-Project Path: /home/alexp/dev/email-parser
-Virtual Environment: /home/alexp/dev/email-parser/email-parser-env
 ```
 
 ## Quick Reference
@@ -27,24 +20,24 @@ Virtual Environment: /home/alexp/dev/email-parser/email-parser-env
 # Time: mcp-server-time:get_current_time("America/Winnipeg")
 # Obsidian: Use `obsidian` MCP tool with vault="dev" for ALL PROJECT DOCUMENTATION
 
-# ALWAYS activate venv before Python work (Windows-style venv in WSL2):
-source /home/alexp/dev/email-parser/email-parser-env/Scripts/activate
+# ALWAYS activate venv before Python work:
+source email-parser-env/Scripts/activate  # Or appropriate activation for your environment
 ```
 
 ## Email-Specific Gemini CLI Usage
 
 ```bash
 # Analyze large email content files
-cat /home/alexp/dev/email-parser/output/processed_text/large_email.txt | gemini -p "extract key information and summarize email contents"
+cat output/processed_text/large_email.txt | gemini -p "extract key information and summarize email contents"
 
 # Process PDF conversion outputs for insights  
-cat /home/alexp/dev/email-parser/output/converted_pdf/document.md | gemini -p "analyze document structure and extract actionable items"
+cat output/converted_pdf/document.md | gemini -p "analyze document structure and extract actionable items"
 
 # Batch analyze DOCX conversion outputs
-find /home/alexp/dev/email-parser/output/converted_docx -name "*.md" -exec cat {} \; | gemini -p "identify common themes across these documents"
+find output/converted_docx -name "*.md" -exec cat {} \; | gemini -p "identify common themes across these documents"
 
 # Analyze email metadata for patterns
-cat /home/alexp/dev/email-parser/output/metadata.json | gemini -p "identify email communication patterns and sender analysis"
+cat output/metadata.json | gemini -p "identify email communication patterns and sender analysis"
 
 # Smart model selection for complex analysis
 cat large_email_batch.txt | gemini -m gemini-2.0-flash-thinking-exp -p "perform multi-step email categorization and priority analysis"
@@ -102,19 +95,19 @@ cat large_email_batch.txt | gemini -m gemini-2.0-flash-thinking-exp -p "perform 
 
 ```bash
 # 1. Check processed email output size before analysis
-ls -la /home/alexp/dev/email-parser/output/processed_text/*.txt | awk '{sum+=$5} END {print sum}'
+ls -la output/processed_text/*.txt | awk '{sum+=$5} END {print sum}'
 
 # 2. Delegate large email content analysis to Gemini
-cat /home/alexp/dev/email-parser/output/processed_text/email_thread.txt | gemini -p "extract action items, decisions, and key participants from this email thread"
+cat output/processed_text/email_thread.txt | gemini -p "extract action items, decisions, and key participants from this email thread"
 
 # 3. Process PDF attachment analysis via Gemini
-cat /home/alexp/dev/email-parser/output/converted_pdf/contract.md | gemini -p "identify key terms, deadlines, and responsibilities in this converted contract"
+cat output/converted_pdf/contract.md | gemini -p "identify key terms, deadlines, and responsibilities in this converted contract"
 
 # 4. Batch DOCX analysis for business intelligence
-find /home/alexp/dev/email-parser/output/converted_docx -name "*.md" | head -10 | xargs cat | gemini -p "analyze these business documents for trends and insights"
+find output/converted_docx -name "*.md" | head -10 | xargs cat | gemini -p "analyze these business documents for trends and insights"
 
 # 5. Email metadata pattern analysis
-cat /home/alexp/dev/email-parser/output/metadata_*.json | gemini -p "analyze communication patterns, identify VIPs, and detect unusual email behaviors"
+cat output/metadata_*.json | gemini -p "analyze communication patterns, identify VIPs, and detect unusual email behaviors"
 ```
 
 ## Project Structure
@@ -189,11 +182,11 @@ output/
 ## Email Parser Maintenance Workflow
 
 1. **Project Setup**:
-   - `get_current_project()` → IF ≠ "dev" → `switch_project("dev")`
+   - Ensure Python 3.12+ is installed (`python --version`)
    - `build_context("memory://email-parser/*")` - Load project memory
-   - `source email-parser-env/Scripts/activate` - Activate virtual environment
+   - Activate virtual environment
 
-2. **Dependencies**: Install missing requests, psutil if needed
+2. **Dependencies**: Install missing requests, psutil, prompt_toolkit if needed
 3. **Development**: Archive files before editing, use Edit tool for changes
 4. **Testing**: pytest (unit/integration/performance) 
 5. **Documentation**: Store in `obsidian` vault="dev"
@@ -210,12 +203,11 @@ python -m email_parser.cli.main process --input email.eml --output output/
 
 ### Email Parser Testing
 
-⚠️ **Dependencies**: Ensure `requests` and `psutil` are installed before testing
+⚠️ **Dependencies**: Ensure all required dependencies are installed before testing
 
 ```bash
 # Install missing dependencies first  
-# Note: Windows-style venv structure in WSL2
-cd /home/alexp/dev/email-parser && source email-parser-env/Scripts/activate && pip install requests>=2.31.0 psutil>=5.9.0
+pip install requests>=2.31.0 psutil>=5.9.0 prompt_toolkit>=3.0.0
 
 # Testing
 pytest                          # Full suite
@@ -230,18 +222,18 @@ When working with large email processing outputs:
 
 ```bash
 # Check output file sizes first
-ls -lh /home/alexp/dev/email-parser/output/processed_text/
-ls -lh /home/alexp/dev/email-parser/output/converted_pdf/
-ls -lh /home/alexp/dev/email-parser/output/converted_docx/
+ls -lh output/processed_text/
+ls -lh output/converted_pdf/
+ls -lh output/converted_docx/
 
 # For large files (>100KB), automatically delegate to Gemini
-cat /home/alexp/dev/email-parser/output/large_file.txt | gemini -p "provide detailed analysis suitable for this email processing context"
+cat output/large_file.txt | gemini -p "provide detailed analysis suitable for this email processing context"
 
 # For batch processing results
-find /home/alexp/dev/email-parser/output -name "*.md" -size +100k | xargs cat | gemini -p "summarize key findings across these processed email attachments"
+find output -name "*.md" -size +100k | xargs cat | gemini -p "summarize key findings across these processed email attachments"
 
 # For email metadata analysis
-cat /home/alexp/dev/email-parser/output/metadata_*.json | gemini -p "analyze patterns and generate insights for email processing optimization"
+cat output/metadata_*.json | gemini -p "analyze patterns and generate insights for email processing optimization"
 ```
 
 ## Email Parser Documentation Structure
@@ -264,9 +256,8 @@ email-parser/
 
 ## Current Status
 
-**Version**: 2.3.0-dev (feature/phase-4-direct-file-conversion branch)  
-**Phase**: Phase 4: Direct File Conversion ✅ **CORE IMPLEMENTATION COMPLETED 2025-07-08**  
-**Priority**: 🎯 **Direct File Conversion** - Standalone document processing without email context (READY FOR TESTING)
+**Phase**: Phase 4: Direct File Conversion ✅ **CORE IMPLEMENTATION COMPLETED (Updated: 2025-07-09)
+**Priority**: 🎯 **Direct File Conversion** - Standalone document processing without email context
 
 ### ✅ Completed Features (Production Ready)
 
@@ -287,13 +278,13 @@ email-parser/
 - ✅ **Real-time progress tracking** with rich terminal UI (Production ready)
 - ✅ **Configuration management** with preferences persistence (Production ready)
 - ✅ **Batch processing support** with interactive workflow (Production ready)
-- ✅ **Direct File Conversion** with standalone document processing (Feature complete - 2025-07-08, pending merge)
-- ✅ **File Type Detection** with automatic converter selection (Feature complete - pending merge)
-- ✅ **Batch file conversion** with progress tracking (Feature complete - pending merge)
+- ✅ **Direct File Conversion** with standalone document processing (Feature complete)
+- ✅ **File Type Detection** with automatic converter selection (Feature complete)
+- ✅ **Batch file conversion** with progress tracking (Feature complete)
 
-### Phase 1: PDF→Markdown ✅ COMPLETED
+### Phase 1: PDF→Markdown ✅ COMPLETED (Updated: 2025-07-09)
 
-### Phase 2: DOCX→Structured Output ✅ **COMPLETED 2025-07-01**
+### Phase 2: DOCX→Structured Output ✅ **COMPLETED (Updated: 2025-07-09)
 
 **All Weeks Complete:** ✅ **PRODUCTION READY**
 
@@ -301,9 +292,9 @@ email-parser/
 - [x] **Advanced Features** (Week 2) - AI-ready chunking, enhanced metadata, style preservation, image extraction, complete integration, comprehensive testing  
 - [x] **Polish & Optimization** (Week 3) - Performance optimization, benchmarking, additional fixtures, documentation, merge completion
 
-**Production Status**: 119/182 tests passing (core features working), test suite needs maintenance, fully integrated with main CLI
+**Production Status**: Core features working, fully integrated with main CLI
 
-### Phase 3.5: Interactive CLI Mode ✅ **COMPLETED 2025-07-06**
+### Phase 3.5: Interactive CLI Mode ✅ **COMPLETED (Updated: 2025-07-09)
 
 **All Components Complete:** ✅ **PRODUCTION READY**
 
@@ -318,41 +309,33 @@ email-parser/
 
 **Production Status**: Fully tested and operational, all bugs resolved, comprehensive error handling
 
-### Phase 4: Direct File Conversion ✅ **CORE IMPLEMENTATION COMPLETED 2025-07-08**
+### Phase 4: Direct File Conversion ✅ **CORE IMPLEMENTATION COMPLETED (Updated: 2025-07-09)
 
 **Objective**: Enable standalone file conversion without email wrapper ✅ **ACHIEVED**
 
-**Week 1 Goals** ✅ **COMPLETED**:
-- [x] ~~Menu system enhancement for direct conversion~~ (CLI implementation prioritized)
+**Core Features Implemented**:
 - [x] DirectFileConverter implementation
 - [x] File type auto-detection
 - [x] Integration with existing converters
 - [x] Batch conversion support
+- [x] CLI commands (convert, convert-batch)
 
-**Week 2 Goals** 🚧 **REMAINING**:
-- [ ] Unified DocumentProcessor API
-- [ ] Standardized processing options
-- [ ] Enhanced error handling
-- [ ] Performance optimization
-- [ ] Comprehensive documentation
-- [ ] Interactive CLI integration
+**Technical Components**:
+- `email_parser/cli/file_converter.py` - Direct conversion interface
+- `email_parser/utils/file_detector.py` - File type detection
+- `email_parser/converters/*_converter.py` - Standalone methods added
 
-**Technical Components** ✅ **IMPLEMENTED**:
-- `email_parser/cli/file_converter.py` ✅ Direct conversion interface
-- `email_parser/utils/file_detector.py` ✅ File type detection
-- `email_parser/converters/*_converter.py` ✅ Standalone methods added
-
-**Success Criteria** ✅ **MET**:
+**Success Criteria Met**:
 - ✅ All three converters (PDF, DOCX, Excel) work standalone
 - ✅ Batch processing operational
-- ✅ CLI commands `convert` and `convert-batch` functional
+- ✅ CLI commands functional
 - ✅ Maintains backward compatibility
 
 ### Roadmap
 
 1. **Phase 2** ✅ **COMPLETE**: DOCX converter implementation (Production Ready)
 2. **Phase 3.5** ✅ **COMPLETE**: Interactive CLI Mode (Production Ready - 2025-07-06)
-3. **Phase 4** ✅ **CORE COMPLETE**: Direct File Conversion (Core completed 2025-07-08, pending merge to main)
+3. **Phase 4** ✅ **CORE COMPLETE**: Direct File Conversion
 4. **Phase 4.5** 🎯 **NEXT**: Interactive CLI integration and unified API
 5. **Phase 5**: Advanced content analysis features  
 6. **Phase 6**: Production deployment and scaling
@@ -486,7 +469,7 @@ cat output/processed_text/inbox_batch.txt | gemini -m gemini-2.0-flash-thinking-
 ### Integration Strategy
 
 **Approach**: Wrapper-based integration preserving docx-processor functionality
-**Timeline**: 3 weeks (2025-06-28 to 2025-07-01) ✅ COMPLETED EARLY
+**Timeline**: 3 weeks (2025-06-28 to 2025-07-01) ✅ COMPLETED (Updated: 2025-07-09)
 **Status**: Merged to `main` and production ready
 
 ### Production Architecture
@@ -574,15 +557,11 @@ All configuration options tested and validated in production.
 
 ## Email Parser Environment
 
-**Project Location**: `/home/alexp/dev/email-parser`  
-**Windows Access**: `\\wsl.localhost\Ubuntu-24.04\home\alexp\dev\email-parser`  
-**Virtual Environment**: `/home/alexp/dev/email-parser/email-parser-env`
-
-### Virtual Environment (Windows-style structure in WSL2)
+### Virtual Environment
 
 ```bash
 # Activate virtual environment (required before all Python work)
-cd /home/alexp/dev/email-parser && source email-parser-env/Scripts/activate
+source email-parser-env/Scripts/activate
 
 # Check virtual environment status
 python -c 'import sys; print(sys.prefix)'

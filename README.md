@@ -77,17 +77,10 @@ This library provides a comprehensive solution for parsing and processing emails
 
 **IMPORTANT**: Choose the correct instruction set for your development environment:
 
-#### 🐧 **Claude Code (WSL2/Linux)**
-If you're using Claude Code and running IN WSL2/Ubuntu environment:
-- **See**: [CLAUDE.md](CLAUDE.md) - Native Linux commands, no WSL prefix needed
+#### Development Environment Instructions
 
-#### 🪟 **Claude Desktop (Windows)**
-If you're using Claude Desktop on Windows 11 accessing WSL2:
-- **See**: [CLAUDE-DESKTOP.md](CLAUDE-DESKTOP.md) - All commands use `wsl -d Ubuntu-24.04` prefix
-
-**Quick Check**: Your environment platform determines which instructions to use:
-- Platform: `linux` → Use [CLAUDE.md](CLAUDE.md)
-- Platform: `win32` → Use [CLAUDE-DESKTOP.md](CLAUDE-DESKTOP.md)
+- **See**: [CLAUDE.md](CLAUDE.md) - Project-specific development instructions
+- **For AI assistants**: Environment-specific instructions should be stored in `~/.claude/`
 
 ### Development Setup
 

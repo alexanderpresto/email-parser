@@ -6,6 +6,8 @@
 
 For global WSL2 development patterns, see: [~/.claude/CLAUDE.md](~/.claude/CLAUDE.md)
 
+**Note for Windows/Claude Desktop users**: Create your own environment-specific instructions in `~/.claude/CLAUDE-DESKTOP.md` with your personal paths and WSL configuration.
+
 ## Critical Setup
 
 ```bash

@@ -80,7 +80,7 @@ If you're using Claude Code and running IN WSL2/Ubuntu environment:
 
 #### 🪟 **Claude Desktop (Windows)**  
 If you're using Claude Desktop on Windows 11 accessing WSL2:
-- **See**: [CLAUDE-DESKTOP.md](CLAUDE-DESKTOP.md) for complete setup and workflow instructions  
+- **See**: [CLAUDE.md](CLAUDE.md) for project-specific development instructions  
 - All commands use `wsl -d Ubuntu-24.04` prefix
 
 #### Universal Setup Steps
@@ -139,7 +139,7 @@ gemini --version
 
 ### Running Tests
 
-**Commands shown in WSL2/Linux format. For Windows, see [CLAUDE-DESKTOP.md](CLAUDE-DESKTOP.md).**
+**Commands shown in WSL2/Linux format. Windows users should adapt commands for their environment.**
 
 ```bash
 # Run the full test suite

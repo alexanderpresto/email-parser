@@ -44,4 +44,4 @@ When adding new utility scripts:
 1. Place them in this directory
 2. Add documentation here
 3. Include proper docstrings in the script
-4. Update [CLAUDE.md](../CLAUDE.md) or [CLAUDE-DESKTOP.md](../CLAUDE-DESKTOP.md) if the script is part of the development workflow
+4. Update [CLAUDE.md](../CLAUDE.md) if the script is part of the development workflow

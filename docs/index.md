@@ -71,7 +71,6 @@ Please refer to the README.md file in the project root for installation and basi
 
 **Note**: For detailed, platform-specific setup instructions, see:
 - [CLAUDE.md](../CLAUDE.md) - Claude Code (WSL2/Linux) instructions
-- [CLAUDE-DESKTOP.md](../CLAUDE-DESKTOP.md) - Claude Desktop (Windows) instructions
 
 ## Key Features
 

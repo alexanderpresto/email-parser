@@ -15,12 +15,12 @@ If you're using Claude Code and running IN WSL2/Ubuntu environment:
 
 ### 🪟 **Claude Desktop (Windows)**  
 If you're using Claude Desktop on Windows 11 accessing WSL2:
-- **See**: [CLAUDE-DESKTOP.md](CLAUDE-DESKTOP.md) for complete setup instructions
+- **See**: [CLAUDE.md](CLAUDE.md) for project-specific development instructions
 - All commands use `wsl -d Ubuntu-24.04` prefix
 
 **Quick Check**: Your environment platform determines which setup to follow:
 - Platform: `linux` → Follow [CLAUDE.md](CLAUDE.md) setup
-- Platform: `win32` → Follow [CLAUDE-DESKTOP.md](CLAUDE-DESKTOP.md) setup
+- Platform: `win32` → Adapt commands for Windows environment
 
 ## Production Environment Checklist
 
@@ -192,7 +192,7 @@ Command not found or permission denied
 ## Next Steps
 
 1. **Identify your platform** (linux vs win32)
-2. **Open the correct instruction file** ([CLAUDE.md](CLAUDE.md) or [CLAUDE-DESKTOP.md](CLAUDE-DESKTOP.md))
+2. **Open the instruction file** ([CLAUDE.md](CLAUDE.md))
 3. **Follow platform-specific setup** and daily workflow
 4. **Refer back to this file** for universal concepts and troubleshooting
 

@@ -22,9 +22,16 @@ This documentation covers the Email Parser project, an enterprise-grade system d
   - [Project Plan & Phasing](requirements/project_plan_and_phasing.md)
   - [Technical Specification](requirements/technical_specification_document.md)
 
-## What's New in Version 2.3.0
+## What's New in Version 2.4.0
 
-### ✅ Direct File Conversion (Phase 4 Complete - NEW!)
+### 🎯 Interactive File Conversion (Phase 4.5 Active Development)
+- **Unified Interactive Interface** - Single CLI entry point for all operations  
+- **File Conversion Mode** - Dedicated interactive workflow for document conversion
+- **Smart File Discovery** - Intelligent document scanning with recommendations
+- **Conversion Profiles** - Pre-configured settings (AI Processing, Document Archive, Quick Conversion, Research Mode, Batch Optimization)
+- **Rich Terminal UI** - Enhanced progress tracking and file selection interfaces
+
+### ✅ Direct File Conversion (Phase 4 Complete)
 - **Standalone document processing** without email context
 - **Automatic file type detection** for PDF, DOCX, and Excel files
 - **Batch conversion** with pattern matching and recursive directory search
@@ -63,7 +70,7 @@ This documentation covers the Email Parser project, an enterprise-grade system d
 
 ## Project Information
 
-- **Version:** 2.3.0 (Phase 4 complete)
+- **Version:** 2.4.0 (Phase 4.5 active development)  
 - **Created:** 2025-02-25
 - **Last Updated:** 2025-07-14
 - **Framework:** Enhanced-Intent v3.0

@@ -1,0 +1,149 @@
+# CLI Examples for Email Parser
+
+⚠️ **Virtual Environment Required**: Always activate the virtual environment before running CLI commands:
+
+```bash
+# Windows PowerShell
+.\email-parser-env\Scripts\Activate.ps1
+
+# Linux/Mac/WSL2
+source email-parser-env/bin/activate
+```
+
+⚠️ **Implementation Status**: 
+- ✅ Basic email processing (WORKING)
+- ✅ Excel conversion (WORKING)  
+- ✅ PDF conversion options (WORKING - Phase 1 Complete)
+- ✅ **DOCX conversion with advanced features (WORKING - Phase 2 Complete)**
+  - ✅ AI-ready chunking (3 strategies)
+  - ✅ Enhanced metadata extraction  
+  - ✅ Style preservation
+  - ✅ Advanced image extraction
+  - ✅ Complete CLI integration
+
+All conversion features are fully implemented and tested with Phase 2 complete.
+
+# ==========================================================
+# ACTUAL WORKING COMMANDS (Verified 2025-07-01)
+# ==========================================================
+
+## SINGLE EMAIL PROCESSING
+
+# Basic email processing
+python -m email_parser process --input email.eml --output output/
+
+# Process email with Excel conversion
+python -m email_parser process --input email.eml --output output/ --convert-excel
+
+# Process email with PDF conversion  
+python -m email_parser process --input email.eml --output output/ --convert-pdf
+
+# Process email with PDF conversion modes
+python -m email_parser process --input email.eml --output output/ --convert-pdf --pdf-mode text
+python -m email_parser process --input email.eml --output output/ --convert-pdf --pdf-mode images  
+python -m email_parser process --input email.eml --output output/ --convert-pdf --pdf-mode all
+
+# Process email with DOCX conversion (Week 2 Complete)
+python -m email_parser process --input email.eml --output output/ --convert-docx
+
+# Process email with DOCX advanced features (All Week 2 Features)
+python -m email_parser process --input email.eml --output output/ \
+    --convert-docx \
+    --docx-chunking \
+    --docx-images \
+    --docx-metadata \
+    --docx-styles \
+    --docx-comments
+
+# Process email with custom DOCX chunking settings
+python -m email_parser process --input email.eml --output output/ \
+    --convert-docx \
+    --docx-chunk-size 2000 \
+    --docx-chunk-overlap 200 \
+    --docx-chunk-strategy hybrid
+
+# Process email with all converters enabled
+python -m email_parser process --input email.eml --output output/ \
+    --convert-excel \
+    --convert-pdf --pdf-mode all \
+    --convert-docx --docx-chunking --docx-images --docx-styles
+
+# Process email with attachment size limit
+python -m email_parser process --input email.eml --output output/ \
+    --max-attachment-size 10000000
+
+## BATCH EMAIL PROCESSING
+
+# Basic batch processing from directory
+python -m email_parser batch --input emails/ --output output/
+
+# Batch processing with conversions
+python -m email_parser batch --input emails/ --output output/ \
+    --convert-excel \
+    --convert-pdf \
+    --convert-docx
+
+# Batch processing with specific file pattern
+python -m email_parser batch --input emails/ --output output/ \
+    --pattern "*.eml" \
+    --convert-pdf
+
+# Batch processing with custom batch size
+python -m email_parser batch --input emails/ --output output/ \
+    --batch-size 50 \
+    --convert-docx --docx-chunking
+
+# Batch processing with all DOCX Week 2 features
+python -m email_parser batch --input emails/ --output output/ \
+    --convert-docx \
+    --docx-chunking \
+    --docx-images \
+    --docx-metadata \
+    --docx-styles \
+    --docx-comments \
+    --docx-chunk-size 1500
+
+# ==========================================================
+# AVAILABLE CLI OPTIONS (As of 2025-07-01)
+# ==========================================================
+
+## Process Command Options:
+# --input              Input email file (required)
+# --output             Output directory (required)  
+# --convert-excel      Convert Excel to CSV
+# --convert-pdf        Convert PDF to Markdown
+# --pdf-mode          PDF extraction mode: text, images, all (default: all)
+# --convert-docx       Convert DOCX to Markdown
+# --docx-metadata      Extract metadata from DOCX files (default: True)
+# --docx-images        Extract images from DOCX files
+# --docx-chunking      Enable AI-ready document chunking
+# --docx-chunk-size    Maximum tokens per chunk (default: 2000)
+# --docx-chunk-overlap Token overlap between chunks (default: 200)
+# --docx-chunk-strategy Chunking strategy: token, semantic, hybrid (default: hybrid)
+# --docx-styles        Extract style information
+# --docx-comments      Extract comments and track changes (default: True)
+# --max-attachment-size Maximum attachment size in bytes
+
+## Batch Command Options:
+# All process options plus:
+# --pattern            File pattern to match
+# --batch-size         Batch size
+
+## Help Commands:
+# python -m email_parser --help
+# python -m email_parser process --help  
+# python -m email_parser batch --help
+
+# ==========================================================
+# TESTING AND VERIFICATION
+# ==========================================================
+
+# Test basic imports
+python -c "import email_parser; print('Email Parser: Success!')"
+python -c "import mistralai; print('MistralAI: Success!')"
+
+# Check if API key is set
+python -c "import os; print('API Key set:', bool(os.environ.get('MISTRALAI_API_KEY')))"
+
+# Show help
+python -m email_parser --help

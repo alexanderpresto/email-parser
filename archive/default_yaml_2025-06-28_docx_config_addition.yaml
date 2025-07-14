@@ -1,0 +1,135 @@
+# Default Email Parser Configuration
+# This file contains default settings for the email parser
+
+# Processing settings
+processing:
+  output_directory: "output"
+  convert_excel: true
+  convert_pdf: true  # Enable PDF to Markdown conversion
+  batch_size: 100
+  max_workers: 4
+  
+# Security settings  
+security:
+  max_attachment_size: 10000000  # 10MB
+  allowed_extensions:
+    - ".pdf"
+    - ".docx"
+    - ".xlsx"
+    - ".txt"
+    - ".jpg"
+    - ".png"
+    - ".csv"
+    - ".zip"
+  enable_malware_scanning: false
+  validate_pdf_content: true  # Check PDFs for malicious content
+  
+# Performance settings
+performance:
+  chunk_size: 1048576  # 1MB
+  enable_caching: true
+  cache_size: 100
+  pdf_cache_size: 50  # Cache for PDF conversions
+  use_memory_mapping: true
+  parallel_extraction: true
+  api_connection_pooling: true  # Reuse MistralAI connections
+  
+# Error handling
+error_handling:
+  mode: "graceful"  # Options: strict, graceful, permissive
+  continue_on_error: true
+  max_retries: 3
+  
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  enable_detailed_logging: false
+  log_file: "email_parser.log"
+  
+# Excel conversion
+excel_conversion:
+  max_rows_per_sheet: 1000000
+  include_formulas: true
+  preserve_formatting: false
+  
+# PDF conversion (Enhanced v2.1.0)
+pdf_conversion:
+  enabled: true
+  api_key_env: "MISTRALAI_API_KEY"  # Environment variable for API key
+  extraction_mode: "all"  # Options: text, images, all
+  
+  # Image processing settings
+  image_settings:
+    limit: 0  # 0 = no limit on image count
+    min_size: 100  # Minimum image size in pixels
+    save_images: true  # Extract and save images
+    image_dir: "images"  # Subdirectory for extracted images
+    format: "png"  # Output format for images
+  
+  # Pagination settings
+  pagination:
+    enabled: true
+    page_separator: "\\n\\n---\\n\\n"  # Page separator in Markdown
+  
+  # Performance caching
+  cache:
+    enabled: true
+    directory: ".cache/pdf"
+    max_size_mb: 100
+    
+  # Enhanced API settings with resilience
+  api_settings:
+    timeout: 30  # API timeout in seconds
+    max_retries: 3  # Number of retry attempts
+    retry_delay: 1.0  # Initial retry delay in seconds
+    
+    # Circuit breaker pattern for API failures
+    circuit_breaker:
+      failure_threshold: 5  # Failures before opening circuit
+      recovery_timeout: 300  # 5 minutes recovery time
+      reset_timeout: 60  # 1 minute reset time
+      
+  # File validation settings
+  validation:
+    max_file_size: 104857600  # 100MB maximum file size
+    min_file_size: 1  # 1 byte minimum
+    allowed_pdf_versions: ["1.0", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "1.7"]
+    validate_pdf_structure: true  # Validate PDF internal structure
+    check_encryption: true  # Check for password protection
+    
+  # Memory management
+  memory:
+    max_usage_mb: 512  # Maximum memory usage for PDF processing
+    cleanup_on_error: true  # Clean up temp files on failure
+    monitor_usage: true  # Track memory consumption
+    
+  # Quality settings  
+  quality:
+    ocr_language: "en"  # OCR language
+    preserve_formatting: true  # Maintain document structure
+    extract_metadata: true  # Include PDF metadata
+    confidence_threshold: 0.7  # Minimum OCR confidence
+    
+  # Performance optimization
+  performance:
+    parallel_processing: false  # Process pages in parallel (future)
+    batch_size: 1  # Number of PDFs to process in batch
+    compression_level: 6  # Output compression (1-9)
+    use_gpu: false  # GPU acceleration (future)
+    
+  # Error handling
+  error_handling:
+    strict_validation: true  # Fail on validation errors
+    log_api_errors: true  # Log detailed API errors
+    retry_on_rate_limit: true  # Auto-retry on rate limits
+    fallback_mode: "text_only"  # Fallback extraction mode
+  
+# Output organization
+output:
+  text_dir: "processed_text"
+  attachments_dir: "attachments"
+  inline_images_dir: "inline_images"  
+  excel_conversion_dir: "converted_excel"
+  pdf_conversion_dir: "converted_pdf"  # Directory for PDF conversions
+  organize_by_date: false
+  date_format: "%Y/%m/%d"

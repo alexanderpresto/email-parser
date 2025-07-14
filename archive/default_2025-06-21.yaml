@@ -1,0 +1,58 @@
+# Default Email Parser Configuration
+# This file contains default settings for the email parser
+
+# Processing settings
+processing:
+  output_directory: "output"
+  convert_excel: true
+  batch_size: 100
+  max_workers: 4
+  
+# Security settings  
+security:
+  max_attachment_size: 10000000  # 10MB
+  allowed_extensions:
+    - ".pdf"
+    - ".docx"
+    - ".xlsx"
+    - ".txt"
+    - ".jpg"
+    - ".png"
+    - ".csv"
+    - ".zip"
+  enable_malware_scanning: false
+  
+# Performance settings
+performance:
+  chunk_size: 1048576  # 1MB
+  enable_caching: true
+  cache_size: 100
+  use_memory_mapping: true
+  parallel_extraction: true
+  
+# Error handling
+error_handling:
+  mode: "graceful"  # Options: strict, graceful, permissive
+  continue_on_error: true
+  max_retries: 3
+  
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  enable_detailed_logging: false
+  log_file: "email_parser.log"
+  
+# Excel conversion
+excel_conversion:
+  max_rows_per_sheet: 1000000
+  include_formulas: true
+  preserve_formatting: false
+  
+# Output organization
+output:
+  text_dir: "processed_text"
+  attachments_dir: "attachments"
+  inline_images_dir: "inline_images"  
+  excel_conversion_dir: "converted_excel"
+  organize_by_date: false
+  date_format: "%Y/%m/%d"

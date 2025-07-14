@@ -4,98 +4,71 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Type Checking](https://img.shields.io/badge/type%20checking-mypy-blue.svg)](https://github.com/python/mypy)
-[![Development Status](https://img.shields.io/badge/status-production%20ready-green.svg)](https://github.com/alexanderpresto/email-parser)
+[![Development Status](https://img.shields.io/badge/status-active%20development-orange.svg)](https://github.com/alexanderpresto/email-parser)
 
-An enterprise-grade email processing system with robust MIME parsing, security features, PDF/DOCX to Markdown conversion, and an intuitive Interactive CLI Mode for guided email processing workflows.
+An enterprise-grade email processing system with robust MIME parsing, security features, PDF to Markdown conversion, and performance optimization.
 
-## 🚀 Production Status
+## 🚀 Development Status
 
-**Current Version:** 2.4.0 (Phase 4.5 Interactive File Conversion - Day 3-4 Implementation)  
-**PDF Conversion Status:** ✅ **PRODUCTION READY** - MistralAI OCR Integration Complete  
-**DOCX Conversion Status:** ✅ **PRODUCTION READY** - All Advanced Features Complete  
-**Interactive CLI Status:** ⚠️ **FUNCTIONAL** - Phase 3.5 Complete, Unicode display issues on Windows  
-**Direct File Conversion Status:** ✅ **PRODUCTION READY** - Phase 4 Complete & Tested (2025-07-14)  
-**Interactive File Conversion Status:** 🎯 **ACTIVE DEVELOPMENT** - Phase 4.5 Core Implementation (2025-07-14)  
-**Performance Status:** ✅ **OPTIMIZED** - Benchmarked & Production Tested
+**Current Version:** 2.2.0-dev (feature/docx-converter branch)  
+**PDF Conversion Status:** ✅ **WORKING** - MistralAI OCR Integration Complete  
+**DOCX Conversion Status:** ✅ **WEEK 2 COMPLETE** - Advanced Features Implemented  
+**Next Milestone:** Week 3 - Performance Optimization & Polish
 
-### ✅ Production Ready Features
+### 🆕 Feature Branch Notice
 
-Production ready features and active development:
-
-**✅ Production Ready Features:**
-- ✅ **Interactive CLI Mode** - Intuitive guided email processing (Note: Unicode display issues on Windows)
-- ✅ **Direct File Conversion** - Standalone document processing without email context (Phase 4 complete & tested)
+This branch (`feature/docx-converter`) includes completed implementation of:
 - ✅ DOCX to Markdown conversion using mammoth library
-- ✅ AI-ready document chunking for LLM processing 
-- ✅ Comprehensive metadata and style extraction
-- ✅ Embedded image extraction from Word documents
-- ✅ Automatic file type detection and batch processing
-- ✅ Performance optimization and benchmarking
-- ✅ Edge case handling and error resilience
-- ✅ Production-ready configuration and monitoring
-
-**🎯 Phase 4.5 Active Development (Interactive File Conversion):**
-- ✅ **Interactive File Converter** - Rich terminal UI with guided workflows (implemented ahead of schedule)
-- ✅ **File Conversion Profiles** - 5 built-in profiles with intelligent recommendations (production ready)
-- ✅ **File Discovery Engine** - Intelligent document scanning with progress tracking (complete)
-- 🎯 **DirectFileConverter Integration** - Profile-based conversion mapping (Day 3-4 focus)
-- 🎯 **Advanced Error Handling** - Recovery workflows and quality validation (Day 3-4 implementation)
+- ✅ AI-ready document chunking for LLM processing (Week 2)
+- ✅ Comprehensive metadata and style extraction (Week 2)
+- ✅ Embedded image extraction from Word documents (Week 2)
 
 ## Overview
 
 This library provides a comprehensive solution for parsing and processing emails in enterprise environments with high volume requirements. It handles complex MIME structures, extracts all components (text, HTML, attachments, inline images), converts PDFs to searchable Markdown using MistralAI OCR, and ensures secure processing throughout.
 
-### ✅ Production Features
+### ✅ Implemented Features
 
 - Complete MIME structure parsing and extraction
-- ✅ **PDF to Markdown conversion with MistralAI OCR** - Production ready with full API integration
-- ✅ **DOCX to Markdown conversion** - Complete mammoth library integration
-- ✅ **AI-ready document chunking** - Token-based, semantic, and hybrid strategies
-- ✅ **Enhanced DOCX metadata extraction** - Comprehensive document properties and analysis
-- ✅ **Style preservation system** - CSS and JSON output with formatting preservation
-- ✅ **Advanced image extraction** - Quality control and deduplication for DOCX files
-- ✅ **Comments and revision tracking** extraction from Word documents
-- 🎯 **Interactive File Conversion** - Rich UI for standalone document processing (Phase 4.5 - Day 3-4 implementation)
-- 🎯 **Conversion Quality Analysis** - Validation and reporting with intelligent recommendations (Phase 4.5 development)
+- ✅ **PDF to Markdown conversion with MistralAI OCR** (v2.1.0)
+- ✅ **Working PDF attachments processing** - Extracts text and images from PDFs
+- ✅ **DOCX to Markdown conversion** with mammoth library (v2.2.0-dev)
+- ✅ **AI-ready document chunking** - Token-based, semantic, and hybrid strategies (Week 2)
+- ✅ **Enhanced DOCX metadata extraction** - Comprehensive document properties and analysis (Week 2)
+- ✅ **Style preservation system** - CSS and JSON output with formatting preservation (Week 2)
+- ✅ **Advanced image extraction** - Quality control and deduplication for DOCX files (Week 2)
+- ✅ **Comments and revision tracking** extraction from Word documents (Week 2)
 - Automatic Excel to CSV conversion capability
 - Secure file handling with protection against common attack vectors
 - Support for multiple encodings (UTF-8, UTF-16, ASCII, ISO-8859, Base64, etc.) with automatic encoding detection
 - Comprehensive error handling and logging
 - Complete type annotations and rigorous testing
 
-### 🎯 Latest Enhancement (Phase 3.5 Complete)
+### 🔄 Week 3 Development (Current)
 
-- ✅ **Interactive CLI mode** with intuitive guided workflows
-- ✅ **Email content scanning** with smart recommendations and complexity analysis
-- ✅ **Processing profiles system** with 5 built-in profiles (Quick, Comprehensive, AI-Ready, Archive, Dev)
-- ✅ **Real-time progress tracking** with beautiful terminal UI and fallback modes
-- ✅ **Batch processing support** with guided workflow and progress indicators
-- ✅ **Configuration management** with preferences persistence and API setup
+- **Performance optimization** for large document processing
+- **Enhanced error handling** and graceful fallbacks
+- **Comprehensive test coverage** for all Week 2 features
+- **Documentation completion** and merge preparation
+
+### 📋 Planned Features
+
+- High-performance batch processing with parallel PDF/Excel/DOCX conversion
+- Performance benchmarks and optimization
+- Enhanced error reporting and monitoring
+- Additional output format options
 
 ## Installation
 
 ### Prerequisites
 
-- Python 3.12.10 or higher (verified working)
-- Virtual environment (recommended for development)
+- Python 3.12.9 or higher
+- Virtual environment (required for development)
 - MistralAI API key (for PDF conversion)
-
-### 📋 Development Instructions
-
-**IMPORTANT**: Set up your development environment:
-
-#### Development Environment Instructions
-
-- **See**: [CLAUDE.md](CLAUDE.md) - Project-specific development instructions
-- **For AI assistants**: Create environment-specific instructions in `.claude/CLAUDE.md` (see `.claude/README.md` for setup)
 
 ### Development Setup
 
 **🚨 CRITICAL:** Virtual environment activation is MANDATORY for all Python development work.
-
-**Requirements:**
-- Python 3.12.10 or higher (verified working)
-- Virtual environment support (venv activation has known issues on this setup)
 
 ```bash
 # Clone the repository
@@ -109,10 +82,7 @@ python -m venv email-parser-env
 # Windows PowerShell
 .\email-parser-env\Scripts\Activate.ps1
 
-# Windows Git Bash
-source email-parser-env/Scripts/activate
-
-# Linux/Mac
+# Linux/Mac/WSL2
 source email-parser-env/bin/activate
 
 # STEP 3: Verify virtual environment is active (Must show True)
@@ -132,109 +102,12 @@ pip install -e .
 For PDF to Markdown conversion, you'll need a MistralAI API key:
 
 ```bash
-# Set as permanent user environment variable
-# Windows (via System Properties -> Environment Variables)
-# Add MISTRALAI_API_KEY = your-api-key-here to User Variables
-
-# Or via PowerShell (permanent)
-[Environment]::SetEnvironmentVariable("MISTRALAI_API_KEY", "your-api-key-here", "User")
-
-# Linux/Mac (add to ~/.bashrc or ~/.zshrc for permanence)
-echo 'export MISTRALAI_API_KEY="your-api-key-here"' >> ~/.bashrc
-source ~/.bashrc
-
-# Temporary session (for testing)
-export MISTRALAI_API_KEY="your-api-key-here"  # Linux/Mac/Git Bash
-set MISTRALAI_API_KEY=your-api-key-here       # Windows CMD/PowerShell
+# Set as environment variable
+export MISTRALAI_API_KEY="your-api-key-here"  # Linux/Mac
+set MISTRALAI_API_KEY=your-api-key-here       # Windows PowerShell
 ```
 
 ## Quick Start
-
-### Interactive CLI Mode (Recommended) ✅ ENHANCED
-
-The easiest way to use the Email Parser is through the Interactive CLI Mode with both email processing and file conversion capabilities:
-
-```bash
-# Start interactive mode
-python -m email_parser.cli.interactive
-
-# Main menu options:
-# 1. Process Emails (Phase 3.5 - Production ready)
-# 2. Convert Documents (Phase 4.5 - Active development)
-# 3. Batch Operations 
-# 4. Settings & Configuration
-```
-
-**Email Processing Features (Production Ready):**
-- Email content scanning with smart recommendations
-- Processing profile selection (Quick, Comprehensive, AI-Ready, Archive, Dev)
-- Real-time progress tracking with beautiful UI
-- Batch processing support with guided workflow
-- Configuration management and API setup
-- Preferences persistence across sessions
-
-**🎯 File Conversion Features (Phase 4.5 - Active Development):**
-```bash
-# Interactive file conversion workflow
-python -m email_parser.cli.interactive
-# Select "2. Convert Documents" 
-
-# Features include:
-# - Directory scanning with intelligent file discovery
-# - 5 built-in conversion profiles (AI Processing, Document Archive, etc.)
-# - Interactive file selection with filtering
-# - Real-time conversion progress with quality reporting
-# - Support for PDF, DOCX, Excel files
-# - Rich terminal UI with tables and recommendations
-```
-
-### Traditional CLI Mode
-
-```bash
-# Basic email processing
-python -m email_parser process --input email.eml --output output/
-
-# With all conversions enabled
-python -m email_parser process --input email.eml --output output/ \
-    --convert-excel --convert-pdf --convert-docx \
-    --docx-chunking --docx-images --docx-styles
-
-# Batch processing
-python -m email_parser batch --input emails/ --output output/ \
-    --convert-pdf --convert-docx
-```
-
-## Direct File Conversion ✅ **PRODUCTION READY** (Phase 4 Complete)
-
-Convert documents directly without email processing:
-
-```bash
-# Convert a single file (Phase 4 - tested and working)
-python -m email_parser.cli.main convert --file document.pdf --output converted/
-
-# Convert single DOCX with all features
-python -m email_parser.cli.main convert --file report.docx --output converted/
-
-# Batch convert all supported files in directory
-python -m email_parser.cli.main convert-batch --directory documents/ --output converted/
-
-# Batch convert with pattern matching and recursive search
-python -m email_parser.cli.main convert-batch --directory docs/ --output converted/ --pattern "*.pdf" --recursive
-
-# Interactive conversion mode (Phase 4.5 - Active Development)
-python -m email_parser.cli.interactive  # Select "2. Convert Documents" for interactive file conversion UI
-# Features: file discovery, conversion profiles, progress tracking, quality reporting
-```
-
-### Supported Formats ✅ OPERATIONAL
-- **PDF**: Converts to Markdown using MistralAI OCR with full feature support
-- **DOCX**: Converts to Markdown with metadata, styling, AI-ready chunking, and image extraction
-- **Excel (XLSX/XLS)**: Converts to CSV format with multi-sheet support
-- **Automatic Detection**: File type automatically detected by MIME type and extension
-
-### Programmatic Usage
-
-For automation and scripting, you can use the Python API directly:
 
 ### Basic Email Processing
 
@@ -376,31 +249,6 @@ print(f"Generated CSV files: {result.csv_files}")
 
 The email parser provides comprehensive command-line options for processing emails:
 
-### 🎯 Interactive Mode (Recommended)
-
-**NEW in v2.2.0**: Interactive mode provides an intuitive, guided experience with smart recommendations:
-
-```bash
-# Launch interactive mode
-python -m email_parser --interactive
-# or
-python -m email_parser -i
-```
-
-**Interactive Mode Features:**
-- 📧 **Email scanning** with attachment analysis
-- 🤖 **Smart recommendations** based on content complexity  
-- 📋 **Processing profiles** (Quick, Comprehensive, AI-Ready, Archive)
-- 📊 **Real-time progress** tracking with resource monitoring
-- ⚙️ **Configuration management** and API setup assistance
-
-**Prerequisites for Interactive Mode:**
-```bash
-pip install rich prompt-toolkit
-```
-
-### Traditional Command Line
-
 ```bash
 # Basic email processing
 python -m email_parser process --input email.eml --output output/
@@ -416,10 +264,10 @@ python -m email_parser process --input email.eml --output output/ --convert-pdf 
 python -m email_parser process --input email.eml --output output/ --convert-pdf --pdf-mode images  # Images only
 python -m email_parser process --input email.eml --output output/ --convert-pdf --pdf-mode all  # Everything (default)
 
-# DOCX conversion with advanced features
+# DOCX conversion with Week 2 features
 python -m email_parser process --input email.eml --output output/ --convert-docx --docx-chunking --docx-images
 
-# DOCX with all advanced options
+# DOCX with all Week 2 options
 python -m email_parser process --input email.eml --output output/ --convert-docx \
   --docx-images --docx-metadata --docx-chunk-size 2000 --docx-styles --docx-comments
 ```
@@ -448,62 +296,44 @@ python -m email_parser process --input email.eml --output output/ --convert-docx
 ### ✅ Phase 2: DOCX Converter Integration (2025-06-28 to 2025-07-19)
 
 **Week 1 (Completed 2025-07-05):**
-
 - ✅ Core DocxConverter class implementation
 - ✅ Basic text extraction working
 - ✅ Configuration integration complete
 - ✅ Unit tests passing
 
 **Week 2 (Completed 2025-07-12):**
-
 - ✅ AI-ready chunking system (token-based, semantic, hybrid strategies)
 - ✅ Enhanced metadata extraction with comprehensive document analysis
 - ✅ Style preservation system with CSS and JSON output
 - ✅ Advanced image extraction with quality control and deduplication
 - ✅ Integration tests covering all Week 2 features
 
-**Week 3 (Completed 2025-07-01):**
+**Week 3 (Current - by 2025-07-19):**
+- 🔄 Performance optimization for large document processing
+- 🔄 Enhanced error handling and graceful fallbacks
+- 🔄 Comprehensive test coverage completion
+- 🔄 Documentation updates and merge preparation
 
-- ✅ Performance optimization for large document processing
-- ✅ Enhanced error handling and graceful fallbacks
-- ✅ Sliding window chunking algorithm implementation
-- ✅ Performance profiler and benchmarking infrastructure
-- ✅ Edge case testing and production resilience
-- ✅ Documentation completion and merge preparation
-- ✅ Comprehensive test coverage completion
-- ✅ Documentation updates and merge preparation
+### 📋 Phase 3: DOCX Optimization (Weeks 13-15)
 
-### 📋 Phase 4: Unified Document Processing API (Next Development Phase)
+- Performance optimization for large document processing
+- Enhanced error handling and graceful fallbacks
+- Comprehensive test coverage completion
+- Documentation updates and merge preparation
 
-- Unified API for all document types
-- Additional file format support (PowerPoint, etc.)
-- Enhanced batch processing optimization
-- Advanced analytics and monitoring
-- API and integration improvements
+### 📋 Phase 3.5: Interactive CLI Mode (3 weeks)
 
-### ✅ Phase 3.5: Interactive CLI Mode (Complete - 2025-07-06)
+- Intelligent email content scanning
+- Interactive processing options with smart recommendations
+- Progress indicators and configuration profiles
+- Single-command operation with progressive disclosure
 
-- ✅ **Email Scanner Component** - Intelligent attachment detection and complexity analysis
-- ✅ **Smart Recommendations Engine** - AI-powered processing suggestions based on content
-- ✅ **Processing Profiles System** - Pre-configured settings (Quick, Comprehensive, AI-Ready, Archive, Dev)
-- ✅ **Real-time Progress Tracking** - Rich terminal UI with resource monitoring
-- ✅ **Interactive CLI Framework** - Intuitive guided workflows for single and batch processing
-- ✅ **Configuration Management** - Profile creation, API setup, and preference persistence
-- ✅ **Comprehensive Test Suite** - Unit and integration tests for all interactive components
+### 📋 Phase 4: Production Readiness (Weeks 16-19)
 
-### 📋 Phase 5: Advanced Content Analysis Features
-
-- Natural language processing integration
-- Sentiment analysis for emails
-- Entity extraction and relationship mapping
-- Advanced email categorization
-
-### 📋 Phase 6: Production Deployment and Scaling
-
-- Cloud deployment preparation
-- Horizontal scaling architecture
-- Advanced monitoring and alerting
-- Enterprise integration features
+- Batch processing optimization
+- Performance benchmarking
+- Security validation
+- Production deployment preparation
 
 ## Output Structure
 
@@ -557,10 +387,7 @@ cd /path/to/email-parser
 # Windows PowerShell
 .\email-parser-env\Scripts\Activate.ps1
 
-# Windows Git Bash
-source email-parser-env/Scripts/activate
-
-# Linux/Mac
+# Linux/Mac/WSL2
 source email-parser-env/bin/activate
 
 # Verify activation
@@ -579,10 +406,7 @@ pip install -r requirements.txt
 # Windows PowerShell
 .\email-parser-env\Scripts\Activate.ps1
 
-# Windows Git Bash
-source email-parser-env/Scripts/activate
-
-# Linux/Mac
+# Linux/Mac/WSL2  
 source email-parser-env/bin/activate
 
 # Run the full test suite
@@ -606,10 +430,7 @@ pytest tests/test_security.py
 # Windows PowerShell
 .\email-parser-env\Scripts\Activate.ps1
 
-# Windows Git Bash
-source email-parser-env/Scripts/activate
-
-# Linux/Mac
+# Linux/Mac/WSL2
 source email-parser-env/bin/activate
 
 # Format code with Black
@@ -642,22 +463,18 @@ python -c "from email_parser.exceptions import ConversionError, APIError; print(
 ### 2025-06-22 Implementation Summary
 
 **Files Created:**
-
 - `email_parser/converters/base_converter.py` - Abstract converter framework
 - `email_parser/converters/pdf_converter.py` - MistralAI PDF converter implementation  
 - `email_parser/exceptions/converter_exceptions.py` - Conversion exception hierarchy
 
 **Files Updated:**
-
 - `email_parser/converters/__init__.py` - Added new converter imports
 - `email_parser/exceptions/__init__.py` - Added exception imports
 
 **Dependencies:**
-
 - `mistralai>=1.5.2` - MistralAI SDK for OCR functionality
 
 **Technical Achievements:**
-
 - Complete converter architecture with abstract base class
 - Comprehensive error handling and retry logic
 - Configurable extraction modes and image processing
@@ -677,10 +494,9 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for gui
 ### Development Workflow
 
 1. **Environment**: Always activate virtual environment before development
-2. **Instructions**: Follow project instructions in [CLAUDE.md](CLAUDE.md) and create personal configuration in `.claude/CLAUDE.md`
-3. **Archival**: Archive existing files before modifications
-4. **Testing**: Run tests before committing changes
-5. **Documentation**: Update relevant documentation with changes
+2. **Archival**: Archive existing files before modifications (see `project-instructions.md`)
+3. **Testing**: Run tests before committing changes
+4. **Documentation**: Update relevant documentation with changes
 
 ## License
 
@@ -688,20 +504,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Project Status
 
-**Version 2.2.0** - All major features complete and production ready!
+**Version 2.2.0-dev** - DOCX Week 2 features complete!
 
-This project has successfully completed:
-- ✅ Phase 1: PDF to Markdown conversion with MistralAI OCR
-- ✅ Phase 2: DOCX to structured output with advanced features
-- ✅ Phase 3.5: Interactive CLI Mode with guided workflows (Completed 2025-07-06)
-- ✅ Phase 4: Direct File Conversion (Completed 2025-07-14)
+This project is in active development with focus on comprehensive DOCX conversion capabilities. Current development follows a structured 3-week DOCX integration plan with Week 2 advanced features now complete.
 
 ### Version History
 
-- v2.4.0 (2025-07-14): Phase 4.5 Interactive File Conversion - Day 3-4 implementation phase, Phase 4 complete
-- v2.3.0 (2025-07-14): Phase 4 Direct File Conversion complete - standalone document processing
-- v2.2.0 (2025-07-06): Phase 3.5 Interactive CLI Mode complete - guided workflows, smart recommendations, processing profiles
-- v2.1.1 (2025-07-01): DOCX Phase 2 complete - AI chunking, metadata, styles, images, performance optimization
+- v2.2.0-dev (2025-06-30): DOCX Week 2 features complete - AI chunking, metadata, styles, images
 - v2.1.0 (2025-06-25): PDF converter API integration phase complete
 - v2.0.0 (2025-06-22): PDF converter core infrastructure complete
 - v1.1.0: Enhanced Excel conversion capabilities  
@@ -709,6 +518,6 @@ This project has successfully completed:
 
 ---
 
-**Requirements:** Python 3.12.10+ with virtual environment support  
-**Last Updated:** 2025-07-14  
-**Current Status:** Phase 4.5 Active Development - Interactive File Conversion (Day 3-4 Implementation), Phase 4 Production Ready
+**Development Environment:** Windows 11 Pro with Python 3.12.9  
+**Last Updated:** 2025-06-30  
+**Current Phase:** Phase 2, Week 3 - DOCX Performance Optimization & Polish

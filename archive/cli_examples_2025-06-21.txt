@@ -1,0 +1,88 @@
+# ==========================================================
+# SINGLE EMAIL PROCESSING
+# ==========================================================
+
+# Basic email processing with default settings
+python -m email_parser process --input path/to/email.eml --output output/
+
+# Process email with Excel to CSV conversion enabled
+python -m email_parser process --input path/to/email.eml --output output/ --convert-excel
+
+# Process email with security options
+python -m email_parser process --input path/to/email.eml --output output/ \
+    --max-attachment-size 10000000 \
+    --allowed-extensions .pdf,.docx,.xlsx,.txt,.jpg,.png \
+    --enable-malware-scan
+
+# Process email with custom performance settings
+python -m email_parser process --input path/to/email.eml --output output/ \
+    --chunk-size 1048576 \
+    --enable-caching \
+    --use-memory-mapping
+
+# Process email with custom output structure
+python -m email_parser process --input path/to/email.eml \
+    --output-dir output/ \
+    --text-dir processed_text/ \
+    --attachments-dir attachments/ \
+    --images-dir inline_images/ \
+    --excel-dir converted_excel/
+
+# Process email with detailed logging
+python -m email_parser process --input path/to/email.eml --output output/ \
+    --log-level debug \
+    --log-file processing.log \
+    --enable-detailed-logging
+
+# Process email and generate specific metadata format (JSON/YAML)
+python -m email_parser process --input path/to/email.eml --output output/ \
+    --metadata-format json \
+    --include-headers \
+    --include-stats
+
+# ==========================================================
+# BATCH EMAIL PROCESSING
+# ==========================================================
+
+# Basic batch processing from directory
+python -m email_parser batch --input input/ --output output/
+
+# Process batch with parallel execution
+python -m email_parser batch --input input/ --output output/ \
+    --workers 4 \
+    --batch-size 100 \
+    --enable-progress-bar
+
+# Process batch with specific email filter pattern
+python -m email_parser batch --input input/ --output output/ \
+    --pattern "*.eml" \
+    --exclude "archive_*.eml" \
+    --recursive
+
+# Process batch with error handling options
+python -m email_parser batch --input input/ --output output/ \
+    --error-handling graceful \
+    --continue-on-error \
+    --error-log errors.log
+
+# Process batch from list file
+python -m email_parser batch --input-list email_list.txt --output output/ \
+    --workers 4
+
+# Process batch with output organization by date
+python -m email_parser batch --input input/ --output output/ \
+    --organize-by-date \
+    --date-format %Y/%m/%d
+
+# Process batch with performance monitoring
+python -m email_parser batch --input input/ --output output/ \
+    --workers 4 \
+    --enable-stats \
+    --stats-output performance_stats.json \
+    --monitor-memory
+
+# Schedule recurring batch job (using cron-like syntax)
+python -m email_parser schedule --input input/ --output output/ \
+    --schedule "0 */4 * * *" \
+    --workers 4 \
+    --notification-email admin@example.com

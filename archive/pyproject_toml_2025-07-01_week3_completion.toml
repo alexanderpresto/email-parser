@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "email_parser"
-version = "2.4.0"
+version = "2.2.0-dev"
 description = "Enterprise-grade email processing system with MIME parsing, PDF/DOCX to Markdown conversion via MistralAI OCR, security features, and performance optimization"
 readme = "README.md"
 authors = [
@@ -37,7 +37,6 @@ dependencies = [
     "lxml>=4.9.0",
     "tiktoken>=0.5.0",
     "python-docx>=0.8.11",
-    "prompt_toolkit>=3.0.0",
 ]
 
 [project.optional-dependencies]

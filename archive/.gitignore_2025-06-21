@@ -1,0 +1,117 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+env/
+.env/
+ENV/
+env.bak/
+venv.bak/
+email-parser-env/
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+.spyderproject
+.spyproject
+.ropeproject
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+.nox/
+.mypy_cache/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Logs
+*.log
+log/
+logs/
+
+# Email files (containing personal data)
+*.eml
+*.msg
+*.mbox
+*.pst
+*.ost
+
+# Project specific output
+output/
+processed_text/
+attachments/
+inline_images/
+converted_excel/
+test_output/
+venv_test_output/
+
+# Input test files
+input/
+
+# Archive directory
+archive/
+
+# Project instructions (local development)
+project-instructions.md
+
+# Jupyter notebooks
+.ipynb_checkpoints
+*.ipynb
+
+# OS specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment configuration
+.env
+*.env
+config*.ini
+secrets.json
+*credentials*
+config/local/*
+
+# Conda/Anaconda specific
+.anaconda/
+.conda/
+anaconda-workspace/
+
+# Dependency management
+uv.lock
+poetry.lock
+
+# Development databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Performance profiling
+*.prof
+*.stats
+
+# Coverage reports
+coverage.xml
+*.cover
+
+# Documentation builds
+docs/_build/
+docs/_static/
+docs/_templates/

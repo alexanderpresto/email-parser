@@ -1,0 +1,27 @@
+name: email-parser
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12.9
+  - pip
+  # Main dependencies
+  - openpyxl>=3.1.0
+  - pandas>=2.0.0
+  - pillow>=10.0.0
+  # Testing dependencies
+  - pytest>=7.0.0
+  - pytest-cov>=4.0.0
+  # Code quality
+  - black>=23.0.0
+  - isort>=5.0.0
+  - mypy>=1.0.0
+  - bandit
+  # Documentation
+  - sphinx
+  - pip:
+      - email-validator>=2.0.0
+      - filetype>=1.0.0
+      - pypdf2>=3.0.0
+      - chardet>=5.0.0
+      - safety

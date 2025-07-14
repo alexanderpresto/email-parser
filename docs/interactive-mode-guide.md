@@ -2,7 +2,7 @@
 
 ## Overview
 
-Email Parser's Interactive Mode provides an intuitive, guided interface for processing emails with smart recommendations, real-time progress tracking, and pre-configured processing profiles.
+Email Parser's Interactive Mode provides an intuitive, unified interface for both email processing and standalone document conversion. Features include smart recommendations, real-time progress tracking, pre-configured processing profiles, and dedicated file conversion workflows (Phase 4.5).
 
 ## Getting Started
 
@@ -17,26 +17,47 @@ pip install rich prompt-toolkit
 ### Launching Interactive Mode
 
 ```bash
-# Start interactive mode
-python -m email_parser --interactive
+# Start interactive mode (unified email and file processing)
+python -m email_parser.cli.interactive
 
-# Or use the short flag
-python -m email_parser -i
+# Alternative entry points
+python -m email_parser --interactive  # Legacy support
+python -m email_parser -i             # Legacy support
 ```
 
 ## Features
 
-### 1. Email Content Scanning
+### 1. Unified Processing Interface (Phase 4.5)
+
+Interactive mode now provides a single interface for:
+
+- **Email Processing**: Traditional email attachment processing workflows
+- **Document Conversion**: Direct file conversion without email context
+- **Batch Operations**: Process multiple emails or convert multiple files
+- **Intelligent Recommendations**: Smart suggestions for optimal processing
+
+### 2. Email Content Scanning
 
 Interactive mode automatically scans your emails to:
 
 - **Detect Attachments**: Identifies PDFs, Word docs, Excel files, and images
-- **Analyze Complexity**: Estimates processing time and resource requirements
+- **Analyze Complexity**: Estimates processing time and resource requirements  
 - **Generate Recommendations**: Suggests optimal processing settings
 
-### 2. Smart Processing Profiles
+### 3. Interactive File Conversion (Phase 4.5 NEW)
+
+Dedicated workflow for standalone document conversion:
+
+- **Smart File Discovery**: Scans directories with intelligent file detection
+- **File Conversion Profiles**: Specialized profiles for different conversion scenarios
+- **Interactive File Selection**: Rich UI for browsing and selecting files
+- **Quality Analysis**: Validation and reporting for conversion results
+
+### 4. Smart Processing Profiles
 
 Choose from pre-configured profiles optimized for different scenarios:
+
+#### Email Processing Profiles
 
 #### 🚀 Quick Processing
 - **Best for**: Simple emails with minimal attachments
@@ -63,7 +84,34 @@ Choose from pre-configured profiles optimized for different scenarios:
 - **Features**: Verbose logging, debug information
 - **Time**: Variable (includes profiling overhead)
 
-### 3. Real-Time Progress Tracking
+#### File Conversion Profiles (Phase 4.5 NEW)
+
+#### 🤖 AI Processing
+- **Best for**: LLM consumption with chunking and metadata
+- **Features**: Optimized chunking strategies, enhanced metadata extraction
+- **Use cases**: Research, analysis, AI training data
+
+#### 🗄️ Document Archive  
+- **Best for**: Maximum fidelity preservation for archival purposes
+- **Features**: Complete style preservation, metadata, comments
+- **Use cases**: Archival, preservation, backup
+
+#### ⚡ Quick Conversion
+- **Best for**: Fast processing with minimal features
+- **Features**: Basic text extraction, optimized for speed
+- **Use cases**: Preview, testing, quick review
+
+#### 🔬 Research Mode
+- **Best for**: Enhanced metadata extraction for research workflows
+- **Features**: Semantic chunking, comprehensive analysis
+- **Use cases**: Academic research, detailed analysis
+
+#### 📊 Batch Optimization
+- **Best for**: High-throughput batch processing
+- **Features**: Optimized settings for large-scale operations
+- **Use cases**: Bulk processing, automation, high volume
+
+### 5. Real-Time Progress Tracking
 
 Interactive mode provides detailed progress information:
 
@@ -72,7 +120,7 @@ Interactive mode provides detailed progress information:
 - **Resource Monitoring**: Tracks memory and CPU usage
 - **Rich Visuals**: Uses progress bars, spinners, and color coding
 
-### 4. Intelligent Recommendations
+### 6. Intelligent Recommendations
 
 The system analyzes your email content and provides recommendations:
 
@@ -258,6 +306,40 @@ Memory: 124 MB | CPU: 23% | Time Elapsed: 00:35
    - Process immediately with recommended settings
    - Return to main menu
    - Exit application
+
+### Interactive File Conversion (Phase 4.5 NEW)
+
+1. **Select "Convert Documents" from main menu**
+
+2. **Choose Conversion Method**
+   - Single file conversion
+   - Directory scanning and batch conversion
+   - Custom file selection (advanced)
+
+3. **File Discovery and Analysis**
+   - Intelligent file type detection
+   - Complexity analysis and time estimation
+   - Conversion recommendations
+
+4. **Select Conversion Profile**
+   - Choose from specialized file conversion profiles
+   - AI Processing, Document Archive, Quick Conversion, etc.
+   - Profiles optimized for different document types
+
+5. **Configure Output Settings**
+   - Select output directory
+   - Configure profile-specific options
+   - Review conversion preview
+
+6. **Monitor Conversion Progress**
+   - Real-time progress with Rich UI
+   - File-by-file conversion tracking
+   - Quality validation reporting
+
+7. **Review Conversion Results**
+   - Success/failure summary
+   - Quality analysis reports
+   - Access converted files
 
 ## Configuration and Settings
 

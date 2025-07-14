@@ -1,0 +1,84 @@
+# Default Email Parser Configuration
+# This file contains default settings for the email parser
+
+# Processing settings
+processing:
+  output_directory: "output"
+  convert_excel: true
+  convert_pdf: true  # Enable PDF to Markdown conversion
+  batch_size: 100
+  max_workers: 4
+  
+# Security settings  
+security:
+  max_attachment_size: 10000000  # 10MB
+  allowed_extensions:
+    - ".pdf"
+    - ".docx"
+    - ".xlsx"
+    - ".txt"
+    - ".jpg"
+    - ".png"
+    - ".csv"
+    - ".zip"
+  enable_malware_scanning: false
+  validate_pdf_content: true  # Check PDFs for malicious content
+  
+# Performance settings
+performance:
+  chunk_size: 1048576  # 1MB
+  enable_caching: true
+  cache_size: 100
+  pdf_cache_size: 50  # Cache for PDF conversions
+  use_memory_mapping: true
+  parallel_extraction: true
+  api_connection_pooling: true  # Reuse MistralAI connections
+  
+# Error handling
+error_handling:
+  mode: "graceful"  # Options: strict, graceful, permissive
+  continue_on_error: true
+  max_retries: 3
+  
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  enable_detailed_logging: false
+  log_file: "email_parser.log"
+  
+# Excel conversion
+excel_conversion:
+  max_rows_per_sheet: 1000000
+  include_formulas: true
+  preserve_formatting: false
+  
+# PDF conversion (NEW)
+pdf_conversion:
+  enabled: true
+  api_key_env: "MISTRALAI_API_KEY"  # Environment variable for API key
+  extraction_mode: "all"  # Options: text, images, all
+  image_settings:
+    limit: 0  # 0 = no limit
+    min_size: 100  # Minimum image size in pixels
+    format: "png"  # Output format for images
+  pagination:
+    enabled: true
+    separator: "---"  # Page separator in Markdown
+  cache:
+    enabled: true
+    directory: ".cache/pdf"
+    max_size_mb: 100
+  api_settings:
+    timeout: 30  # API timeout in seconds
+    max_retries: 3
+    retry_delay: 1  # Initial retry delay in seconds
+  
+# Output organization
+output:
+  text_dir: "processed_text"
+  attachments_dir: "attachments"
+  inline_images_dir: "inline_images"  
+  excel_conversion_dir: "converted_excel"
+  pdf_conversion_dir: "converted_pdf"  # Directory for PDF conversions
+  organize_by_date: false
+  date_format: "%Y/%m/%d"

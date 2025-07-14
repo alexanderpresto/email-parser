@@ -52,34 +52,6 @@ set MISTRALAI_API_KEY=your-api-key-here       # PowerShell
 
 ```
 
-### Gemini CLI Setup (Optional, Enhanced Analysis)
-
-For intelligent analysis of large email processing outputs (>100KB), optionally install Gemini CLI:
-
-**Platform Availability:**
-- ✅ **Windows Git Bash**: Compatible for Claude Code
-- ⚠️ **Windows PowerShell**: Limited compatibility
-- ❌ **Windows Command Prompt**: Not supported
-
-**Installation (Windows Git Bash):**
-
-```bash
-# Install Gemini CLI
-pip install gemini-cli
-
-# Authenticate with Gemini CLI (uses OAuth)
-gemini auth
-
-# Verify installation
-gemini --version
-```
-
-**Integration with Email Parser:**
-The system automatically routes large files to Gemini CLI for analysis when available, enabling:
-- Smart analysis of large email content files (>100KB)
-- Advanced business intelligence extraction from attachments
-- Autonomous delegation for complex processing tasks
-
 ### Verification Commands
 
 To verify the setup is working (adapt command format to your platform):
@@ -94,10 +66,6 @@ python -m email_parser --help
 
 # API key verification
 python -c "import os; print('MistralAI API Key set:', bool(os.environ.get('MISTRALAI_API_KEY')))"
-gemini --version  # Verify Gemini CLI authentication
-
-# Gemini CLI verification (WSL2/Linux only)
-gemini --version  # Should show version if installed
 ```
 
 ## Daily Development Workflow

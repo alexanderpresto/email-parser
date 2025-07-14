@@ -106,39 +106,9 @@ pip install -r requirements.txt
 # Install for development  
 pip install -e .
 
-# Optional: Set up Gemini CLI for enhanced analysis (Claude Code only)
-pip install gemini-cli
-gemini auth  # OAuth authentication
 ```
 
 **Note**: Command format varies by platform. See platform-specific instruction files for exact syntax.
-
-#### Gemini CLI Integration (Optional)
-
-For contributions involving large file analysis or advanced processing:
-
-**Platform Support:**
-- ✅ **Linux/Mac**: Full Gemini CLI support
-- ✅ **Windows Git Bash**: Compatible
-- ❌ **Windows PowerShell**: Limited compatibility
-
-**Setup for Contributors (Linux/Mac/Git Bash):**
-```bash
-# Install Gemini CLI
-pip install gemini-cli
-
-# Authenticate with Gemini (uses OAuth)
-gemini auth
-
-# Verify installation
-gemini --version
-```
-
-**Integration Guidelines:**
-- Use Gemini CLI for processing files >100KB
-- Document any Gemini-dependent features clearly
-- Ensure fallback behavior when Gemini CLI is unavailable
-- Test contributions in both environments (with/without Gemini CLI)
 
 ## Development Workflow
 

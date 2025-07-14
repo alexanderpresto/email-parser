@@ -27,36 +27,6 @@ python -m email_parser.cli.main convert --file document.pdf --output output/
 python -m email_parser.cli.main convert-batch --directory docs/ --output output/
 ```
 
-## Email-Specific Gemini CLI Usage
-
-```bash
-# Analyze large email content files
-cat output/processed_text/large_email.txt | gemini -p "extract key information and summarize email contents"
-
-# Process PDF conversion outputs for insights  
-cat output/converted_pdf/document.md | gemini -p "analyze document structure and extract actionable items"
-
-# Batch analyze DOCX conversion outputs
-find output/converted_docx -name "*.md" -exec cat {} \; | gemini -p "identify common themes across these documents"
-
-# Analyze email metadata for patterns
-cat output/metadata.json | gemini -p "identify email communication patterns and sender analysis"
-
-# Smart model selection for complex analysis
-cat large_email_batch.txt | gemini -m gemini-2.0-flash-thinking-exp -p "perform multi-step email categorization and priority analysis"
-```
-
-## Email Processing Gemini Triggers
-
-**Automatically delegate to Gemini for:**
-- Email thread summarization (>5 messages)
-- Large attachment content analysis (PDFs, DOCX files)
-- Email sentiment and tone analysis
-- Compliance and security scanning of email content
-- Business intelligence extraction from email attachments
-- Cross-email pattern detection and relationship mapping
-- Executive summary generation from email batches
-- Email classification and automated filing
 
 ## Email Parser Library Documentation
 
@@ -92,24 +62,6 @@ cat large_email_batch.txt | gemini -m gemini-2.0-flash-thinking-exp -p "perform 
    - For error handling → Check documented exceptions
    - Performance tuning → Use library-specific optimizations
 
-### Email-Specific Delegation Protocol
-
-```bash
-# 1. Check processed email output size before analysis
-ls -la output/processed_text/*.txt | awk '{sum+=$5} END {print sum}'
-
-# 2. Delegate large email content analysis to Gemini
-cat output/processed_text/email_thread.txt | gemini -p "extract action items, decisions, and key participants from this email thread"
-
-# 3. Process PDF attachment analysis via Gemini
-cat output/converted_pdf/contract.md | gemini -p "identify key terms, deadlines, and responsibilities in this converted contract"
-
-# 4. Batch DOCX analysis for business intelligence
-find output/converted_docx -name "*.md" | head -10 | xargs cat | gemini -p "analyze these business documents for trends and insights"
-
-# 5. Email metadata pattern analysis
-cat output/metadata_*.json | gemini -p "analyze communication patterns, identify VIPs, and detect unusual email behaviors"
-```
 
 ## Project Structure
 
@@ -226,15 +178,6 @@ When working with large email processing outputs:
 ls -lh output/processed_text/
 ls -lh output/converted_pdf/
 ls -lh output/converted_docx/
-
-# For large files (>100KB), automatically delegate to Gemini
-cat output/large_file.txt | gemini -p "provide detailed analysis suitable for this email processing context"
-
-# For batch processing results
-find output -name "*.md" -size +100k | xargs cat | gemini -p "summarize key findings across these processed email attachments"
-
-# For email metadata analysis
-cat output/metadata_*.json | gemini -p "analyze patterns and generate insights for email processing optimization"
 ```
 
 ## Email Parser Documentation Structure
@@ -423,29 +366,6 @@ python -m email_parser.cli.main convert-batch --directory docs/ --output output/
 # Status: All commands tested and working (2025-07-14)
 ```
 
-### Gemini CLI Integration Examples
-
-**Post-processing analysis of email parser outputs:**
-
-```bash
-# Analyze large converted email content
-cat output/processed_text/large_email_thread.txt | gemini -p "extract action items, decisions, and key participants from this email conversation"
-
-# Process converted PDF attachments for insights
-cat output/converted_pdf/quarterly_report.md | gemini -p "create executive summary with key metrics and findings"
-
-# Batch analysis of DOCX conversions
-find output/converted_docx -name "*.md" | head -5 | xargs cat | gemini -p "identify common business themes and priorities across these documents"
-
-# Email metadata pattern analysis  
-cat output/metadata_*.json | gemini -p "analyze communication patterns, identify VIP contacts, and flag unusual email behaviors"
-
-# Compliance scanning of email content
-cat output/processed_text/*.txt | gemini -p "scan for sensitive information, compliance issues, and data protection concerns"
-
-# Smart email categorization
-cat output/processed_text/inbox_batch.txt | gemini -m gemini-2.0-flash-thinking-exp -p "categorize emails by priority, topic, and required actions"
-```
 
 ## Email Parser Production Guidelines
 
@@ -456,18 +376,6 @@ cat output/processed_text/inbox_batch.txt | gemini -m gemini-2.0-flash-thinking-
 5. **Monitoring**: Track performance metrics, error rates, user feedback
 6. **Known Issues**: Interactive CLI has Unicode encoding issues on Windows (functional but display problems)
 
-### Email Parser Gemini Performance Guidelines
-
-**File Size Thresholds:**
-- Email text files >100KB → Route to Gemini automatically
-- PDF conversion outputs >50KB → Consider Gemini for analysis
-- DOCX conversion outputs >75KB → Use Gemini for content extraction
-- Metadata files >20KB → Use Gemini for pattern analysis
-
-**Model Selection for Email Processing:**
-- `gemini-2.5-pro` (default): General email analysis, content summarization
-- `gemini-2.0-flash-thinking-exp`: Complex multi-step email processing workflows
-- `gemini-exp-1206`: Advanced reasoning for compliance and business intelligence
 
 ## Phase 2: DOCX Converter Integration ✅ PRODUCTION READY
 
@@ -571,7 +479,6 @@ All configuration options tested and validated in production.
 - **Python**: Black, Google docstrings, type hints
 - **Security**: Input validation, path safety, API encryption
 - **Performance**: Lazy loading, streaming, progress indicators
-- **Analysis**: Use Gemini for complex email pattern recognition and business intelligence
 
 ---
-**Remember**: This tool makes emails AI-friendly. Every feature supports that mission. Gemini CLI integration enables intelligent analysis of large email processing outputs, providing advanced insights and business intelligence from email data.
+**Remember**: This tool makes emails AI-friendly. Every feature supports that mission.

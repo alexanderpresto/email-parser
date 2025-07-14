@@ -185,13 +185,8 @@ python -c "import mistralai; print('MistralAI: Success!')"
 
 # Check if API keys are set
 python -c "import os; print('MistralAI API Key set:', bool(os.environ.get('MISTRALAI_API_KEY')))"
-gemini --version  # Verify Gemini CLI authentication and availability
-
 # Show help
 python -m email_parser --help
-
-# Gemini CLI verification (Claude Code only)
-gemini --version
 
 # ==========================================================
 # PLATFORM-SPECIFIC COMMAND EXAMPLES
@@ -208,43 +203,5 @@ wsl -d Ubuntu bash -c "cd /path/to/email-parser && source email-parser-env/Scrip
 # Testing (Windows format):
 wsl -d Ubuntu bash -c "cd /path/to/email-parser && source email-parser-env/Scripts/activate && pytest"
 
-# ==========================================================
-# GEMINI CLI INTEGRATION EXAMPLES (Claude Code Only)
-# ==========================================================
-
-## Large File Analysis (>100KB threshold)
-# Email parser automatically routes large files to Gemini CLI when available
-
-# Analyze large processed email content
-cat /path/to/email-parser/output/processed_text/large_email.txt | gemini -p "extract key information and summarize email contents"
-
-# Complex PDF document analysis
-cat output/converted_pdf/document.md | gemini -m gemini-2.0-flash-thinking-exp -p "analyze document structure and extract business intelligence"
-
-# DOCX content analysis
-cat output/converted_docx/document.md | gemini -p "identify key topics and generate summary"
-
-# Image analysis from extracted attachments
-cat output/attachments/diagram.png | gemini -p "describe the technical diagram and extract data"
-
-## Business Intelligence Extraction
-# Analyze multiple documents for patterns
-cat output/processed_text/*.txt | gemini -m gemini-exp-1206 -p "identify business trends and compliance issues across all emails"
-
-# Batch attachment analysis
-for file in output/converted_pdf/*.md; do 
-    cat "$file" | gemini -p "extract financial data and compliance information" 
-done
-
-## Available Gemini Models:
-# gemini-2.5-pro (default) - General purpose analysis
-# gemini-exp-1206 - Complex reasoning and pattern matching  
-# gemini-2.0-flash-thinking-exp - Multi-step analysis and chain-of-thought
-
-## Note: Gemini CLI integration
-# ✅ Available in Claude Code (WSL2/Linux environment)
-# ❌ Not available in Claude Desktop (Windows) due to terminal compatibility
-
 ## For complete platform-specific examples, see:
-- [CLAUDE.md](../CLAUDE.md) - Claude Code (WSL2/Linux) format with Gemini CLI
-- [CLAUDE-DESKTOP.md](../CLAUDE-DESKTOP.md) - Claude Desktop (Windows) format
+- [CLAUDE.md](../CLAUDE.md) - Claude Code project instructions

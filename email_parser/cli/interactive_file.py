@@ -18,7 +18,7 @@ from rich.table import Table
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
-from ..utils.file_detector import FileDetector
+from ..utils.file_detector import FileTypeDetector
 from ..utils.progress import ProgressTracker
 from ..config.profiles import ProfileManager
 from .file_converter import DirectFileConverter
@@ -187,7 +187,7 @@ class InteractiveFileConverter:
     
     def __init__(self):
         self.console = Console()
-        self.file_detector = FileDetector()
+        self.file_detector = FileTypeDetector()
         self.progress_tracker = ProgressTracker(self.console)
         self.profile_manager = FileConversionProfileManager()
         self.direct_converter = DirectFileConverter()
@@ -227,9 +227,10 @@ class InteractiveFileConverter:
             return
         
         # Create convertible file object
+        mime_type, converter_type = self.file_detector.detect_type(path)
         convertible_file = ConvertibleFile(
             path=path,
-            file_type=self.file_detector.detect_type(path),
+            file_type=converter_type,
             size=path.stat().st_size,
             estimated_conversion_time=self._estimate_conversion_time(path),
             complexity_indicators=self._analyze_complexity(path)
@@ -308,9 +309,10 @@ class InteractiveFileConverter:
                     
                     if self.file_detector.is_supported(file_path):
                         file_size = file_path.stat().st_size
+                        mime_type, converter_type = self.file_detector.detect_type(file_path)
                         convertible_file = ConvertibleFile(
                             path=file_path,
-                            file_type=self.file_detector.detect_type(file_path),
+                            file_type=converter_type,
                             size=file_size,
                             estimated_conversion_time=self._estimate_conversion_time(file_path),
                             complexity_indicators=self._analyze_complexity(file_path)
@@ -428,7 +430,7 @@ class InteractiveFileConverter:
     def _estimate_conversion_time(self, file_path: Path) -> float:
         """Estimate conversion time for a file"""
         file_size = file_path.stat().st_size
-        file_type = self.file_detector.detect_type(file_path)
+        mime_type, file_type = self.file_detector.detect_type(file_path)
         
         # Basic time estimation (seconds)
         base_time = {
@@ -447,7 +449,7 @@ class InteractiveFileConverter:
         """Analyze file complexity indicators"""
         indicators = []
         file_size = file_path.stat().st_size
-        file_type = self.file_detector.detect_type(file_path)
+        mime_type, file_type = self.file_detector.detect_type(file_path)
         
         # Size-based indicators
         if file_size > 10 * 1024 * 1024:  # > 10MB

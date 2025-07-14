@@ -31,6 +31,7 @@ from email_parser.config.profiles import ProfileManager, ProcessingProfile
 from email_parser.utils.progress import create_progress_tracker, ProgressStyle
 from email_parser.core.email_processor import EmailProcessor
 from email_parser.core.config import ProcessingConfig
+from email_parser.cli.interactive_file import InteractiveFileConverter
 
 logger = logging.getLogger(__name__)
 
@@ -119,6 +120,7 @@ class InteractiveCLI:
         self.scanner = EmailScanner()
         self.profile_manager = ProfileManager()
         self.progress_tracker = None
+        self.file_converter = InteractiveFileConverter()
         
         # Load processing config with temporary output directory
         temp_output = Path.cwd() / "temp_output"
@@ -150,6 +152,8 @@ class InteractiveCLI:
                     self._process_single_email()
                 elif action == "process_batch":
                     self._process_batch()
+                elif action == "convert_documents":
+                    self._convert_documents()
                 elif action == "quick_scan":
                     self._quick_scan()
                 elif action == "settings":
@@ -178,7 +182,7 @@ class InteractiveCLI:
         width = 70
         print("╔" + "═" * width + "╗")
         print("║" + " " * width + "║")
-        print("║" + "Email Parser v2.2.0".center(width) + "║")
+        print("║" + "Email Parser v2.4.0".center(width) + "║")
         print("║" + "Interactive Mode".center(width) + "║")
         print("║" + " " * width + "║")
         print("╚" + "═" * width + "╝")
@@ -207,29 +211,32 @@ class InteractiveCLI:
         print()
         print("  [1] Process a single email")
         print("  [2] Batch process multiple emails")
-        print("  [3] Quick scan (preview without processing)")
-        print("  [4] Configure settings")
-        print("  [5] Help")
-        print("  [6] Exit")
+        print("  [3] Convert documents (NEW)")
+        print("  [4] Quick scan (preview without processing)")
+        print("  [5] Configure settings")
+        print("  [6] Help")
+        print("  [7] Exit")
         print()
         
         while True:
-            choice = input("Select option [1-6]: ").strip()
+            choice = input("Select option [1-7]: ").strip()
             
             if choice == "1":
                 return "process_single"
             elif choice == "2":
                 return "process_batch"
             elif choice == "3":
-                return "quick_scan"
+                return "convert_documents"
             elif choice == "4":
-                return "settings"
+                return "quick_scan"
             elif choice == "5":
-                return "help"
+                return "settings"
             elif choice == "6":
+                return "help"
+            elif choice == "7":
                 return "exit"
             else:
-                print("Invalid choice. Please select 1-6.")
+                print("Invalid choice. Please select 1-7.")
                 
     def _process_single_email(self):
         """Process a single email interactively."""
@@ -557,6 +564,22 @@ class InteractiveCLI:
         # Process emails
         self._process_batch_emails(email_files, profile, output_base)
         
+    def _convert_documents(self):
+        """Convert documents directly without email context."""
+        print("\n📁 Document Conversion Mode")
+        print("=" * 50)
+        print("Convert documents directly without email processing")
+        print()
+        
+        try:
+            # Use asyncio to run the file converter
+            import asyncio
+            asyncio.run(self.file_converter.run_file_mode())
+        except Exception as e:
+            logger.error(f"Document conversion error: {e}", exc_info=True)
+            print(f"\n❌ Document conversion failed: {e}")
+            print("Please check your file paths and try again.")
+        
     def _quick_scan(self):
         """Quick scan without processing."""
         print("\n🔍 Quick Scan")
@@ -611,6 +634,7 @@ class InteractiveCLI:
         print("  • Multiple processing profiles")
         print("  • Real-time progress tracking")
         print("  • Batch processing support")
+        print("  • NEW: Direct document conversion (Phase 4.5)")
         
         print("\nSupported Attachments:")
         print("  • PDF files (with MistralAI OCR)")

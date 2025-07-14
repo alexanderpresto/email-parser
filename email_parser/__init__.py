@@ -7,7 +7,7 @@ with high volume email processing requirements. Now includes advanced PDF to Mar
 using MistralAI OCR technology and DOCX to Markdown conversion using mammoth library.
 """
 
-__version__ = "2.3.0"
+__version__ = "2.4.0"
 
 from email_parser.core.config import ProcessingConfig
 from email_parser.core.email_processor import EmailProcessor

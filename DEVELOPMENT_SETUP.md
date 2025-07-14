@@ -8,19 +8,16 @@
 
 **IMPORTANT**: Choose the correct setup based on your development environment:
 
-### 🐧 **Claude Code (WSL2/Linux)**
-If you're using Claude Code and running IN WSL2/Ubuntu environment:
-- **See**: [CLAUDE.md](CLAUDE.md) for complete setup instructions
-- Uses native Linux commands directly (no WSL prefix)
-
-### 🪟 **Claude Desktop (Windows)**  
-If you're using Claude Desktop on Windows 11 accessing WSL2:
+### 🪟 **Claude Code (Windows)**  
+Current development environment: Windows 11 Pro with native Python
 - **See**: [CLAUDE.md](CLAUDE.md) for project-specific development instructions
-- All commands use `wsl -d Ubuntu-24.04` prefix
+- **Personal Setup**: [CLAUDE.local.md](CLAUDE.local.md) for environment-specific configuration
+- Uses native Windows commands and Git Bash
 
-**Quick Check**: Your environment platform determines which setup to follow:
-- Platform: `linux` → Follow [CLAUDE.md](CLAUDE.md) setup
-- Platform: `win32` → Adapt commands for Windows environment
+**Current Status**: Python 3.12.10, Git Bash environment, Windows-native development
+- Platform: `win32` → Windows development environment
+- Branch: `feature/phase-4-direct-file-conversion`
+- Phase 4: Direct File Conversion ✅ Complete
 
 ## Production Environment Checklist
 
@@ -33,20 +30,26 @@ Before ANY Python work on this production system:
 ## Universal Setup Steps (All Platforms)
 
 ### Project Location
-- **WSL2 Path**: `/home/alexp/dev/email-parser`
-- **Windows Access** (for Claude Desktop): `\\wsl.localhost\Ubuntu-24.04\home\alexp\dev\email-parser`
+- **Windows Path**: `D:\Users\alexp\dev\email-parser`
+- **Virtual Environment**: `D:\Users\alexp\dev\email-parser\email-parser-env` (Note: activation issues)
 
 ### MistralAI API Setup (Required for PDF Conversion)
 
 The PDF to Markdown conversion feature requires a MistralAI API key:
 
 ```bash
-# Set as environment variable (Linux/WSL2)
-export MISTRALAI_API_KEY="your-api-key-here"
+# Set as permanent user environment variable
+# Windows: Add via System Properties -> Environment Variables
+# Or via PowerShell (permanent):
+[Environment]::SetEnvironmentVariable("MISTRALAI_API_KEY", "your-api-key-here", "User")
 
-# Add to ~/.bashrc for permanent setting
+# Linux/Mac: Add to shell profile for permanence
 echo 'export MISTRALAI_API_KEY="your-api-key-here"' >> ~/.bashrc
-source ~/.bashrc
+
+# Temporary session (for testing only)
+export MISTRALAI_API_KEY="your-api-key-here"  # Git Bash
+set MISTRALAI_API_KEY=your-api-key-here       # PowerShell
+
 ```
 
 ### Gemini CLI Setup (Optional, Enhanced Analysis)
@@ -54,21 +57,18 @@ source ~/.bashrc
 For intelligent analysis of large email processing outputs (>100KB), optionally install Gemini CLI:
 
 **Platform Availability:**
-- ✅ **Claude Code (WSL2/Linux)**: Full Gemini CLI support via Bash tool
-- ❌ **Claude Desktop (Windows)**: Not available due to terminal compatibility limitations
+- ✅ **Windows Git Bash**: Compatible for Claude Code
+- ⚠️ **Windows PowerShell**: Limited compatibility
+- ❌ **Windows Command Prompt**: Not supported
 
-**Installation (WSL2/Linux only):**
+**Installation (Windows Git Bash):**
 
 ```bash
 # Install Gemini CLI
 pip install gemini-cli
 
-# Set up Gemini API key
-export GEMINI_API_KEY="your-gemini-api-key-here"
-
-# Add to ~/.bashrc for permanent setting
-echo 'export GEMINI_API_KEY="your-gemini-api-key-here"' >> ~/.bashrc
-source ~/.bashrc
+# Authenticate with Gemini CLI (uses OAuth)
+gemini auth
 
 # Verify installation
 gemini --version
@@ -94,7 +94,7 @@ python -m email_parser --help
 
 # API key verification
 python -c "import os; print('MistralAI API Key set:', bool(os.environ.get('MISTRALAI_API_KEY')))"
-python -c "import os; print('Gemini API Key set:', bool(os.environ.get('GEMINI_API_KEY')))"
+gemini --version  # Verify Gemini CLI authentication
 
 # Gemini CLI verification (WSL2/Linux only)
 gemini --version  # Should show version if installed
@@ -104,12 +104,12 @@ gemini --version  # Should show version if installed
 
 **🔴 NEVER run Python commands without virtual environment active!**
 
-### Essential Steps (All Platforms)
-1. Navigate to project directory: `/home/alexp/dev/email-parser`
-2. **MANDATORY**: Activate virtual environment: `source email-parser-env/Scripts/activate` *(Windows-style venv)*
-3. Verify activation shows `(email-parser-env)` in prompt
+### Essential Steps (Windows)
+1. Navigate to project directory: `D:\Users\alexp\dev\email-parser`
+2. **NOTE**: Virtual environment activation has known issues - using global Python 3.12.10
+3. Verify Python version: `python --version` (should show Python 3.12.10)
 4. Run your development commands
-5. Deactivate when done (optional): `deactivate`
+5. All dependencies installed globally via `pip install -r requirements.txt`
 
 **Note**: Command format varies by platform - see platform-specific instruction files for exact syntax.
 

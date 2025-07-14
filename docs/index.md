@@ -23,7 +23,22 @@ This documentation covers the Email Parser project, an enterprise-grade system d
   - [Project Plan & Phasing](requirements/project_plan_and_phasing.md)
   - [Technical Specification](requirements/technical_specification_document.md)
 
-## What's New in Version 2.2.0
+## What's New in Version 2.3.0
+
+### ✅ Direct File Conversion (Phase 4 Complete - NEW!)
+- **Standalone document processing** without email context
+- **Automatic file type detection** for PDF, DOCX, and Excel files
+- **Batch conversion** with pattern matching and recursive directory search
+- **CLI commands**: `convert` and `convert-batch` for direct file processing
+- **Progress tracking** and comprehensive error handling
+- **Full backward compatibility** with existing email processing workflows
+
+### ✅ Interactive CLI Mode (Phase 3.5 Complete)
+- **Guided workflows** with smart recommendations and complexity analysis
+- **Processing profiles** (Quick, Comprehensive, AI-Ready, Archive, Dev)
+- **Real-time progress tracking** with beautiful terminal UI
+- **Batch processing support** with interactive workflow
+- **Configuration management** and preferences persistence
 
 ### ✅ DOCX to Markdown Conversion (Phase 2 Complete)
 - **AI-ready document chunking** with 3 strategies (token, semantic, hybrid)
@@ -49,9 +64,9 @@ This documentation covers the Email Parser project, an enterprise-grade system d
 
 ## Project Information
 
-- **Version:** 2.2.0 (main branch)
+- **Version:** 2.3.0 (Phase 4 complete)
 - **Created:** 2025-02-25
-- **Last Updated:** 2025-07-01
+- **Last Updated:** 2025-07-14
 - **Framework:** Enhanced-Intent v3.0
 - **Python Version:** 3.12.9
 - **Major Dependencies:** mistralai>=1.5.2, mammoth>=1.6.0, tiktoken>=0.5.0, pandas, openpyxl
@@ -65,8 +80,8 @@ Please refer to the README.md file in the project root for installation and basi
 1. Clone the repository
 2. Create and activate a virtual environment
 3. Install dependencies: `pip install -r requirements.txt`
-4. Set up MistralAI API key: `export MISTRALAI_API_KEY="your-key"`
-5. Optional: Set up Gemini CLI: `pip install gemini-cli && export GEMINI_API_KEY="your-key"`
+4. Set up MistralAI API key as user environment variable (see README.md for platform-specific instructions)
+5. Optional: Set up Gemini CLI: `pip install gemini-cli && gemini auth`
 6. Run basic example: `python examples/basic_parsing.py`
 
 **Note**: For detailed, platform-specific setup instructions, see:

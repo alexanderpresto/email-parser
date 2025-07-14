@@ -1,0 +1,29 @@
+{
+  "Normal": {
+    "font": {},
+    "paragraph": {},
+    "type": "paragraph",
+    "name": "Normal"
+  },
+  "Title": {
+    "font": {
+      "size": 26.0
+    },
+    "paragraph": {
+      "space_after": 15.0,
+      "line_spacing": 1.0
+    },
+    "type": "paragraph",
+    "name": "Title"
+  },
+  "DefaultParagraphFont": {
+    "font": {},
+    "type": "character",
+    "name": "Default Paragraph Font"
+  },
+  "TableNormal": {
+    "font": {},
+    "type": "table",
+    "name": "Normal Table"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "total_chunks": 13,
+  "chunking_strategy": "hybrid",
+  "max_tokens": 2000,
+  "overlap_tokens": 200,
+  "chunks": [
+    {
+      "chunk_id": 0,
+      "file_path": "test_conversion_output\\simple_test_docx_output\\chunks\\chunk_000.md",
+      "token_count": 45,
+      "overlap_with_previous": 0
+    },
+    {
+      "chunk_id": 1,
+      "file_path": "test_conversion_output\\simple_test_docx_output\\chunks\\chunk_001.md",
+      "token_count": 42,
+      "overlap_with_previous": 200
+    },
+    {
+      "chunk_id": 2,
+      "file_path": "test_conversion_output\\simple_test_docx_output\\chunks\\chunk_002.md",
+      "token_count": 41,
+      "overlap_with_previous": 200
+    },
+    {
+      "chunk_id": 3,
+      "file_path": "test_conversion_output\\simple_test_docx_output\\chunks\\chunk_003.md",
+      "token_count": 30,
+      "overlap_with_previous": 200
+    },
+    {
+      "chunk_id": 4,
+      "file_path": "test_conversion_output\\simple_test_docx_output\\chunks\\chunk_004.md",
+      "token_count": 29,
+      "overlap_with_previous": 200
+    },
+    {
+      "chunk_id": 5,
+      "file_path": "test_conversion_output\\simple_test_docx_output\\chunks\\chunk_005.md",
+      "token_count": 25,
+      "overlap_with_previous": 200
+    },
+    {
+      "chunk_id": 6,
+      "file_path": "test_conversion_output\\simple_test_docx_output\\chunks\\chunk_006.md",
+      "token_count": 24,
+      "overlap_with_previous": 200
+    },
+    {
+      "chunk_id": 7,
+      "file_path": "test_conversion_output\\simple_test_docx_output\\chunks\\chunk_007.md",
+      "token_count": 20,
+      "overlap_with_previous": 200
+    },
+    {
+      "chunk_id": 8,
+      "file_path": "test_conversion_output\\simple_test_docx_output\\chunks\\chunk_008.md",
+      "token_count": 19,
+      "overlap_with_previous": 200
+    },
+    {
+      "chunk_id": 9,
+      "file_path": "test_conversion_output\\simple_test_docx_output\\chunks\\chunk_009.md",
+      "token_count": 11,
+      "overlap_with_previous": 200
+    },
+    {
+      "chunk_id": 10,
+      "file_path": "test_conversion_output\\simple_test_docx_output\\chunks\\chunk_010.md",
+      "token_count": 10,
+      "overlap_with_previous": 200
+    },
+    {
+      "chunk_id": 11,
+      "file_path": "test_conversion_output\\simple_test_docx_output\\chunks\\chunk_011.md",
+      "token_count": 2,
+      "overlap_with_previous": 200
+    },
+    {
+      "chunk_id": 12,
+      "file_path": "test_conversion_output\\simple_test_docx_output\\chunks\\chunk_012.md",
+      "token_count": 1,
+      "overlap_with_previous": 200
+    }
+  ]
+}

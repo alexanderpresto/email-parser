@@ -185,7 +185,7 @@ python -c "import mistralai; print('MistralAI: Success!')"
 
 # Check if API keys are set
 python -c "import os; print('MistralAI API Key set:', bool(os.environ.get('MISTRALAI_API_KEY')))"
-python -c "import os; print('Gemini API Key set:', bool(os.environ.get('GEMINI_API_KEY')))"
+gemini --version  # Verify Gemini CLI authentication and availability
 
 # Show help
 python -m email_parser --help

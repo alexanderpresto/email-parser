@@ -84,6 +84,7 @@ archive/
 
 # Project instructions (local development)
 project-instructions.md
+CLAUDE.local.md
 
 # Jupyter notebooks
 .ipynb_checkpoints

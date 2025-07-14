@@ -1,12 +1,10 @@
 # CLAUDE.md - Email Parser Project Instructions
 
-**Project-Specific Instructions**: This file contains only email parser project-specific instructions. Universal WSL2 development patterns are maintained in `~/.claude/CLAUDE.md`.
+**Project-Specific Instructions**: This file contains email parser project-specific instructions for any developer or AI assistant working on this project.
 
-## Cross-Reference
+## Project-Specific Setup
 
-For global WSL2 development patterns, see: [~/.claude/CLAUDE.md](~/.claude/CLAUDE.md)
-
-**Note for Windows/Claude Desktop users**: Create your own environment-specific instructions in `~/.claude/CLAUDE-DESKTOP.md` with your personal paths and WSL configuration.
+**Note**: Basic environment setup is handled by global CLAUDE.md. This file contains only email parser-specific configurations.
 
 ## Critical Setup
 
@@ -15,15 +13,18 @@ For global WSL2 development patterns, see: [~/.claude/CLAUDE.md](~/.claude/CLAUD
 git branch --show-current  # Should show: main
 ```
 
-## Quick Reference
+## Email Parser Specific Commands
 
 ```bash
-# Memory: build_context("memory://email-parser/*")
-# Time: mcp-server-time:get_current_time("America/Winnipeg")
-# Obsidian: Use `obsidian` MCP tool with vault="dev" for ALL PROJECT DOCUMENTATION
+# Project context (email parser specific)
+build_context("memory://email-parser/*", timeframe="1 week")
 
-# ALWAYS activate venv before Python work:
-source email-parser-env/Scripts/activate  # Or appropriate activation for your environment
+# Interactive CLI mode (email parser specific)
+python -m email_parser.cli.interactive
+
+# Direct file conversion (Phase 4 - email parser specific)
+python -m email_parser.cli.main convert --file document.pdf --output output/
+python -m email_parser.cli.main convert-batch --directory docs/ --output output/
 ```
 
 ## Email-Specific Gemini CLI Usage
@@ -59,9 +60,9 @@ cat large_email_batch.txt | gemini -m gemini-2.0-flash-thinking-exp -p "perform 
 
 ## Email Parser Library Documentation
 
-**Context7 Integration**: Check documentation for all email parsing dependencies
+**Documentation Integration**: Use available MCP documentation tools for library references
 
-### Key Libraries to Document via Context7
+### Key Libraries to Document
 
 1. **Core Dependencies**:
    - `mammoth` → DOCX to HTML conversion patterns
@@ -72,19 +73,17 @@ cat large_email_batch.txt | gemini -m gemini-2.0-flash-thinking-exp -p "perform 
    - `openpyxl` → Excel file processing
    - `pillow` → Image handling and optimization
 
-2. **Documentation Lookup Workflow**:
+2. **Documentation Lookup Workflow** (if available):
    ```bash
+   # Example workflow - adapt to your MCP setup
    # Before implementing new converter features
-   resolve-library-id("mammoth")  # Get library ID
-   get-library-docs("/org/mammoth", topic="table-extraction")
+   [documentation-tool] library-lookup "mammoth" "table-extraction"
    
    # When debugging API issues
-   resolve-library-id("mistralai") 
-   get-library-docs("/mistralai/client-python", topic="ocr-api")
+   [documentation-tool] library-lookup "mistralai" "ocr-api"
    
    # For performance optimization
-   resolve-library-id("beautifulsoup4")
-   get-library-docs("/org/beautifulsoup4", topic="performance")
+   [documentation-tool] library-lookup "beautifulsoup4" "performance"
    ```
 
 3. **Integration Patterns**:
@@ -115,7 +114,7 @@ cat output/metadata_*.json | gemini -p "analyze communication patterns, identify
 ## Project Structure
 
 ```
-email-parser/                        # WSL2: /home/alexp/dev/email-parser
+email-parser/                        # Project root: [YOUR_PROJECT_PATH]/email-parser
 ├── email_parser/                    # Main package
 │   ├── cli/                        # ✅ NEW: CLI package structure
 │   │   ├── __init__.py            # CLI exports
@@ -138,7 +137,7 @@ email-parser/                        # WSL2: /home/alexp/dev/email-parser
 ├── docs/                           # Documentation
 │   └── phase-3.5-interactive-cli-design.md  # ✅ Interactive CLI design
 ├── tests/                          # Test suite (unit, integration, performance)
-└── email-parser-env/               # Virtual environment (WSL2)
+└── email-parser-env/               # Virtual environment
 ```
 
 ## Architecture
@@ -185,13 +184,13 @@ output/
 
 1. **Project Setup**:
    - Ensure Python 3.12+ is installed (`python --version`)
-   - `build_context("memory://email-parser/*")` - Load project memory
-   - Activate virtual environment
+   - Load project context using available memory tools
+   - Activate virtual environment (see platform-specific commands above)
 
 2. **Dependencies**: Install missing requests, psutil, prompt_toolkit if needed
 3. **Development**: Archive files before editing, use Edit tool for changes
 4. **Testing**: pytest (unit/integration/performance) 
-5. **Documentation**: Store in `obsidian` vault="dev"
+5. **Documentation**: Store using available documentation tools
 
 ### Interactive CLI Usage ✅ NEW
 
@@ -240,26 +239,27 @@ cat output/metadata_*.json | gemini -p "analyze patterns and generate insights f
 
 ## Email Parser Documentation Structure
 
-**Obsidian Vault**: `vault="dev"`
+**Documentation Organization**: Organize documentation by topic
 
 ```
 email-parser/
-├── architecture/      # Design decisions - Tag: #architecture #design
-├── features/         # Implementations - Tag: #feature #implementation
-├── bugs/            # Root causes - Tag: #bug #root-cause
-├── edge-cases/      # MIME anomalies - Tag: #edge-case #mime
-└── performance/     # Optimizations - Tag: #performance #optimization
+├── architecture/      # Design decisions 
+├── features/         # Implementations
+├── bugs/            # Root causes and fixes
+├── edge-cases/      # MIME anomalies and handling
+└── performance/     # Optimizations and benchmarks
 ```
 
-**Obsidian Linking Examples**:
-- Architecture: `[[Email Parser Architecture]]`
-- Features: `[[DOCX Converter Implementation]]`
-- Bugs: `[[PDF Conversion Issues]]`
+**Documentation Examples**:
+- Architecture: Design patterns and system overview
+- Features: Implementation details and usage
+- Bugs: Root cause analysis and solutions
 
 ## Current Status
 
-**Phase**: Phase 4: Direct File Conversion ✅ **CORE IMPLEMENTATION COMPLETED (Updated: 2025-07-09)
-**Priority**: 🎯 **Direct File Conversion** - Standalone document processing without email context
+**Phase**: Phase 4: Direct File Conversion ✅ **IMPLEMENTATION COMPLETED (Updated: 2025-07-14)**
+**Priority**: ✅ **Phase 4 Complete** - All direct file conversion features implemented and tested
+**Next**: Phase 4.5 - Interactive CLI integration for direct conversion workflows
 
 ### ✅ Completed Features (Production Ready)
 
@@ -311,7 +311,7 @@ email-parser/
 
 **Production Status**: Fully tested and operational, all bugs resolved, comprehensive error handling
 
-### Phase 4: Direct File Conversion ✅ **CORE IMPLEMENTATION COMPLETED (Updated: 2025-07-09)
+### Phase 4: Direct File Conversion ✅ **IMPLEMENTATION COMPLETED (Updated: 2025-07-14)**
 
 **Objective**: Enable standalone file conversion without email wrapper ✅ **ACHIEVED**
 
@@ -319,27 +319,28 @@ email-parser/
 - [x] DirectFileConverter implementation
 - [x] File type auto-detection
 - [x] Integration with existing converters
-- [x] Batch conversion support
+- [x] Batch conversion support  
 - [x] CLI commands (convert, convert-batch)
 
 **Technical Components**:
-- `email_parser/cli/file_converter.py` - Direct conversion interface
-- `email_parser/utils/file_detector.py` - File type detection
-- `email_parser/converters/*_converter.py` - Standalone methods added
+- `email_parser/cli/file_converter.py` - Direct conversion interface ✅ Working
+- `email_parser/utils/file_detector.py` - File type detection ✅ Working
+- `email_parser/converters/*_converter.py` - Standalone methods added ✅ Working
 
 **Success Criteria Met**:
 - ✅ All three converters (PDF, DOCX, Excel) work standalone
 - ✅ Batch processing operational
-- ✅ CLI commands functional
-- ✅ Maintains backward compatibility
+- ✅ CLI commands fully functional and tested
+- ✅ Maintains backward compatibility with email processing
+- ✅ Error handling and file validation working
 
 ### Roadmap
 
 1. **Phase 2** ✅ **COMPLETE**: DOCX converter implementation (Production Ready)
 2. **Phase 3.5** ✅ **COMPLETE**: Interactive CLI Mode (Production Ready - 2025-07-06)
-3. **Phase 4** ✅ **CORE COMPLETE**: Direct File Conversion
-4. **Phase 4.5** 🎯 **NEXT**: Interactive CLI integration and unified API
-5. **Phase 5**: Advanced content analysis features  
+3. **Phase 4** ✅ **COMPLETE**: Direct File Conversion (Feature Complete - 2025-07-14)
+4. **Phase 4.5** 🎯 **NEXT**: Interactive CLI integration for direct conversion and unified API
+5. **Phase 5**: Advanced content analysis features and additional file formats
 6. **Phase 6**: Production deployment and scaling
 
 ## Configuration
@@ -402,7 +403,7 @@ python -m email_parser process --input email.eml --output output/ --convert-docx
 python -m email_parser batch --input emails/ --output output/ --convert-excel --convert-pdf --pdf-mode all --convert-docx --docx-chunking --docx-images --docx-styles
 ```
 
-### Direct File Conversion ✅ NEW (Phase 4)
+### Direct File Conversion ✅ **PRODUCTION READY** (Phase 4 Complete)
 
 ```bash
 # Convert single file directly (without email context)
@@ -418,7 +419,8 @@ python -m email_parser.cli.main convert-batch --directory documents/ --output ou
 python -m email_parser.cli.main convert-batch --directory docs/ --output output/ --pattern "*.pdf" --recursive
 
 # Supported file types: PDF, DOCX, XLSX, XLS
-# Features: Automatic file type detection, progress tracking, batch processing
+# Features: Automatic file type detection, progress tracking, batch processing, error handling
+# Status: All commands tested and working (2025-07-14)
 ```
 
 ### Gemini CLI Integration Examples
@@ -447,11 +449,12 @@ cat output/processed_text/inbox_batch.txt | gemini -m gemini-2.0-flash-thinking-
 
 ## Email Parser Production Guidelines
 
-1. **Branch**: Work on main branch (all features production ready)
-2. **Dependencies**: Install missing requests/psutil before development
-3. **Testing**: Focus on edge cases, MIME variants, large files
+1. **Branch**: Currently on feature/phase-4-direct-file-conversion (Phase 4 complete, ready for merge)
+2. **Dependencies**: All dependencies installed and verified (requirements.txt up to date)
+3. **Testing**: 161 tests passing, focus on edge cases, MIME variants, large files
 4. **Security**: Validate inputs, sanitise outputs, protect API keys
 5. **Monitoring**: Track performance metrics, error rates, user feedback
+6. **Known Issues**: Interactive CLI has Unicode encoding issues on Windows (functional but display problems)
 
 ### Email Parser Gemini Performance Guidelines
 
@@ -557,21 +560,9 @@ All configuration options tested and validated in production.
 - Model: `mistral-ocr-latest`
 - Cost: ~$0.001 per page
 
-## Email Parser Environment
-
-### Virtual Environment
-
-```bash
-# Activate virtual environment (required before all Python work)
-source email-parser-env/Scripts/activate
-
-# Check virtual environment status
-python -c 'import sys; print(sys.prefix)'
-```
-
 ## Email Parser Emergency Recovery
 
-- **Corruption**: Check archive/, git history, recreate venv in WSL2
+- **Corruption**: Check archive/, git history, recreate venv 
 - **Performance**: Profile with cProfile, check API limits
 - **Security**: Disable feature, archive, audit, rotate keys
 

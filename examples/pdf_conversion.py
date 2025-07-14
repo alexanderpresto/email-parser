@@ -43,7 +43,7 @@ def main():
     # Check for MistralAI API key
     if not os.environ.get("MISTRALAI_API_KEY"):
         print("Error: MISTRALAI_API_KEY environment variable not set")
-        print("Please set it with: export MISTRALAI_API_KEY='your-api-key'")
+        print("Please set it as a user environment variable (see README.md for instructions)")
         sys.exit(1)
     
     print(f"Processing email: {email_file}")

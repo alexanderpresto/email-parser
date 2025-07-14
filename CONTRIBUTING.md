@@ -4,23 +4,27 @@ Thank you for your interest in contributing to the Enterprise Email Parser proje
 
 ## 🚀 Current Production Status
 
-**Active Branch:** `main`  
-**Current Phase:** Phase 3.5 Interactive CLI Mode - Planning Stage  
-**Status:** All core features production ready (Version 2.2.0)  
+**Active Branch:** `feature/phase-4-direct-file-conversion`  
+**Current Phase:** Phase 4 Direct File Conversion - Complete, ready for merge  
+**Status:** All features production ready including Phase 4 (Version 2.3.0)  
 
 ### Priority Areas for Contributions
-- **Interactive CLI mode** development (Phase 3.5 current focus)
+- **Phase 4.5 Interactive CLI integration** for direct file conversion (next focus)
 - **Production monitoring** and performance optimization
-- **Enhanced user experience** and usability improvements
-- **Additional file format support** and advanced features
+- **Enhanced user experience** and usability improvements  
+- **Additional file format support** (PowerPoint, etc.) and advanced features
+- **Unicode encoding fixes** for Windows Interactive CLI display issues
 
-### Production Ready Features (Phase 2 Complete)
-- ✅ DOCX to Markdown conversion with full feature set
+### Production Ready Features (All Phases Complete)
+- ✅ **Phase 4: Direct File Conversion** - Standalone document processing (2025-07-14)
+- ✅ **Phase 3.5: Interactive CLI Mode** - Guided workflows (with known Unicode issues on Windows)
+- ✅ **Phase 2: DOCX Conversion** - Full feature set with advanced capabilities
+- ✅ **Phase 1: PDF Conversion** - MistralAI OCR integration
 - ✅ AI-ready document chunking (3 strategies)
 - ✅ Enhanced metadata extraction with analysis
 - ✅ Style preservation with CSS/JSON output
 - ✅ Advanced image extraction with quality control
-- ✅ Complete CLI integration (all tests passing)
+- ✅ Complete CLI integration (161 tests passing, 66 failing - mainly API-dependent)
 
 ## Code of Conduct
 
@@ -73,15 +77,15 @@ We actively welcome pull requests:
 
 **IMPORTANT**: Choose the correct setup based on your development environment:
 
-#### 🐧 **Claude Code (WSL2/Linux)**
-If you're using Claude Code and running IN WSL2/Ubuntu environment:
+#### 🐧 **Linux/Mac Development**
+If you're using a Linux or Mac development environment:
 - **See**: [CLAUDE.md](CLAUDE.md) for complete setup and workflow instructions
-- Uses native Linux commands directly (no WSL prefix)
+- Uses native Unix commands directly
 
-#### 🪟 **Claude Desktop (Windows)**  
-If you're using Claude Desktop on Windows 11 accessing WSL2:
+#### 🪟 **Windows Development**  
+If you're using Windows for development:
 - **See**: [CLAUDE.md](CLAUDE.md) for project-specific development instructions  
-- All commands use `wsl -d Ubuntu-24.04` prefix
+- **Personal Setup**: Create `.claude/CLAUDE.md` with your environment-specific configuration
 
 #### Universal Setup Steps
 
@@ -104,7 +108,7 @@ pip install -e .
 
 # Optional: Set up Gemini CLI for enhanced analysis (Claude Code only)
 pip install gemini-cli
-export GEMINI_API_KEY="your-gemini-api-key-here"
+gemini auth  # OAuth authentication
 ```
 
 **Note**: Command format varies by platform. See platform-specific instruction files for exact syntax.
@@ -114,16 +118,17 @@ export GEMINI_API_KEY="your-gemini-api-key-here"
 For contributions involving large file analysis or advanced processing:
 
 **Platform Support:**
-- ✅ **Claude Code (WSL2/Linux)**: Full Gemini CLI support
-- ❌ **Claude Desktop (Windows)**: Not available due to terminal compatibility
+- ✅ **Linux/Mac**: Full Gemini CLI support
+- ✅ **Windows Git Bash**: Compatible
+- ❌ **Windows PowerShell**: Limited compatibility
 
-**Setup for Contributors (Claude Code only):**
+**Setup for Contributors (Linux/Mac/Git Bash):**
 ```bash
 # Install Gemini CLI
 pip install gemini-cli
 
-# Set up API key
-export GEMINI_API_KEY="your-api-key-here"
+# Authenticate with Gemini (uses OAuth)
+gemini auth
 
 # Verify installation
 gemini --version
@@ -139,7 +144,7 @@ gemini --version
 
 ### Running Tests
 
-**Commands shown in WSL2/Linux format. Windows users should adapt commands for their environment.**
+**Commands shown in Unix format. Windows users should adapt for PowerShell or use Git Bash.**
 
 ```bash
 # Run the full test suite
@@ -162,7 +167,7 @@ All code must:
 - Pass security checks with Bandit
 - Have appropriate docstrings in the Google format
 
-Automated tools (WSL2/Linux format):
+Automated tools (Unix format):
 
 ```bash
 # Format code

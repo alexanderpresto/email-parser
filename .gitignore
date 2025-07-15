@@ -161,3 +161,17 @@ large_test_files/
 # Backup files
 *.backup
 backup/
+
+# Claude Code hooks and automation
+claude-hooks-config.json
+scripts/analyze-claude-changes.py
+scripts/create-session-summary.py
+scripts/preserve-context.py
+scripts/hooks-config.yaml
+hooks-debug.log
+temp_memory_writer.py
+
+# Hook execution logs and temporary files
+/tmp/hook-debug.log
+.hooks_temp/
+hooks_execution.log

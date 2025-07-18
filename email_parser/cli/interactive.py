@@ -31,9 +31,41 @@ from email_parser.config.profiles import ProfileManager, ProcessingProfile
 from email_parser.utils.progress import create_progress_tracker, ProgressStyle
 from email_parser.core.email_processor import EmailProcessor
 from email_parser.core.config import ProcessingConfig
-from email_parser.cli.interactive_file import InteractiveFileConverter
+
+# Try to import unified progress tracker
+try:
+    from .components.unified_progress import UnifiedProgressTracker
+    UNIFIED_PROGRESS_AVAILABLE = True
+except ImportError:
+    UNIFIED_PROGRESS_AVAILABLE = False
 
 logger = logging.getLogger(__name__)
+
+
+class NavigationContext:
+    """Track user navigation through the CLI."""
+    
+    def __init__(self):
+        self.breadcrumbs = ["Main Menu"]
+        self.previous_mode = None
+        
+    def push(self, location: str):
+        """Add location to navigation stack."""
+        self.breadcrumbs.append(location)
+        
+    def pop(self) -> str:
+        """Remove and return last location."""
+        if len(self.breadcrumbs) > 1:
+            return self.breadcrumbs.pop()
+        return "Main Menu"
+        
+    def get_path(self) -> str:
+        """Get current navigation path."""
+        return " > ".join(self.breadcrumbs)
+        
+    def clear(self):
+        """Clear navigation history."""
+        self.breadcrumbs = ["Main Menu"]
 
 
 class EmailPathValidator(Validator):
@@ -120,7 +152,15 @@ class InteractiveCLI:
         self.scanner = EmailScanner()
         self.profile_manager = ProfileManager()
         self.progress_tracker = None
-        self.file_converter = InteractiveFileConverter()
+        self.file_converter = None  # Will be initialized when needed
+        self._console = None  # Rich console instance
+        self.navigation = NavigationContext()  # Navigation tracking
+        
+        # Initialize unified progress tracker if available
+        if UNIFIED_PROGRESS_AVAILABLE:
+            self.unified_progress = UnifiedProgressTracker(self.get_console())
+        else:
+            self.unified_progress = None
         
         # Load processing config with temporary output directory
         temp_output = Path.cwd() / "temp_output"
@@ -130,6 +170,17 @@ class InteractiveCLI:
         
         # Check for first time use
         self.is_first_time = not self.config.preferences_file.exists()
+        
+    def get_console(self):
+        """Get or create Rich console instance."""
+        if self._console is None:
+            try:
+                from rich.console import Console
+                self._console = Console()
+            except ImportError:
+                # Return None if rich is not available
+                self._console = None
+        return self._console
         
     def run(self) -> int:
         """
@@ -207,6 +258,10 @@ class InteractiveCLI:
         Returns:
             Selected action
         """
+        # Show navigation breadcrumbs
+        print(f"\n📍 {self.navigation.get_path()}")
+        print("-" * 50)
+        
         print("\nWhat would you like to do?")
         print()
         print("  [1] Process a single email")
@@ -240,6 +295,8 @@ class InteractiveCLI:
                 
     def _process_single_email(self):
         """Process a single email interactively."""
+        self.navigation.push("Process Single Email")
+        
         print("\n📧 Process Single Email")
         print("=" * 50)
         
@@ -274,6 +331,9 @@ class InteractiveCLI:
         
         # Process email
         self._process_email_with_profile(email_path, profile, output_dir)
+        
+        # Return to main menu
+        self.navigation.pop()
         
     def _get_email_path(self) -> Optional[Path]:
         """Get email file path from user."""
@@ -566,19 +626,47 @@ class InteractiveCLI:
         
     def _convert_documents(self):
         """Convert documents directly without email context."""
+        self.navigation.push("Document Conversion")
+        
         print("\n📁 Document Conversion Mode")
         print("=" * 50)
         print("Convert documents directly without email processing")
         print()
         
         try:
+            # Initialize file converter with shared configuration
+            if not hasattr(self, 'file_converter') or self.file_converter is None:
+                from .interactive_file import InteractiveFileConverter
+                self.file_converter = InteractiveFileConverter(
+                    config=self.processing_config,
+                    profile_manager=self.profile_manager
+                )
+            
+            # Share navigation context and progress tracking
+            self.file_converter.console = self.get_console()
+            self.file_converter.parent_cli = self
+            if self.unified_progress:
+                self.file_converter.unified_progress = self.unified_progress
+            
             # Use asyncio to run the file converter
             import asyncio
             asyncio.run(self.file_converter.run_file_mode())
+            
+            # Return to main menu
+            if self.get_console():
+                self.get_console().print("\n[green]Returning to main menu...[/green]")
+            else:
+                print("\nReturning to main menu...")
+            
+        except ImportError as e:
+            logger.error(f"File conversion module not available: {e}")
+            print(f"\n❌ Error: File conversion module not available: {e}")
         except Exception as e:
             logger.error(f"Document conversion error: {e}", exc_info=True)
             print(f"\n❌ Document conversion failed: {e}")
             print("Please check your file paths and try again.")
+        finally:
+            self.navigation.pop()  # Remove from navigation stack
         
     def _quick_scan(self):
         """Quick scan without processing."""

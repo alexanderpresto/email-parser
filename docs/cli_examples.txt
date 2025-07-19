@@ -1,93 +1,70 @@
 # CLI Examples for Email Parser
 
-## 📋 Platform-Specific Instructions
+## Setup
 
-**IMPORTANT**: Choose the correct command format for your development environment:
+Activate your virtual environment first:
 
-### 🐧 **Claude Code (WSL2/Linux)**
-If using Claude Code and running IN WSL2/Ubuntu environment:
-- **See**: [CLAUDE.md](../CLAUDE.md) for complete instructions
-- **Commands**: Use native Linux format (shown below)
-
-### 🪟 **Claude Desktop (Windows)**  
-If using Claude Desktop on Windows 11 accessing WSL2:
-- **See**: [CLAUDE-DESKTOP.md](../CLAUDE-DESKTOP.md) for complete instructions
-- **Commands**: All commands need `wsl -d Ubuntu` prefix
-
-⚠️ **Virtual Environment Required**: Always activate the virtual environment first:
-
-**Claude Code (WSL2):**
 ```bash
-source email-parser-env/Scripts/activate
+# Windows
+venv\Scripts\activate
+
+# Linux/macOS
+source venv/bin/activate
 ```
 
-**Claude Desktop (Windows):**
+## Available Features
+
+- **PDF Conversion**: Extract text and images from PDF files
+- **DOCX Conversion**: Convert DOCX to Markdown with advanced features
+  - AI-ready chunking with multiple strategies
+  - Metadata extraction and style preservation
+  - Image extraction and comments processing
+- **Excel Conversion**: Convert Excel files to CSV format
+- **Interactive CLI Mode**: User-friendly guided interface with processing profiles
+- **Batch Processing**: Process multiple files efficiently
+
+## Interactive Mode (Recommended)
+
+The interactive CLI provides a user-friendly interface with guided workflows:
+
 ```bash
-wsl -d Ubuntu source /path/to/email-parser/email-parser-env/Scripts/activate
-```
-
-⚠️ **Implementation Status**: 
-- ✅ Basic email processing (WORKING)
-- ✅ Excel conversion (WORKING)  
-- ✅ PDF conversion options (WORKING - Phase 1 Complete)
-- ✅ **DOCX conversion with advanced features (WORKING - Phase 2 Complete)**
-  - ✅ AI-ready chunking (3 strategies)
-  - ✅ Enhanced metadata extraction  
-  - ✅ Style preservation
-  - ✅ Advanced image extraction
-  - ✅ Complete CLI integration
-- ✅ **Interactive CLI Mode (WORKING - Phase 3.5 Complete 2025-07-06)**
-  - ✅ Email content scanning with smart recommendations
-  - ✅ Processing profiles system (5 built-in profiles)
-  - ✅ Real-time progress tracking with rich UI
-  - ✅ Batch processing support with guided workflow
-  - ✅ Configuration management and preferences persistence
-
-All features are fully implemented and tested. Interactive mode is now the recommended interface.
-
-# ==========================================================
-# ACTUAL WORKING COMMANDS (Verified 2025-07-06)
-# ==========================================================
-
-**Note**: Commands below are shown in Claude Code (WSL2/Linux) format. 
-For Claude Desktop (Windows), prefix each command with `wsl -d Ubuntu bash -c "cd /path/to/email-parser && source email-parser-env/Scripts/activate && [command]"`
-
-## INTERACTIVE MODE (RECOMMENDED) ✅ NEW
-
-# Start interactive mode with guided workflows (Claude Code)
 python -m email_parser.cli.interactive
+```
 
-# Start interactive mode (Claude Desktop - Windows)
-wsl -d Ubuntu bash -c "cd /path/to/email-parser && source email-parser-env/Scripts/activate && python -m email_parser.cli.interactive"
+Interactive mode features:
+- Content scanning with smart recommendations
+- Processing profile selection (Quick, Comprehensive, AI-Ready, Archive, Research)
+- Real-time progress tracking
+- Batch processing support
+- Configuration management
 
-# Interactive mode provides:
-# - Email content scanning with smart recommendations
-# - Processing profile selection (Quick, Comprehensive, AI-Ready, Archive, Dev)
-# - Real-time progress tracking with beautiful UI
-# - Batch processing support with guided workflow
-# - Configuration management and API setup
-# - Preferences persistence across sessions
+## Email Processing Commands
 
-## SINGLE EMAIL PROCESSING
+### Basic Email Processing
 
-# Basic email processing
+```bash
+# Process email with default settings
 python -m email_parser process --input email.eml --output output/
 
-# Process email with Excel conversion
+# Process email with specific converters
 python -m email_parser process --input email.eml --output output/ --convert-excel
-
-# Process email with PDF conversion  
 python -m email_parser process --input email.eml --output output/ --convert-pdf
+python -m email_parser process --input email.eml --output output/ --convert-docx
+```
 
-# Process email with PDF conversion modes
+### PDF Conversion Options
+
+```bash
+# PDF with specific extraction modes
 python -m email_parser process --input email.eml --output output/ --convert-pdf --pdf-mode text
 python -m email_parser process --input email.eml --output output/ --convert-pdf --pdf-mode images  
 python -m email_parser process --input email.eml --output output/ --convert-pdf --pdf-mode all
+```
 
-# Process email with DOCX conversion (Week 2 Complete)
-python -m email_parser process --input email.eml --output output/ --convert-docx
+### DOCX Advanced Features
 
-# Process email with DOCX advanced features (All Week 2 Features)
+```bash
+# DOCX with all advanced features
 python -m email_parser process --input email.eml --output output/ \
     --convert-docx \
     --docx-chunking \
@@ -96,45 +73,57 @@ python -m email_parser process --input email.eml --output output/ \
     --docx-styles \
     --docx-comments
 
-# Process email with custom DOCX chunking settings
+# Custom DOCX chunking settings
 python -m email_parser process --input email.eml --output output/ \
     --convert-docx \
     --docx-chunk-size 2000 \
     --docx-chunk-overlap 200 \
     --docx-chunk-strategy hybrid
+```
 
-# Process email with all converters enabled
+### Combined Processing
+
+```bash
+# Process with all converters
 python -m email_parser process --input email.eml --output output/ \
     --convert-excel \
     --convert-pdf --pdf-mode all \
     --convert-docx --docx-chunking --docx-images --docx-styles
 
-# Process email with attachment size limit
+# Process with file size limits
 python -m email_parser process --input email.eml --output output/ \
     --max-attachment-size 10000000
+```
 
-## BATCH EMAIL PROCESSING
+## Batch Email Processing
 
-# Basic batch processing from directory
+### Basic Batch Operations
+
+```bash
+# Process all emails in directory
 python -m email_parser batch --input emails/ --output output/
 
-# Batch processing with conversions
+# Batch processing with specific converters
 python -m email_parser batch --input emails/ --output output/ \
     --convert-excel \
     --convert-pdf \
     --convert-docx
+```
 
-# Batch processing with specific file pattern
+### Advanced Batch Options
+
+```bash
+# Process specific file patterns
 python -m email_parser batch --input emails/ --output output/ \
     --pattern "*.eml" \
     --convert-pdf
 
-# Batch processing with custom batch size
+# Custom batch size for performance
 python -m email_parser batch --input emails/ --output output/ \
     --batch-size 50 \
     --convert-docx --docx-chunking
 
-# Batch processing with all DOCX Week 2 features
+# Comprehensive batch processing
 python -m email_parser batch --input emails/ --output output/ \
     --convert-docx \
     --docx-chunking \
@@ -143,65 +132,131 @@ python -m email_parser batch --input emails/ --output output/ \
     --docx-styles \
     --docx-comments \
     --docx-chunk-size 1500
+```
 
-# ==========================================================
-# AVAILABLE CLI OPTIONS (As of 2025-07-01)
-# ==========================================================
+## Available CLI Options
 
-## Process Command Options:
-# --input              Input email file (required)
-# --output             Output directory (required)  
-# --convert-excel      Convert Excel to CSV
-# --convert-pdf        Convert PDF to Markdown
-# --pdf-mode          PDF extraction mode: text, images, all (default: all)
-# --convert-docx       Convert DOCX to Markdown
-# --docx-metadata      Extract metadata from DOCX files (default: True)
-# --docx-images        Extract images from DOCX files
-# --docx-chunking      Enable AI-ready document chunking
-# --docx-chunk-size    Maximum tokens per chunk (default: 2000)
-# --docx-chunk-overlap Token overlap between chunks (default: 200)
-# --docx-chunk-strategy Chunking strategy: token, semantic, hybrid (default: hybrid)
-# --docx-styles        Extract style information
-# --docx-comments      Extract comments and track changes (default: True)
-# --max-attachment-size Maximum attachment size in bytes
+### Process Command Options
 
-## Batch Command Options:
-# All process options plus:
-# --pattern            File pattern to match
-# --batch-size         Batch size
+| Option | Description |
+|--------|-------------|
+| `--input` | Input email file (required) |
+| `--output` | Output directory (required) |
+| `--convert-excel` | Convert Excel attachments to CSV |
+| `--convert-pdf` | Convert PDF attachments to Markdown |
+| `--pdf-mode` | PDF extraction mode: text, images, all (default: all) |
+| `--convert-docx` | Convert DOCX attachments to Markdown |
+| `--docx-metadata` | Extract metadata from DOCX files (default: True) |
+| `--docx-images` | Extract images from DOCX files |
+| `--docx-chunking` | Enable AI-ready document chunking |
+| `--docx-chunk-size` | Maximum tokens per chunk (default: 2000) |
+| `--docx-chunk-overlap` | Token overlap between chunks (default: 200) |
+| `--docx-chunk-strategy` | Chunking strategy: token, semantic, hybrid (default: hybrid) |
+| `--docx-styles` | Extract style information |
+| `--docx-comments` | Extract comments and track changes (default: True) |
+| `--max-attachment-size` | Maximum attachment size in bytes |
 
-## Help Commands:
-# python -m email_parser --help
-# python -m email_parser process --help  
-# python -m email_parser batch --help
+### Batch Command Options
 
-# ==========================================================
-# TESTING AND VERIFICATION
-# ==========================================================
+All process options plus:
+- `--pattern`: File pattern to match (e.g., "*.eml")
+- `--batch-size`: Number of files to process in each batch
 
+### Getting Help
+
+```bash
+python -m email_parser --help
+python -m email_parser process --help  
+python -m email_parser batch --help
+```
+
+## Testing and Verification
+
+### Basic Setup Verification
+
+```bash
 # Test basic imports
 python -c "import email_parser; print('Email Parser: Success!')"
 python -c "import mistralai; print('MistralAI: Success!')"
 
-# Check if API keys are set
+# Check if API keys are configured
 python -c "import os; print('MistralAI API Key set:', bool(os.environ.get('MISTRALAI_API_KEY')))"
+
 # Show help
 python -m email_parser --help
+```
 
-# ==========================================================
-# PLATFORM-SPECIFIC COMMAND EXAMPLES
-# ==========================================================
+### Running Tests
 
-## Claude Desktop (Windows) Examples:
+```bash
+# Run the full test suite
+pytest
 
-# Basic processing (Windows format):
-wsl -d Ubuntu bash -c "cd /path/to/email-parser && source email-parser-env/Scripts/activate && python -m email_parser process --input email.eml --output output/"
+# Run with coverage report
+pytest --cov=email_parser
 
-# With DOCX features (Windows format):
-wsl -d Ubuntu bash -c "cd /path/to/email-parser && source email-parser-env/Scripts/activate && python -m email_parser process --input email.eml --output output/ --convert-docx --docx-chunking --docx-images"
+# Run specific test categories
+pytest tests/unit/
+pytest tests/integration/
+```
 
-# Testing (Windows format):
-wsl -d Ubuntu bash -c "cd /path/to/email-parser && source email-parser-env/Scripts/activate && pytest"
+## Direct File Conversion Commands
 
-## For complete platform-specific examples, see:
-- [CLAUDE.md](../CLAUDE.md) - Claude Code project instructions
+### Single File Conversion
+
+```bash
+# Convert a single document
+python -m email_parser.cli.main convert --file document.pdf --output output/
+python -m email_parser.cli.main convert --file document.docx --output output/
+python -m email_parser.cli.main convert --file spreadsheet.xlsx --output output/
+```
+
+### Batch File Conversion
+
+```bash
+# Convert all documents in a directory
+python -m email_parser.cli.main convert-batch --directory docs/ --output output/
+
+# Convert with specific file types
+python -m email_parser.cli.main convert-batch --directory docs/ --output output/ --pattern "*.pdf"
+```
+
+## Configuration
+
+### API Keys Setup
+
+The system requires API keys for certain features:
+
+```bash
+# Set MistralAI API key for PDF processing
+export MISTRALAI_API_KEY="your_api_key_here"
+
+# On Windows
+set MISTRALAI_API_KEY=your_api_key_here
+```
+
+### Configuration Files
+
+Configuration is handled through YAML files in the `config/` directory:
+- `default.yaml` - Default configuration settings
+- Custom configurations can be created for specific use cases
+
+## Output Structure
+
+The system creates organized output directories:
+
+```
+output/
+├── processed_text/              # Email text content
+├── attachments/                 # Original attachments  
+├── converted_excel/             # CSV conversions
+├── converted_pdf/               # PDF markdown output
+├── converted_docx/              # DOCX conversions
+│   ├── document.md             # Main markdown
+│   └── document_docx_output/   # Advanced features
+│       ├── metadata.json
+│       ├── styles.json
+│       ├── images/             # Extracted images
+│       └── chunks/             # AI-ready chunks
+└── metadata.json               # Processing summary
+```

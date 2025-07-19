@@ -384,6 +384,6 @@ class DirectFileConverter:
             } if output_path else None,
             'config_used': {
                 'profile': getattr(self.config, 'profile_name', 'default'),
-                'version': '2.3.0-dev'
+                'version': '2.4.0'
             }
         }

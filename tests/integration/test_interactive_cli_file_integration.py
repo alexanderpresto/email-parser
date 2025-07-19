@@ -64,11 +64,11 @@ class TestInteractiveCLIFileIntegration:
     @pytest.mark.asyncio
     async def test_main_menu_to_file_conversion(self):
         """Test navigation from main menu to file conversion mode."""
-        with patch("email_parser.cli.interactive.Console") as mock_console:
+        with patch("rich.console.Console") as mock_console:
             cli = InteractiveCLI()
 
             # Test navigation context
-            assert cli.navigation_context.get_path() == "Main Menu"
+            assert cli.navigation.get_path() == "Main Menu"
 
             # Mock file converter
             mock_file_converter = AsyncMock()
@@ -77,9 +77,9 @@ class TestInteractiveCLIFileIntegration:
             # Mock main menu selection
             with patch("email_parser.cli.interactive.Prompt.ask", return_value="3"):
                 # This would normally trigger file conversion mode
-                cli.navigation_context.push("Convert Documents")
+                cli.navigation.push("Convert Documents")
 
-            assert cli.navigation_context.get_path() == "Main Menu > Convert Documents"
+            assert cli.navigation.get_path() == "Main Menu > Convert Documents"
 
     @pytest.mark.asyncio
     async def test_complete_file_conversion_workflow(self, temp_workspace):
@@ -380,33 +380,33 @@ class TestNavigationIntegration:
             cli = InteractiveCLI()
 
             # Simulate navigation through menus
-            cli.navigation_context.push("Convert Documents")
-            assert cli.navigation_context.get_path() == "Main Menu > Convert Documents"
+            cli.navigation.push("Convert Documents")
+            assert cli.navigation.get_path() == "Main Menu > Convert Documents"
 
-            cli.navigation_context.push("Directory Selection")
+            cli.navigation.push("Directory Selection")
             assert (
-                cli.navigation_context.get_path()
+                cli.navigation.get_path()
                 == "Main Menu > Convert Documents > Directory Selection"
             )
 
-            cli.navigation_context.push("Profile Selection")
+            cli.navigation.push("Profile Selection")
             assert (
-                cli.navigation_context.get_path()
+                cli.navigation.get_path()
                 == "Main Menu > Convert Documents > Directory Selection > Profile Selection"
             )
 
             # Simulate going back
-            cli.navigation_context.pop()
+            cli.navigation.pop()
             assert (
-                cli.navigation_context.get_path()
+                cli.navigation.get_path()
                 == "Main Menu > Convert Documents > Directory Selection"
             )
 
-            cli.navigation_context.pop()
-            assert cli.navigation_context.get_path() == "Main Menu > Convert Documents"
+            cli.navigation.pop()
+            assert cli.navigation.get_path() == "Main Menu > Convert Documents"
 
-            cli.navigation_context.pop()
-            assert cli.navigation_context.get_path() == "Main Menu"
+            cli.navigation.pop()
+            assert cli.navigation.get_path() == "Main Menu"
 
     def test_error_recovery_navigation(self):
         """Test navigation state during error recovery."""
@@ -414,18 +414,18 @@ class TestNavigationIntegration:
             cli = InteractiveCLI()
 
             # Navigate to conversion
-            cli.navigation_context.push("Convert Documents")
-            cli.navigation_context.push("Conversion in Progress")
+            cli.navigation.push("Convert Documents")
+            cli.navigation.push("Conversion in Progress")
 
             # Save state before error
-            pre_error_path = cli.navigation_context.get_path()
+            pre_error_path = cli.navigation.get_path()
 
             # Simulate error - should maintain context
             assert pre_error_path == "Main Menu > Convert Documents > Conversion in Progress"
 
             # After error recovery, should be able to navigate back
-            cli.navigation_context.pop()
-            assert cli.navigation_context.get_path() == "Main Menu > Convert Documents"
+            cli.navigation.pop()
+            assert cli.navigation.get_path() == "Main Menu > Convert Documents"
 
     def test_mode_switching_preserves_context(self):
         """Test that switching between email and file modes preserves context."""
@@ -433,25 +433,31 @@ class TestNavigationIntegration:
             cli = InteractiveCLI()
 
             # Start in email mode
-            cli.navigation_context.push("Email Processing")
-            cli.navigation_context.previous_mode = "email"
+            cli.navigation.push("Email Processing")
+            cli.navigation.previous_mode = "email"
 
             # Switch to file mode
-            cli.navigation_context.pop()
-            cli.navigation_context.push("Convert Documents")
-            previous = cli.navigation_context.previous_mode
-            cli.navigation_context.previous_mode = "file"
+            cli.navigation.pop()
+            cli.navigation.push("Convert Documents")
+            previous = cli.navigation.previous_mode
+            cli.navigation.previous_mode = "file"
 
             # Verify mode tracking
             assert previous == "email"
-            assert cli.navigation_context.previous_mode == "file"
+            assert cli.navigation.previous_mode == "file"
 
             # Navigation should be independent of mode
-            assert cli.navigation_context.get_path() == "Main Menu > Convert Documents"
+            assert cli.navigation.get_path() == "Main Menu > Convert Documents"
 
 
 class TestQualityAnalysisIntegration:
     """Test quality analysis integration with conversion workflow."""
+
+    @pytest.fixture
+    def temp_workspace(self):
+        """Create a temporary directory for testing."""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            yield Path(temp_dir)
 
     @pytest.mark.asyncio
     async def test_post_conversion_quality_analysis(self, temp_workspace):

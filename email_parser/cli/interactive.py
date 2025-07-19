@@ -15,6 +15,21 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
+# Set UTF-8 encoding for Windows console
+if sys.platform == "win32":
+    # Try to set console to UTF-8 mode
+    try:
+        import locale
+        locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+    except:
+        pass
+    # Try to set console code page
+    try:
+        import subprocess
+        subprocess.run(['chcp', '65001'], shell=True, capture_output=True)
+    except:
+        pass
+
 # Add prompt toolkit for interactive prompts
 try:
     from prompt_toolkit import prompt
@@ -226,7 +241,10 @@ class InteractiveCLI:
             return 1
         except Exception as e:
             logger.error(f"Interactive mode error: {e}", exc_info=True)
-            print(f"\n❌ An error occurred: {e}")
+            try:
+                print(f"\n❌ An error occurred: {e}")
+            except UnicodeEncodeError:
+                print(f"\n[ERROR] An error occurred: {e}")
             return 1
 
     def _show_welcome(self):
@@ -234,21 +252,39 @@ class InteractiveCLI:
         self._clear_screen()
 
         width = 70
-        print("╔" + "═" * width + "╗")
-        print("║" + " " * width + "║")
-        print("║" + "Email Parser v2.4.0".center(width) + "║")
-        print("║" + "Interactive Mode".center(width) + "║")
-        print("║" + " " * width + "║")
-        print("╚" + "═" * width + "╝")
+        try:
+            # Try Unicode box-drawing characters
+            print("╔" + "═" * width + "╗")
+            print("║" + " " * width + "║")
+            print("║" + "Email Parser v2.4.0".center(width) + "║")
+            print("║" + "Interactive Mode".center(width) + "║")
+            print("║" + " " * width + "║")
+            print("╚" + "═" * width + "╝")
+        except UnicodeEncodeError:
+            # Fallback to ASCII characters
+            print("+" + "-" * width + "+")
+            print("|" + " " * width + "|")
+            print("|" + "Email Parser v2.4.0".center(width) + "|")
+            print("|" + "Interactive Mode".center(width) + "|")
+            print("|" + " " * width + "|")
+            print("+" + "-" * width + "+")
         print()
 
         if self.is_first_time:
-            print("👋 Welcome! This appears to be your first time using Email Parser.")
-            print()
-            print("This tool helps you:")
-            print("  ✓ Extract content from email attachments")
-            print("  ✓ Convert PDFs, Word docs, and Excel files")
-            print("  ✓ Prepare content for AI/LLM processing")
+            try:
+                print("👋 Welcome! This appears to be your first time using Email Parser.")
+                print()
+                print("This tool helps you:")
+                print("  ✓ Extract content from email attachments")
+                print("  ✓ Convert PDFs, Word docs, and Excel files")
+                print("  ✓ Prepare content for AI/LLM processing")
+            except UnicodeEncodeError:
+                print("Welcome! This appears to be your first time using Email Parser.")
+                print()
+                print("This tool helps you:")
+                print("  - Extract content from email attachments")
+                print("  - Convert PDFs, Word docs, and Excel files")
+                print("  - Prepare content for AI/LLM processing")
             print()
 
             if self._confirm("Would you like to see a quick demo?"):

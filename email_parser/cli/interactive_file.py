@@ -179,9 +179,7 @@ class FileConversionProfileManager:
             return "batch_optimization"
         elif total_size > 100 * 1024 * 1024:  # > 100MB
             return "quick_conversion"
-        elif "pdf" in file_types and any(
-            "complex" in f.complexity_indicators for f in files
-        ):
+        elif "pdf" in file_types and any("complex" in f.complexity_indicators for f in files):
             return "research_mode"
         else:
             return "ai_processing"
@@ -212,9 +210,7 @@ class InteractiveFileConverter:
 
         # Show integration info if running from main CLI
         if self.parent_cli:
-            self.console.print(
-                "[dim]Running from Email Parser Interactive Mode[/dim]\n"
-            )
+            self.console.print("[dim]Running from Email Parser Interactive Mode[/dim]\n")
 
         while True:
             choice = Prompt.ask(
@@ -242,7 +238,7 @@ class InteractiveFileConverter:
             return
 
         if not self.file_detector.is_supported(path):
-            self.console.print(f"[red]Error: File type not supported[/red]")
+            self.console.print("[red]Error: File type not supported[/red]")
             return
 
         # Create convertible file object
@@ -382,7 +378,7 @@ class InteractiveFileConverter:
             TextColumn("[progress.description]{task.description}"),
             console=self.console,
         ) as progress:
-            task = progress.add_task("Scanning files...", total=None)
+            progress.add_task("Scanning files...", total=None)
 
             for file_path in path.rglob("*"):
                 if file_path.is_file():
@@ -467,7 +463,7 @@ class InteractiveFileConverter:
         profiles = self.profile_manager.get_profiles()
         recommended = self.profile_manager.recommend_profile(files)
 
-        self.console.print(f"\n[bold]Select conversion profile:[/bold]")
+        self.console.print("\n[bold]Select conversion profile:[/bold]")
 
         choices = []
         for key, profile in profiles.items():
@@ -644,7 +640,7 @@ class InteractiveFileConverter:
                 progress.update(task, advance=1)
 
         # Display results
-        self.console.print(f"\n[bold]Conversion Complete![/bold]")
+        self.console.print("\n[bold]Conversion Complete![/bold]")
         self.console.print(f"✅ Successfully converted: {success_count} files")
 
         if failed_files:

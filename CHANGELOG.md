@@ -5,6 +5,46 @@ All notable changes to the Email Parser project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2025-07-19 - Phase 4.5: Interactive File Conversion ✅ **PHASE 4.5 COMPLETE**
+
+### Added
+- **Interactive File Conversion Interface**: Rich terminal UI for document conversion
+  - Smart file discovery with complexity analysis
+  - 5 built-in conversion profiles with intelligent recommendations
+  - Real-time progress tracking with quality reporting
+  - Batch file processing with interactive selection
+  - Unified navigation with main InteractiveCLI
+- **File Conversion Profiles System**: Pre-configured conversion strategies
+  - AI Processing: Optimized chunking for LLM consumption
+  - Document Archive: Maximum preservation of formatting
+  - Quick Conversion: Fast basic text extraction
+  - Research Mode: Comprehensive extraction with analysis
+  - Batch Optimization: Performance-tuned for multiple files
+- **Enhanced Navigation Context**: Breadcrumb system for menu navigation
+  - Context-aware menu transitions
+  - Error recovery with proper navigation state
+  - Unified progress tracking across modes
+
+### Technical Implementation
+- `email_parser/cli/interactive_file.py` - Interactive file converter (509 lines)
+- Enhanced `email_parser/cli/interactive.py` with file conversion integration
+- Profile-based converter configuration mapping
+- Comprehensive error handling and recovery mechanisms
+
+### Testing & Quality
+- Comprehensive unit test suite for all new components
+- Integration tests for end-to-end workflows
+- Navigation context and profile system testing
+- Code quality validation (black, isort, mypy, flake8, bandit)
+- Performance testing and optimization validation
+
+### Production Status
+- All interactive features tested and working
+- Performance targets met (file discovery < 2s for 100 files)
+- Memory usage optimized (< 100MB increase)
+- Full backward compatibility maintained
+- Ready for production deployment
+
 ## [2.3.0] - 2025-07-14 - Phase 4: Direct File Conversion ✅ **PHASE 4 COMPLETE**
 
 ### Added

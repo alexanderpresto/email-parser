@@ -1,37 +1,37 @@
-# Email Parser Production Environment Setup
+# Email Parser Development Environment Setup
 
 ## 🚨 CRITICAL: Virtual Environment is MANDATORY
 
-**This production-ready project REQUIRES virtual environment activation for ALL Python work.**
+**This project REQUIRES virtual environment activation for ALL Python work.**
 
 ## 📋 Platform-Specific Setup Instructions
 
 **IMPORTANT**: Choose the correct setup based on your development environment:
 
-### 🪟 **Claude Code (Windows)**  
-Current development environment: Windows 11 Pro with native Python
+### 🪟 **Windows Development**  
 - **See**: [CLAUDE.md](CLAUDE.md) for project-specific development instructions
 - **Personal Setup**: [CLAUDE.local.md](CLAUDE.local.md) for environment-specific configuration
-- Uses native Windows commands and Git Bash
+- Uses PowerShell or Git Bash commands
 
-**Current Status**: Python 3.12.10, Git Bash environment, Windows-native development
-- Platform: `win32` → Windows development environment
-- Branch: `feature/phase-4-direct-file-conversion`
-- Phase 4: Direct File Conversion ✅ Complete
+### 🐧 **Linux/Mac Development**
+- Standard Unix commands and terminal
+- Virtual environment with `source` activation
+- Package management with system package managers
 
-## Production Environment Checklist
+## Development Environment Checklist
 
-Before ANY Python work on this production system:
+Before ANY Python work on this project:
 1. ✅ Virtual environment exists (`email-parser-env` folder present)
 2. ✅ Virtual environment is activated (prompt shows `(email-parser-env)`)
 3. ✅ Correct Python interpreter is active (run verification command below)
-4. ✅ All production dependencies installed and up to date
+4. ✅ All dependencies installed and up to date
 
 ## Universal Setup Steps (All Platforms)
 
-### Project Location
-- **Windows Path**: `D:\Users\alexp\dev\email-parser`
-- **Virtual Environment**: `D:\Users\alexp\dev\email-parser\email-parser-env` (Note: activation issues)
+### Project Structure
+- **Project Root**: `[YOUR_PROJECT_PATH]/email-parser`
+- **Virtual Environment**: `email-parser-env/` (in project root)
+- **Dependencies**: See `requirements.txt` for full list
 
 ### MistralAI API Setup (Required for PDF Conversion)
 
@@ -72,14 +72,22 @@ python -c "import os; print('MistralAI API Key set:', bool(os.environ.get('MISTR
 
 **🔴 NEVER run Python commands without virtual environment active!**
 
-### Essential Steps (Windows)
-1. Navigate to project directory: `D:\Users\alexp\dev\email-parser`
-2. **NOTE**: Virtual environment activation has known issues - using global Python 3.12.10
-3. Verify Python version: `python --version` (should show Python 3.12.10)
-4. Run your development commands
-5. All dependencies installed globally via `pip install -r requirements.txt`
+### Essential Steps
+1. Navigate to project directory
+2. Activate virtual environment:
+   ```bash
+   # Windows
+   .\email-parser-env\Scripts\Activate.ps1  # PowerShell
+   source email-parser-env/Scripts/activate  # Git Bash
+   
+   # Linux/Mac
+   source email-parser-env/bin/activate
+   ```
+3. Verify Python version: `python --version` (should be Python 3.12+)
+4. Verify virtual environment: Check that prompt shows `(email-parser-env)`
+5. Run your development commands
 
-**Note**: Command format varies by platform - see platform-specific instruction files for exact syntax.
+**Note**: Adapt commands to your specific platform and shell environment.
 
 ## Testing & Quality
 
@@ -111,7 +119,7 @@ mypy email_parser
 bandit -r email_parser
 ```
 
-**Note**: Above commands show the Linux format. Adapt to your platform using the appropriate instruction file.
+**Note**: Commands shown in standard bash format. Adapt to your platform as needed.
 
 ## Common Issues & Solutions
 
@@ -131,38 +139,37 @@ ImportError: No module named 'mistralai'
 ```
 Command not found or permission denied
 ```
-**Solution**: Use platform-appropriate command format from your instruction file.
+**Solution**: Adapt commands to your platform and shell environment. Check that you're using the correct syntax for your operating system.
 
-## Archival Protocol (Development)
+## Version Control Best Practices
 
-**CRITICAL**: Never overwrite existing files. Always archive before modification.
+**IMPORTANT**: Follow proper version control workflows for file modifications.
 
-### Universal Archival Rules
-1. **Before any file modification**: Archive to `archive/filename_YYYY-MM-DD.ext`
-2. **Multiple archives same day**: Use incremental numbering `filename_YYYY-MM-DD_001.ext`
-3. **Deprecated files**: Move to `archive/del_filename_YYYY-MM-DD.ext`
-4. **Never overwrite archives**: Check for existing files and increment counter
+### Git Workflow
+1. **Create feature branches** for development work
+2. **Commit frequently** with descriptive messages  
+3. **Test before committing** to ensure code quality
+4. **Use pull requests** for code review before merging
 
-### Platform-Specific Archival Commands
+### File Management
+- Use git for version control rather than manual archiving
+- Follow conventional commit message format
+- Keep the repository clean with appropriate `.gitignore` rules
 
-**See your platform-specific instruction file for exact archival command syntax:**
-- **WSL2/Linux**: Native `cp` commands
-- **Windows**: WSL-prefixed commands
+## Benefits of This Setup Approach
 
-## Benefits of Platform-Specific Approach
-
-- ✅ **Clear command format** for each environment
-- ✅ **No command confusion** between platforms  
-- ✅ **Platform-optimized workflows**
-- ✅ **Reduced errors** from wrong command syntax
-- ✅ **Context-appropriate instructions**
+- ✅ **Clear development environment** requirements
+- ✅ **Consistent dependency management** across platforms
+- ✅ **Reliable virtual environment** isolation
+- ✅ **Comprehensive testing** and quality tools
+- ✅ **Professional development** workflow
 
 ## Next Steps
 
-1. **Identify your platform** (linux vs win32)
-2. **Open the instruction file** ([CLAUDE.md](CLAUDE.md))
-3. **Follow platform-specific setup** and daily workflow
-4. **Refer back to this file** for universal concepts and troubleshooting
+1. **Set up your development environment** following the steps above
+2. **Read project documentation** in [CLAUDE.md](CLAUDE.md) and [README.md](README.md)
+3. **Run the test suite** to verify your setup is working
+4. **Start contributing** following the project's contribution guidelines
 
 ---
-**Remember**: The instruction files contain the complete, platform-specific command sequences. This file provides the conceptual framework that applies to all platforms.
+**Remember**: This file provides the essential development environment setup. Refer to other project documentation for specific development workflows and contribution guidelines.

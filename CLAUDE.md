@@ -1,11 +1,10 @@
-# CLAUDE.md - Document Processing System Instructions
+# Enterprise Document Processing System - Developer Instructions
 
 **Project Instructions**: This file contains instructions for any developer or AI assistant working on the Enterprise Document Processing System.
 
 ## System Overview
 
 The Enterprise Document Processing System is a comprehensive platform for converting PDF, DOCX, and Excel files into AI-ready formats. The system supports both email attachment processing and direct document conversion through multiple interfaces.
-
 
 ## Core Commands
 

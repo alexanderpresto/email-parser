@@ -14,13 +14,11 @@ This documentation covers the Email Parser project, an enterprise-grade system d
 
 ## Documentation Sections
 
-- [API Documentation](api/index.md): Technical API references
-- [Implementation Guide](implementation/index.md): Internal technical documentation
-- [Examples](examples/index.md): Usage examples for common scenarios
+- [Interactive Mode Guide](interactive-mode-guide.md): Comprehensive guide to the interactive CLI interface
+- [Phase 4.5 Implementation](phase-4.5-interactive-file-conversion.md): Latest file conversion features
 - [Project Requirements](requirements/): Comprehensive project requirements and specifications
   - [Product Requirements Document](requirements/product_requirements_document.md)
   - [Project Plan & Phasing](requirements/project_plan_and_phasing.md)
-  - [Technical Specification](requirements/technical_specification_document.md)
 
 ## What's New in Version 2.4.0
 
@@ -91,8 +89,7 @@ Please refer to the README.md file in the project root for installation and basi
 4. Set up MistralAI API key as user environment variable (see README.md for platform-specific instructions)
 5. Run basic example: `python examples/basic_parsing.py`
 
-**Note**: For detailed, platform-specific setup instructions, see:
-- [CLAUDE.md](../CLAUDE.md) - Claude Code (WSL2/Linux) instructions
+**Note**: For detailed setup instructions, see [DEVELOPMENT_SETUP.md](../DEVELOPMENT_SETUP.md)
 
 ## Key Features
 

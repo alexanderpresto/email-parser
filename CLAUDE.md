@@ -25,14 +25,13 @@ python -m email_parser.cli.main process --input email.eml --output output/
 ### Core Dependencies
 
 - **mammoth** - DOCX to HTML conversion
-- **mistralai** - PDF OCR API integration  
+- **mistralai** - PDF OCR API integration
 - **beautifulsoup4** - HTML parsing and manipulation
 - **tiktoken** - Token counting for AI-ready chunking
 - **python-docx** - DOCX metadata extraction
 - **openpyxl** - Excel file processing
 - **pillow** - Image handling and optimization
 - **prompt_toolkit** - Interactive CLI interface
-
 
 ## Project Structure
 
@@ -45,7 +44,7 @@ email-parser/
 │   │   └── interactive_file.py    # File conversion interface
 │   ├── converters/                 # Document converters
 │   │   ├── pdf_converter.py       # PDF processing
-│   │   ├── docx_converter.py      # DOCX processing  
+│   │   ├── docx_converter.py      # DOCX processing
 │   │   └── excel_converter.py     # Excel processing
 │   ├── core/                       # Core processing logic
 │   ├── config/                     # Configuration system
@@ -77,7 +76,7 @@ email-parser/
 ```
 output/
 ├── processed_text/              # Email text content
-├── attachments/                 # Original attachments  
+├── attachments/                 # Original attachments
 ├── converted_excel/             # CSV conversions
 ├── converted_pdf/               # PDF markdown output
 ├── converted_docx/              # DOCX conversions
@@ -93,7 +92,7 @@ output/
 ## Setup Requirements
 
 - **Python**: 3.12+ required
-- **Dependencies**: Install from requirements.txt  
+- **Dependencies**: Install from requirements.txt
 - **API Keys**: MistralAI API key for PDF processing
 - **Testing**: pytest for test execution
 
@@ -107,6 +106,7 @@ python -m email_parser.cli.interactive
 ```
 
 Features:
+
 - Content scanning with smart recommendations
 - Processing profile selection
 - Real-time progress tracking
@@ -123,7 +123,7 @@ python -m email_parser.cli.main process --input email.eml --output output/
 python -m email_parser.cli.main process --input email.eml --output output/ --convert-pdf --convert-docx
 ```
 
-### Direct File Conversion  
+### Direct File Conversion
 
 ```bash
 # Convert single file
@@ -136,6 +136,7 @@ python -m email_parser.cli.main convert-batch --directory docs/ --output output/
 ## Key Features
 
 **Document Processing**:
+
 - PDF conversion with OCR (MistralAI integration)
 - DOCX to Markdown with AI-ready chunking
 - Excel to CSV conversion
@@ -143,12 +144,14 @@ python -m email_parser.cli.main convert-batch --directory docs/ --output output/
 - Metadata preservation
 
 **User Interfaces**:
+
 - Interactive CLI with guided workflows
-- Traditional command-line interface  
+- Traditional command-line interface
 - Processing profiles for different use cases
 - Real-time progress tracking
 
 **Advanced Features**:
+
 - Batch processing capabilities
 - Security validation and file scanning
 - Error handling and recovery
@@ -159,7 +162,7 @@ python -m email_parser.cli.main convert-batch --directory docs/ --output output/
 The system includes 5 built-in processing profiles:
 
 1. **AI Processing** - Optimized for LLM consumption with chunking
-2. **Document Archive** - Maximum fidelity preservation  
+2. **Document Archive** - Maximum fidelity preservation
 3. **Quick Conversion** - Fast basic text extraction
 4. **Research Mode** - Comprehensive metadata extraction
 5. **Batch Optimization** - Performance-tuned for multiple files
@@ -176,7 +179,7 @@ processing:
 
 security:
   max_attachment_size: 10000000  # 10MB
-  
+
 pdf_conversion:
   api_key_env: "MISTRALAI_API_KEY"
   extraction_mode: "all"  # text/images/all
@@ -196,7 +199,7 @@ pytest
 # Run with coverage
 pytest --cov=email_parser
 
-# Run specific test categories  
+# Run specific test categories
 pytest tests/unit/
 pytest tests/integration/
 ```
@@ -204,21 +207,50 @@ pytest tests/integration/
 ## Production Guidelines
 
 1. **Dependencies**: Install all requirements from requirements.txt
-2. **Security**: Validate inputs and protect API keys  
+2. **Security**: Validate inputs and protect API keys
 3. **Testing**: Run comprehensive test suite before deployment
 4. **Monitoring**: Track performance metrics and error rates
 
 ## Technical Notes
 
 ### API Integration
+
 - **MistralAI OCR**: Used for PDF text extraction
 - **Configuration**: Set MISTRALAI_API_KEY environment variable
 - **Cost**: Approximately $0.001 per PDF page
 
 ### Development Standards
+
 - **Code Quality**: Black formatting, type hints, comprehensive testing
 - **Security**: Input validation, API key protection, file scanning
 - **Performance**: Optimized for large file processing with progress tracking
+
+## Additional Documentation
+
+### Development Setup
+
+@DEVELOPMENT_SETUP.md
+
+### Project Requirements
+
+@docs/requirements/product_requirements_document.md
+@docs/requirements/project_plan_and_phasing.md
+
+### Current Phase Documentation
+
+@docs/phase-4.5-interactive-file-conversion.md
+
+### Interactive Mode Guide
+
+@docs/interactive-mode-guide.md
+
+### Configuration Reference
+
+@config/default.yaml
+
+## Personal Configuration
+
+@.claude/personal.md
 
 ---
 *Enterprise Document Processing System - Transform documents into AI-ready formats*

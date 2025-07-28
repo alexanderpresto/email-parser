@@ -229,24 +229,24 @@ pytest tests/integration/
 
 ### Development Setup
 
-@DEVELOPMENT_SETUP.md
+See: [DEVELOPMENT_SETUP.md](DEVELOPMENT_SETUP.md) - Platform-specific setup instructions and virtual environment configuration
 
 ### Project Requirements
 
-@docs/requirements/product_requirements_document.md
-@docs/requirements/project_plan_and_phasing.md
+- [Product Requirements Document](docs/requirements/product_requirements_document.md) - Complete PRD with vision, objectives, and feature specifications
+- [Project Plan & Phasing](docs/requirements/project_plan_and_phasing.md) - Development phases and completion status
 
 ### Current Phase Documentation
 
-@docs/phase-4.5-interactive-file-conversion.md
+See: [Phase 4.5 Interactive File Conversion](docs/phase-4.5-interactive-file-conversion.md) - Detailed implementation documentation for the interactive file conversion feature (1120 lines)
 
 ### Interactive Mode Guide
 
-@docs/interactive-mode-guide.md
+See: [Interactive Mode Guide](docs/interactive-mode-guide.md) - Comprehensive user guide for the interactive CLI interface (507 lines)
 
 ### Configuration Reference
 
-@config/default.yaml
+See: [Default Configuration](config/default.yaml) - Complete configuration file with all available settings and options
 
 ## Personal Configuration
 

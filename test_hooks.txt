@@ -1,5 +1,0 @@
-Testing Claude Code hooks functionality
-Created: 2025-07-16
-Purpose: Trigger PostToolUse hook to verify it's working
-
-This file should trigger the hook configured for Edit|Write|MultiEdit operations.

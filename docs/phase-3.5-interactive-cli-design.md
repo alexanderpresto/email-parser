@@ -29,7 +29,7 @@ email_parser/
 ### 1. Entry Point
 
 ```
-$ python -m email_parser --interactive
+python -m email_parser --interactive
 ```
 
 ### 2. Main Interactive Loop
@@ -42,7 +42,7 @@ graph TD
     C -->|Batch Processing| E[Directory Selection]
     C -->|Configure Settings| F[Settings Menu]
     C -->|Exit| G[Cleanup & Exit]
-    
+
     D --> H[Scan Email]
     E --> H
     H --> I[Display Scan Results]
@@ -51,7 +51,7 @@ graph TD
     K -->|Accept| L[Process Email]
     K -->|Customize| M[Modify Settings]
     K -->|Skip| C
-    
+
     M --> L
     L --> N[Show Progress]
     N --> O[Display Results]
@@ -61,27 +61,29 @@ graph TD
 ### 3. User Experience Flow
 
 #### 3.1 Welcome Screen
+
 ```
 ╔══════════════════════════════════════════════════════════════╗
 ║                   Email Parser v2.2.0                        ║
 ║                  Interactive Mode                            ║
 ╠══════════════════════════════════════════════════════════════╣
 ║                                                              ║
-║  Welcome to the Email Parser Interactive Mode!              ║
+║  Welcome to the Email Parser Interactive Mode!               ║
 ║                                                              ║
-║  What would you like to do?                                 ║
+║  What would you like to do?                                  ║
 ║                                                              ║
-║  [1] Process a single email                                 ║
-║  [2] Batch process emails from a directory                  ║
-║  [3] Configure processing settings                          ║
-║  [4] View/manage configuration profiles                     ║
-║  [5] Exit                                                   ║
+║  [1] Process a single email                                  ║
+║  [2] Batch process emails from a directory                   ║
+║  [3] Configure processing settings                           ║
+║  [4] View/manage configuration profiles                      ║
+║  [5] Exit                                                    ║
 ║                                                              ║
-║  Select an option (1-5):                                    ║
+║  Select an option (1-5):                                     ║
 ╚══════════════════════════════════════════════════════════════╝
 ```
 
 #### 3.2 Email Scanning Results
+
 ```
 Scanning email: quarterly_report.eml
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% Complete
@@ -100,6 +102,7 @@ Scanning email: quarterly_report.eml
 ```
 
 #### 3.3 Processing Recommendations
+
 ```
 🤖 Processing Recommendations:
 
@@ -108,11 +111,11 @@ Based on the email content, we recommend:
 ✓ PDF Conversion (MistralAI OCR)
   - Detected complex PDF with charts and images
   - Recommended mode: "all" (text + images)
-  
+
 ✓ Excel Conversion
   - Convert to CSV for data analysis
   - Preserve all sheets
-  
+
 ✓ DOCX Conversion
   - Extract to markdown with formatting
   - Enable AI-ready chunking for large documents
@@ -128,10 +131,11 @@ Would you like to:
 ```
 
 #### 3.4 Progress Display
+
 ```
 Processing: quarterly_report.eml
 
-Overall Progress: 
+Overall Progress:
 [████████████░░░░░░░░] 60% | 3/5 tasks | ETA: 00:25
 
 Current Tasks:
@@ -181,27 +185,27 @@ profile_name:
   description: "Human-readable description"
   display_name: "Name shown in UI"
   priority: 1  # Sort order in profile list
-  
+
   # Processing settings
   processing:
     convert_pdf: true
     convert_excel: true
     convert_docx: true
     extract_metadata: true
-  
+
   # PDF-specific settings
   pdf_conversion:
     extraction_mode: "all"
     extract_images: true
     image_quality: 85
-  
+
   # DOCX-specific settings
   docx_conversion:
     enable_chunking: true
     chunk_strategy: "semantic"
     extract_images: true
     preserve_styles: true
-  
+
   # Performance settings
   performance:
     parallel_processing: true
@@ -444,18 +448,21 @@ What would you like to do?
 ## Implementation Timeline
 
 ### Week 1: Foundation (Days 1-7)
+
 - Day 1-2: Scanner implementation
 - Day 3-4: Interactive CLI framework
 - Day 5-6: Configuration profiles
 - Day 7: Integration planning
 
 ### Week 2: Core Features (Days 8-14)
+
 - Day 8-9: Progress tracking
 - Day 10-11: Recommendation engine
 - Day 12-13: Error handling
 - Day 14: Polish and refinement
 
 ### Week 3: Testing & Documentation (Days 15-21)
+
 - Day 15-16: Test suite
 - Day 17-18: Documentation
 - Day 19-20: Performance tuning

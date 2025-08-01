@@ -48,6 +48,10 @@ Production ready features and active development:
 
 This library provides a comprehensive solution for parsing and processing emails in enterprise environments with high volume requirements. It handles complex MIME structures, extracts all components (text, HTML, attachments, inline images), converts PDFs to searchable Markdown using MistralAI OCR, and ensures secure processing throughout.
 
+### 📦 Windows Executable Available
+
+For users who prefer not to install Python, a standalone Windows executable is available. The executable includes all dependencies and can be run without any installation.
+
 ### ✅ Production Features
 
 - Complete MIME structure parsing and extraction
@@ -154,7 +158,26 @@ set MISTRALAI_API_KEY=your-api-key-here       # Windows CMD/PowerShell
 
 ## Quick Start
 
-### Interactive CLI Mode (Recommended) ✅ ENHANCED
+### Option 1: Using Windows Executable (No Installation Required)
+
+1. Download the latest release (when available)
+2. Extract the `email-parser-windows.zip` file
+3. Run `email-parser.exe` from the extracted folder
+
+```bash
+# Interactive mode
+email-parser.exe
+
+# Convert a single file
+email-parser.exe convert --file document.pdf --output output/
+
+# Process email with attachments
+email-parser.exe process --input email.eml --output output/
+```
+
+**Note:** Set `MISTRALAI_API_KEY` environment variable for PDF processing.
+
+### Option 2: Interactive CLI Mode (Python Installation) ✅ ENHANCED
 
 The easiest way to use the Email Parser is through the Interactive CLI Mode with both email processing and file conversion capabilities:
 
@@ -551,6 +574,24 @@ output/
 
 ## Development
 
+### Building Windows Executable
+
+To create a standalone Windows executable:
+
+```bash
+# Install build dependencies
+pip install -r requirements-build.txt
+
+# Build the executable
+pyinstaller email_parser.spec
+# Or use the batch script
+build_exe.bat
+
+# Find executable in dist/email-parser/
+```
+
+See [Building Executable Guide](docs/building-executable.md) for detailed instructions.
+
 ### Setting Up Development Environment
 
 **⚠️ Virtual Environment Required**: Always activate the virtual environment before development:
@@ -682,7 +723,7 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for gui
 ### Development Workflow
 
 1. **Environment**: Always activate virtual environment before development
-2. **Instructions**: Follow project instructions in [CLAUDE.md](CLAUDE.md) and create personal configuration in `.claude/CLAUDE.md`
+2. **Instructions**: Follow project instructions in [CLAUDE.md](CLAUDE.md) and create personal configuration in `.claude/personal.md`
 3. **Archival**: Archive existing files before modifications
 4. **Testing**: Run tests before committing changes
 5. **Documentation**: Update relevant documentation with changes

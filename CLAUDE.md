@@ -18,6 +18,11 @@ python -m email_parser.cli.main convert-batch --directory docs/ --output output/
 
 # Traditional email processing
 python -m email_parser.cli.main process --input email.eml --output output/
+
+# Build Windows executable
+pyinstaller email_parser.spec
+# Or use the batch script
+build_exe.bat
 ```
 
 ## Library Dependencies
@@ -247,6 +252,10 @@ See: [Interactive Mode Guide](docs/interactive-mode-guide.md) - Comprehensive us
 ### Configuration Reference
 
 See: [Default Configuration](config/default.yaml) - Complete configuration file with all available settings and options
+
+### Building Executables
+
+See: [Building Executable Guide](docs/building-executable.md) - Instructions for creating Windows standalone executables
 
 ## Personal Configuration
 

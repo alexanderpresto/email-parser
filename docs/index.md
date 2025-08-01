@@ -15,6 +15,7 @@ This documentation covers the Email Parser project, an enterprise-grade system d
 ## Documentation Sections
 
 - [Interactive Mode Guide](interactive-mode-guide.md): Comprehensive guide to the interactive CLI interface
+- [Building Executable Guide](building-executable.md): Instructions for creating Windows standalone executables
 - [Phase 4.5 Implementation](phase-4.5-interactive-file-conversion.md): Latest file conversion features
 - [Project Requirements](requirements/): Comprehensive project requirements and specifications
   - [Product Requirements Document](requirements/product_requirements_document.md)
